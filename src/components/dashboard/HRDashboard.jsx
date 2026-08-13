@@ -486,7 +486,11 @@ function HRStatCard({ icon, label, value, trend, trendUp, color, delay, onClick 
 }
 
 /* ─── Tab Pages ────────────────────────────────────────────────────────── */
+<<<<<<< HEAD
 function OverviewPage({ stats, onPopup, complaints, onTabChange }) {
+=======
+function OverviewPage({ stats, onPopup, complaints }) {
+>>>>>>> ac62ba08c06f38c9dcf4c11cae4338584f1a4e69
   const totalDeptCount = stats.departments.reduce((s, d) => s + d.count, 0);
   return (
     <div className="space-y-5">
@@ -499,6 +503,7 @@ function OverviewPage({ stats, onPopup, complaints, onTabChange }) {
             <h2 className="text-2xl font-bold text-text-primary">Organization Overview 🏢</h2>
             <p className="text-sm text-text-secondary mt-1">Managing {stats.totalEmployees} employees across {stats.departments.length} departments</p>
           </div>
+<<<<<<< HEAD
           <button
             onClick={() => onTabChange('complaints')}
             className="px-4 py-2 rounded-xl text-sm font-semibold cursor-pointer transition-all hover:scale-105"
@@ -506,6 +511,11 @@ function OverviewPage({ stats, onPopup, complaints, onTabChange }) {
           >
             📨 {complaints.filter((c) => c.status !== 'Resolved').length} Open Complaints
           </button>
+=======
+          <div className="px-4 py-2 rounded-xl text-sm font-semibold" style={{ background: 'rgba(248, 113, 113, 0.1)', border: '1px solid rgba(248, 113, 113, 0.2)', color: '#f87171' }}>
+            📨 {complaints.filter((c) => c.status !== 'Resolved').length} Open Complaints
+          </div>
+>>>>>>> ac62ba08c06f38c9dcf4c11cae4338584f1a4e69
         </div>
       </div>
 
@@ -953,7 +963,11 @@ export default function HRDashboard() {
       </div>
 
       {/* Tab Content */}
+<<<<<<< HEAD
       {activeTab === 'overview' && <OverviewPage stats={stats} onPopup={openPopup} complaints={complaintsList} onTabChange={setActiveTab} />}
+=======
+      {activeTab === 'overview' && <OverviewPage stats={stats} onPopup={openPopup} complaints={complaintsList} />}
+>>>>>>> ac62ba08c06f38c9dcf4c11cae4338584f1a4e69
       {activeTab === 'employees' && <EmployeesPage stats={stats} onPopup={openPopup} />}
       {activeTab === 'complaints' && <ComplaintsPage onPopup={openPopup} complaints={complaintsList} />}
       {activeTab === 'approvals' && <ApprovalsPage stats={stats} onPopup={openPopup} />}
