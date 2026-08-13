@@ -224,24 +224,27 @@ function ApprovalsPopup({ stats, onClose }) {
       <div className="space-y-4">
         {approvals.map((item, i) => (
           <div key={i} className="p-4 rounded-xl" style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.06)' }}>
+            {/* Header row: name + timing badge only */}
             <div className="flex items-center justify-between mb-2">
               <div>
                 <p className="text-sm font-semibold text-text-primary">{item.name}</p>
                 <p className="text-[10px] text-text-muted">{item.type} · {item.days} · {item.date} · {item.dept}</p>
               </div>
-              <div className="text-right">
-                {item.daysLeft > 0
-                  ? <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full" style={{ background: 'rgba(251,191,36,0.1)', border: '1px solid rgba(251,191,36,0.2)', color: '#fbbf24' }}>⏰ {item.daysLeft}d away</span>
-                  : <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full" style={{ background: 'rgba(248,113,113,0.1)', border: '1px solid rgba(248,113,113,0.2)', color: '#f87171' }}>Starts today</span>
-                }
-              </div>
+              {item.daysLeft > 0
+                ? <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full flex-shrink-0" style={{ background: 'rgba(251,191,36,0.1)', border: '1px solid rgba(251,191,36,0.2)', color: '#fbbf24' }}>⏰ {item.daysLeft}d away</span>
+                : <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full flex-shrink-0" style={{ background: 'rgba(248,113,113,0.1)', border: '1px solid rgba(248,113,113,0.2)', color: '#f87171' }}>Starts today</span>
+              }
             </div>
+            {/* Stats */}
             <div className="space-y-1.5 mb-3">
               <MiniStatBar label="Attendance" pct={item.attendance} color={attColor(item.attendance)} />
               <MiniStatBar label="Tasks done" pct={item.tasks} color="#a78bfa" />
             </div>
+            {/* Action row: buttons OR decision badge */}
             {decisions[i] ? (
-              <span className="text-[10px] font-bold px-2.5 py-1 rounded-full" style={{ background: decisions[i] === 'approved' ? 'rgba(74,222,128,0.1)' : 'rgba(248,113,113,0.1)', border: `1px solid ${decisions[i] === 'approved' ? 'rgba(74,222,128,0.3)' : 'rgba(248,113,113,0.3)'}`, color: decisions[i] === 'approved' ? '#4ade80' : '#f87171' }}>{decisions[i] === 'approved' ? '✓ Approved' : '✕ Rejected'}</span>
+              <div className="flex items-center justify-center py-2 rounded-lg" style={{ background: decisions[i] === 'approved' ? 'rgba(74,222,128,0.06)' : 'rgba(248,113,113,0.06)', border: `1px solid ${decisions[i] === 'approved' ? 'rgba(74,222,128,0.2)' : 'rgba(248,113,113,0.2)'}` }}>
+                <span className="text-xs font-bold" style={{ color: decisions[i] === 'approved' ? '#4ade80' : '#f87171' }}>{decisions[i] === 'approved' ? '✓ Approved' : '✕ Rejected'}</span>
+              </div>
             ) : (
               <div className="flex gap-2">
                 <button onClick={() => decide(i, 'approved')} className="flex-1 py-2 rounded-lg text-xs font-semibold transition-all hover:scale-105" style={{ background: 'rgba(74,222,128,0.1)', border: '1px solid rgba(74,222,128,0.2)', color: '#4ade80' }}>✓ Approve</button>
@@ -254,6 +257,7 @@ function ApprovalsPopup({ stats, onClose }) {
     </DetailPopup>
   );
 }
+
 
 const CATEGORY_COLORS = {
   Policy: '#f87171', Event: '#00f5ff', Holiday: '#4ade80',
@@ -609,16 +613,153 @@ function OverviewPage({ stats, onPopup, complaints, onTabChange }) {
   );
 }
 
-function EmployeesPage({ stats, onPopup }) {
+const DEPARTMENTS = ['Engineering', 'Design', 'Product', 'Marketing', 'Sales', 'Operations', 'HR', 'Finance'];
+const ROLES_BY_DEPT = {
+  Engineering: ['Frontend Engineer', 'Backend Engineer', 'Full-Stack Engineer', 'DevOps Engineer', 'QA Engineer'],
+  Design: ['Product Designer', 'UX Researcher', 'UI Designer', 'Brand Designer'],
+  Product: ['Product Manager', 'Associate PM', 'Senior PM'],
+  Marketing: ['Marketing Lead', 'Content Strategist', 'Growth Manager', 'SEO Specialist'],
+  Sales: ['Sales Executive', 'Account Manager', 'Business Development'],
+  Operations: ['Operations Analyst', 'Operations Manager', 'Supply Chain Analyst'],
+  HR: ['HR Manager', 'Recruiter', 'HR Business Partner'],
+  Finance: ['Finance Analyst', 'Accountant', 'CFO'],
+};
+
+function AddEmployeePopup({ onClose, onAdd }) {
+  const [step, setStep] = useState(1); // 1 = personal, 2 = job, 3 = done
+  const [form, setForm] = useState({
+    firstName: '', lastName: '', email: '', phone: '',
+    dept: 'Engineering', role: '', employmentType: 'Full-time',
+    startDate: '', salary: '',
+  });
+  const set = (k, v) => setForm((f) => ({ ...f, [k]: v }));
+
+  const roleOptions = ROLES_BY_DEPT[form.dept] || [];
+
+  function handleSubmit() {
+    const name = `${form.firstName} ${form.lastName}`.trim();
+    if (!name || !form.role) return;
+    const id = `EMP-${Math.floor(1000 + Math.random() * 8999)}`;
+    onAdd({ name, role: form.role, dept: form.dept, id, status: 'Active', isNew: true });
+    setStep(3);
+    setTimeout(() => onClose(), 2000);
+  }
+
+  const inputStyle = { background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)', color: 'var(--color-text-primary)' };
+  const labelCls = 'text-[10px] uppercase tracking-widest text-text-muted block mb-1.5';
+  const inputCls = 'w-full rounded-xl px-3 py-2.5 text-xs outline-none focus:border-purple-500/50 transition-colors';
+
+  return (
+    <DetailPopup title="Add New Employee" icon="👤" onClose={onClose}>
+      {/* Step indicator */}
+      <div className="flex items-center gap-2 mb-5">
+        {[{ n: 1, label: 'Personal' }, { n: 2, label: 'Job Info' }, { n: 3, label: 'Done' }].map(({ n, label }) => (
+          <div key={n} className="flex items-center gap-1.5 flex-1">
+            <div className="w-5 h-5 rounded-full flex items-center justify-center text-[10px] font-bold flex-shrink-0" style={{ background: step >= n ? 'linear-gradient(135deg, #7c3aed, #00f5ff)' : 'rgba(255,255,255,0.06)', color: step >= n ? '#000' : 'rgba(255,255,255,0.3)' }}>{n}</div>
+            <span className="text-[10px] font-medium" style={{ color: step >= n ? '#a78bfa' : 'rgba(255,255,255,0.3)' }}>{label}</span>
+            {n < 3 && <div className="flex-1 h-px" style={{ background: step > n ? 'rgba(124,58,237,0.5)' : 'rgba(255,255,255,0.06)' }} />}
+          </div>
+        ))}
+      </div>
+
+      {step === 1 && (
+        <div className="space-y-4">
+          <div className="grid grid-cols-2 gap-3">
+            <div>
+              <label className={labelCls}>First Name *</label>
+              <input className={inputCls} style={inputStyle} placeholder="Alex" value={form.firstName} onChange={(e) => set('firstName', e.target.value)} />
+            </div>
+            <div>
+              <label className={labelCls}>Last Name *</label>
+              <input className={inputCls} style={inputStyle} placeholder="Morgan" value={form.lastName} onChange={(e) => set('lastName', e.target.value)} />
+            </div>
+          </div>
+          <div>
+            <label className={labelCls}>Work Email *</label>
+            <input type="email" className={inputCls} style={inputStyle} placeholder="alex.morgan@company.com" value={form.email} onChange={(e) => set('email', e.target.value)} />
+          </div>
+          <div>
+            <label className={labelCls}>Phone</label>
+            <input type="tel" className={inputCls} style={inputStyle} placeholder="+91 98765 43210" value={form.phone} onChange={(e) => set('phone', e.target.value)} />
+          </div>
+          <button
+            onClick={() => setStep(2)}
+            disabled={!form.firstName || !form.lastName || !form.email}
+            className="w-full py-2.5 rounded-xl text-sm font-bold transition-all"
+            style={{ background: form.firstName && form.lastName && form.email ? 'linear-gradient(135deg, #7c3aed, #00f5ff)' : 'rgba(255,255,255,0.06)', color: form.firstName && form.lastName && form.email ? '#000' : 'rgba(255,255,255,0.3)', cursor: form.firstName && form.lastName && form.email ? 'pointer' : 'not-allowed' }}
+          >Next: Job Info →</button>
+        </div>
+      )}
+
+      {step === 2 && (
+        <div className="space-y-4">
+          <div>
+            <label className={labelCls}>Department *</label>
+            <select className={inputCls} style={{ ...inputStyle, cursor: 'pointer' }} value={form.dept} onChange={(e) => { set('dept', e.target.value); set('role', ''); }}>
+              {DEPARTMENTS.map((d) => <option key={d} value={d} style={{ background: '#1a1a2e' }}>{d}</option>)}
+            </select>
+          </div>
+          <div>
+            <label className={labelCls}>Role *</label>
+            <select className={inputCls} style={{ ...inputStyle, cursor: 'pointer' }} value={form.role} onChange={(e) => set('role', e.target.value)}>
+              <option value="" style={{ background: '#1a1a2e' }}>Select a role...</option>
+              {roleOptions.map((r) => <option key={r} value={r} style={{ background: '#1a1a2e' }}>{r}</option>)}
+            </select>
+          </div>
+          <div className="grid grid-cols-2 gap-3">
+            <div>
+              <label className={labelCls}>Employment Type</label>
+              <div className="flex flex-col gap-1.5">
+                {['Full-time', 'Part-time', 'Contract'].map((t) => (
+                  <button key={t} onClick={() => set('employmentType', t)} className="py-2 rounded-xl text-xs font-semibold transition-all" style={{ background: form.employmentType === t ? 'rgba(124,58,237,0.15)' : 'rgba(255,255,255,0.03)', border: `1px solid ${form.employmentType === t ? 'rgba(124,58,237,0.4)' : 'rgba(255,255,255,0.08)'}`, color: form.employmentType === t ? '#a78bfa' : 'var(--color-text-secondary)' }}>{t}</button>
+                ))}
+              </div>
+            </div>
+            <div className="space-y-3">
+              <div>
+                <label className={labelCls}>Start Date</label>
+                <input type="date" className={inputCls} style={inputStyle} value={form.startDate} onChange={(e) => set('startDate', e.target.value)} />
+              </div>
+              <div>
+                <label className={labelCls}>Annual Salary (₹)</label>
+                <input type="number" className={inputCls} style={inputStyle} placeholder="1200000" value={form.salary} onChange={(e) => set('salary', e.target.value)} />
+              </div>
+            </div>
+          </div>
+          <div className="flex gap-2">
+            <button onClick={() => setStep(1)} className="flex-1 py-2.5 rounded-xl text-sm font-semibold transition-all" style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)', color: 'rgba(255,255,255,0.6)' }}>← Back</button>
+            <button
+              onClick={handleSubmit}
+              disabled={!form.role}
+              className="flex-1 py-2.5 rounded-xl text-sm font-bold transition-all"
+              style={{ background: form.role ? 'linear-gradient(135deg, #7c3aed, #00f5ff)' : 'rgba(255,255,255,0.06)', color: form.role ? '#000' : 'rgba(255,255,255,0.3)', cursor: form.role ? 'pointer' : 'not-allowed' }}
+            >✓ Add Employee</button>
+          </div>
+        </div>
+      )}
+
+      {step === 3 && (
+        <div className="flex flex-col items-center justify-center gap-4 py-10">
+          <span className="text-5xl">🎉</span>
+          <p className="text-base font-bold text-text-primary">{form.firstName} {form.lastName} added!</p>
+          <p className="text-xs text-text-muted text-center">They've been added to the {form.dept} team as {form.role}.</p>
+        </div>
+      )}
+    </DetailPopup>
+  );
+}
+
+const INITIAL_EMPLOYEES = [
+  { name: 'Alex Morgan', role: 'Sr. Frontend Engineer', dept: 'Engineering', id: 'EMP-2247', status: 'Active' },
+  { name: 'Priya Sharma', role: 'Product Designer', dept: 'Design', id: 'EMP-1890', status: 'Active' },
+  { name: 'Raj Patel', role: 'Product Manager', dept: 'Product', id: 'EMP-3012', status: 'Active' },
+  { name: 'Sarah Chen', role: 'Marketing Lead', dept: 'Marketing', id: 'EMP-1445', status: 'On Leave' },
+  { name: 'Mike Johnson', role: 'Sales Executive', dept: 'Sales', id: 'EMP-3041', status: 'Active' },
+  { name: 'Aisha Khan', role: 'Operations Analyst', dept: 'Operations', id: 'EMP-2888', status: 'Active' },
+];
+
+function EmployeesPage({ stats, onPopup, employees, onAddEmployee }) {
   const totalDeptCount = stats.departments.reduce((s, d) => s + d.count, 0);
-  const employees = [
-    { name: 'Alex Morgan', role: 'Sr. Frontend Engineer', dept: 'Engineering', id: 'EMP-2247', status: 'Active' },
-    { name: 'Priya Sharma', role: 'Product Designer', dept: 'Design', id: 'EMP-1890', status: 'Active' },
-    { name: 'Raj Patel', role: 'Product Manager', dept: 'Product', id: 'EMP-3012', status: 'Active' },
-    { name: 'Sarah Chen', role: 'Marketing Lead', dept: 'Marketing', id: 'EMP-1445', status: 'On Leave' },
-    { name: 'Mike Johnson', role: 'Sales Executive', dept: 'Sales', id: 'EMP-3041', status: 'Active' },
-    { name: 'Aisha Khan', role: 'Operations Analyst', dept: 'Operations', id: 'EMP-2888', status: 'Active' },
-  ];
   return (
     <div className="space-y-5 animate-fade-in-up" style={{ opacity: 0 }}>
       <div className="grid grid-cols-3 gap-5">
@@ -639,18 +780,26 @@ function EmployeesPage({ stats, onPopup }) {
         <div className="flex items-center justify-between mb-5">
           <div>
             <h3 className="text-base font-semibold text-text-primary">All Employees</h3>
-            <p className="text-xs text-text-secondary mt-1">{stats.totalEmployees} total · {stats.newHires} new this month</p>
+            <p className="text-xs text-text-secondary mt-1">{employees.length} total · {employees.filter((e) => e.isNew).length > 0 ? `${employees.filter((e) => e.isNew).length} new` : `${stats.newHires} new this month`}</p>
           </div>
-          <button id="add-employee-btn" onClick={() => onPopup('new-hires')} className="px-4 py-2 rounded-xl text-xs font-semibold cursor-pointer transition-all hover:scale-105" style={{ background: 'linear-gradient(135deg, rgba(0,245,255,0.1), rgba(124,58,237,0.1))', border: '1px solid rgba(0,245,255,0.2)', color: '#00f5ff' }}>+ Add Employee</button>
+          <button
+            id="add-employee-btn"
+            onClick={() => onPopup('add-employee')}
+            className="px-4 py-2 rounded-xl text-xs font-semibold cursor-pointer transition-all hover:scale-105"
+            style={{ background: 'linear-gradient(135deg, rgba(124,58,237,0.15), rgba(0,245,255,0.1))', border: '1px solid rgba(124,58,237,0.3)', color: '#a78bfa' }}
+          >+ Add Employee</button>
         </div>
         <div className="space-y-2">
           {employees.map((emp, i) => (
-            <div key={i} className="flex items-center gap-4 p-4 rounded-xl hover:bg-white/[0.03] transition-colors" style={{ background: 'rgba(255,255,255,0.02)' }}>
-              <div className="w-9 h-9 rounded-full flex items-center justify-center text-xs font-bold flex-shrink-0" style={{ background: 'linear-gradient(135deg, rgba(0,245,255,0.15), rgba(124,58,237,0.15))', border: '1px solid rgba(0,245,255,0.15)', color: '#00f5ff' }}>
+            <div key={emp.id} className="flex items-center gap-4 p-4 rounded-xl hover:bg-white/[0.03] transition-colors" style={{ background: 'rgba(255,255,255,0.02)', border: emp.isNew ? '1px solid rgba(124,58,237,0.2)' : '1px solid transparent' }}>
+              <div className="w-9 h-9 rounded-full flex items-center justify-center text-xs font-bold flex-shrink-0" style={{ background: 'linear-gradient(135deg, rgba(124,58,237,0.15), rgba(0,245,255,0.15))', border: '1px solid rgba(124,58,237,0.2)', color: '#a78bfa' }}>
                 {emp.name.split(' ').map((n) => n[0]).join('')}
               </div>
               <div className="flex-1 min-w-0">
-                <p className="text-sm font-semibold text-text-primary">{emp.name}</p>
+                <div className="flex items-center gap-2">
+                  <p className="text-sm font-semibold text-text-primary">{emp.name}</p>
+                  {emp.isNew && <span className="text-[9px] font-bold px-1.5 py-0.5 rounded-full" style={{ background: 'rgba(124,58,237,0.2)', border: '1px solid rgba(124,58,237,0.4)', color: '#a78bfa' }}>NEW</span>}
+                </div>
                 <p className="text-[10px] text-text-muted">{emp.role} · {emp.dept}</p>
               </div>
               <span className="text-[10px] text-text-muted font-mono">{emp.id}</span>
@@ -662,6 +811,7 @@ function EmployeesPage({ stats, onPopup }) {
     </div>
   );
 }
+
 
 const STATUS_STYLES_EXTENDED = {
   Pending: { bg: 'rgba(251, 191, 36, 0.1)', border: 'rgba(251, 191, 36, 0.2)', text: '#fbbf24' },
@@ -738,8 +888,9 @@ function ApprovalsPage({ stats, onPopup }) {
         </div>
         <div className="space-y-4">
           {approvals.map((item, i) => (
-            <div key={i} className="p-5 rounded-xl" style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.06)' }}>
-              <div className="flex items-start justify-between mb-3">
+            <div key={i} className="p-5 rounded-xl" style={{ background: 'rgba(255,255,255,0.02)', border: `1px solid ${decisions[i] === 'approved' ? 'rgba(74,222,128,0.15)' : decisions[i] === 'rejected' ? 'rgba(248,113,113,0.15)' : 'rgba(255,255,255,0.06)'}` }}>
+              {/* Header row: avatar + name + timing badge only */}
+              <div className="flex items-center justify-between mb-3">
                 <div className="flex items-center gap-4">
                   <div className="w-10 h-10 rounded-full flex items-center justify-center text-xs font-bold flex-shrink-0" style={{ background: `${COLORS[i]}20`, border: `1px solid ${COLORS[i]}40`, color: COLORS[i] }}>
                     {item.name.split(' ').map((n) => n[0]).join('')}
@@ -749,15 +900,11 @@ function ApprovalsPage({ stats, onPopup }) {
                     <p className="text-[10px] text-text-muted">{item.type} · {item.days} · {item.dept}</p>
                   </div>
                 </div>
-                <div className="flex items-center gap-2">
-                  {item.daysLeft > 0
-                    ? <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full" style={{ background: 'rgba(251,191,36,0.1)', border: '1px solid rgba(251,191,36,0.2)', color: '#fbbf24' }}>⏰ {item.daysLeft}d away</span>
-                    : <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full" style={{ background: 'rgba(248,113,113,0.1)', border: '1px solid rgba(248,113,113,0.2)', color: '#f87171' }}>Starts today</span>
-                  }
-                  {decisions[i] && (
-                    <span className="text-[10px] font-bold px-2.5 py-1 rounded-full" style={{ background: decisions[i] === 'approved' ? 'rgba(74,222,128,0.1)' : 'rgba(248,113,113,0.1)', border: `1px solid ${decisions[i] === 'approved' ? 'rgba(74,222,128,0.3)' : 'rgba(248,113,113,0.3)'}`, color: decisions[i] === 'approved' ? '#4ade80' : '#f87171' }}>{decisions[i] === 'approved' ? '✓ Approved' : '✕ Rejected'}</span>
-                  )}
-                </div>
+                {/* Only timing badge here — no decision badge */}
+                {item.daysLeft > 0
+                  ? <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full flex-shrink-0" style={{ background: 'rgba(251,191,36,0.1)', border: '1px solid rgba(251,191,36,0.2)', color: '#fbbf24' }}>⏰ {item.daysLeft}d away</span>
+                  : <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full flex-shrink-0" style={{ background: 'rgba(248,113,113,0.1)', border: '1px solid rgba(248,113,113,0.2)', color: '#f87171' }}>Starts today</span>
+                }
               </div>
               {/* Attendance & task stats */}
               <div className="grid grid-cols-2 gap-3 mb-3">
@@ -780,10 +927,15 @@ function ApprovalsPage({ stats, onPopup }) {
                   </div>
                 </div>
               </div>
-              {!decisions[i] && (
-                <div className="flex items-center gap-2">
-                  <button id={`approve-${i}`} onClick={() => decide(i, 'approved')} className="flex-1 py-2 rounded-lg text-xs font-semibold cursor-pointer transition-all hover:scale-105" style={{ background: 'rgba(74,222,128,0.1)', border: '1px solid rgba(74,222,128,0.2)', color: '#4ade80' }}>✓ Approve</button>
-                  <button id={`reject-${i}`} onClick={() => decide(i, 'rejected')} className="flex-1 py-2 rounded-lg text-xs font-semibold cursor-pointer transition-all hover:scale-105" style={{ background: 'rgba(248,113,113,0.1)', border: '1px solid rgba(248,113,113,0.2)', color: '#f87171' }}>✕ Reject</button>
+              {/* Action row: buttons OR full-width decision banner */}
+              {decisions[i] ? (
+                <div className="flex items-center justify-center gap-2 py-2.5 rounded-lg" style={{ background: decisions[i] === 'approved' ? 'rgba(74,222,128,0.06)' : 'rgba(248,113,113,0.06)', border: `1px solid ${decisions[i] === 'approved' ? 'rgba(74,222,128,0.2)' : 'rgba(248,113,113,0.2)'}` }}>
+                  <span className="text-xs font-bold" style={{ color: decisions[i] === 'approved' ? '#4ade80' : '#f87171' }}>{decisions[i] === 'approved' ? '✓ Approved' : '✕ Rejected'}</span>
+                </div>
+              ) : (
+                <div className="flex gap-2">
+                  <button id={`approve-${i}`} onClick={() => decide(i, 'approved')} className="flex-1 py-2.5 rounded-lg text-xs font-semibold cursor-pointer transition-all hover:scale-105" style={{ background: 'rgba(74,222,128,0.1)', border: '1px solid rgba(74,222,128,0.2)', color: '#4ade80' }}>✓ Approve</button>
+                  <button id={`reject-${i}`} onClick={() => decide(i, 'rejected')} className="flex-1 py-2.5 rounded-lg text-xs font-semibold cursor-pointer transition-all hover:scale-105" style={{ background: 'rgba(248,113,113,0.1)', border: '1px solid rgba(248,113,113,0.2)', color: '#f87171' }}>✕ Reject</button>
                 </div>
               )}
             </div>
@@ -793,6 +945,7 @@ function ApprovalsPage({ stats, onPopup }) {
     </div>
   );
 }
+
 
 function AnnouncementsPage({ onPopup, announcements: localAnnouncements }) {
   const list = localAnnouncements || [];
@@ -902,9 +1055,10 @@ export default function HRDashboard() {
   const stats = hrStats;
   const [activeTab, setActiveTab] = useState('overview');
 
-  // Mutable complaints & announcements state
+  // Mutable complaints, announcements & employees state
   const [complaintsList, setComplaintsList] = useState(initialComplaints);
   const [announcementsList, setAnnouncementsList] = useState(initialAnnouncements);
+  const [employeesList, setEmployeesList] = useState(INITIAL_EMPLOYEES);
 
   // Popup state
   const [popup, setPopup] = useState(null);
@@ -931,6 +1085,10 @@ export default function HRDashboard() {
     setAnnouncementsList((prev) => [newPost, ...prev]);
   }
 
+  function handleAddEmployee(emp) {
+    setEmployeesList((prev) => [emp, ...prev]);
+  }
+
   return (
     <div id="hr-dashboard">
       {/* Tab Navigation */}
@@ -954,7 +1112,7 @@ export default function HRDashboard() {
 
       {/* Tab Content */}
       {activeTab === 'overview' && <OverviewPage stats={stats} onPopup={openPopup} complaints={complaintsList} onTabChange={setActiveTab} />}
-      {activeTab === 'employees' && <EmployeesPage stats={stats} onPopup={openPopup} />}
+      {activeTab === 'employees' && <EmployeesPage stats={stats} onPopup={openPopup} employees={employeesList} />}
       {activeTab === 'complaints' && <ComplaintsPage onPopup={openPopup} complaints={complaintsList} />}
       {activeTab === 'approvals' && <ApprovalsPage stats={stats} onPopup={openPopup} />}
       {activeTab === 'announcements' && <AnnouncementsPage onPopup={openPopup} announcements={announcementsList} />}
@@ -972,6 +1130,8 @@ export default function HRDashboard() {
       {popup === 'dept-detail' && <DepartmentDetailPopup dept={popupData} stats={stats} onClose={closePopup} />}
       {popup === 'complaint' && <ComplaintDetailPopup complaint={popupData} onClose={closePopup} onResolve={handleResolveComplaint} onUpdateStatus={handleUpdateComplaintStatus} />}
       {popup === 'announcement' && <AnnouncementPopup item={popupData} onClose={closePopup} />}
+      {popup === 'add-employee' && <AddEmployeePopup onClose={closePopup} onAdd={handleAddEmployee} />}
+
     </div>
   );
 }
