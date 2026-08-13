@@ -462,7 +462,7 @@ function OverviewPage({ stats, onPopup }) {
             <p className="text-sm text-text-secondary mt-1">Managing {stats.totalEmployees} employees across {stats.departments.length} departments</p>
           </div>
           <div className="px-4 py-2 rounded-xl text-sm font-semibold" style={{ background: 'rgba(248, 113, 113, 0.1)', border: '1px solid rgba(248, 113, 113, 0.2)', color: '#f87171' }}>
-            📨 {complaints.filter((c) => c.status !== 'Resolved').length} Open Complaints
+            📨 {initialComplaints.filter((c) => c.status !== 'Resolved').length} Open Complaints
           </div>
         </div>
       </div>
@@ -527,12 +527,12 @@ function OverviewPage({ stats, onPopup }) {
             <div className="flex items-center justify-between mb-4">
               <div>
                 <h3 className="text-base font-semibold text-text-primary">Employee Complaints</h3>
-                <p className="text-xs text-text-secondary mt-1">{complaints.filter((c) => c.status !== 'Resolved').length} open · {complaints.filter((c) => c.status === 'Resolved').length} resolved</p>
+                <p className="text-xs text-text-secondary mt-1">{initialComplaints.filter((c) => c.status !== 'Resolved').length} open · {initialComplaints.filter((c) => c.status === 'Resolved').length} resolved</p>
               </div>
               <div className="w-10 h-10 rounded-xl flex items-center justify-center text-lg" style={{ background: 'rgba(248, 113, 113, 0.1)' }}>📨</div>
             </div>
             <div className="space-y-3">
-              {complaints.slice(0, 2).map((c) => {
+              {initialComplaints.slice(0, 2).map((c) => {
                 const st = STATUS_STYLES[c.status] || STATUS_STYLES['Pending'];
                 return (
                   <div key={c.id} className="p-3.5 rounded-xl hover:bg-white/[0.04] transition-colors cursor-pointer" style={{ background: 'rgba(255,255,255,0.02)' }} onClick={() => onPopup('complaint', c)}>
