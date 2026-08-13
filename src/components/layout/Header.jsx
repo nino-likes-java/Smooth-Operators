@@ -1,8 +1,12 @@
 import { useApp } from '../../context/AppContext';
 
 export default function Header() {
-  const { role, setRole } = useApp();
+  const { role, setIsLoggedIn } = useApp();
   const isHR = role === 'hr';
+
+  const handleLogout = () => {
+    setIsLoggedIn(false);
+  };
 
   return (
     <header
@@ -36,33 +40,20 @@ export default function Header() {
         </div>
       </div>
 
-      {/* Role Toggle */}
+      {/* Role Badge + Actions */}
       <div className="flex items-center gap-4">
+        {/* Role Badge (static — no toggle) */}
         <div
-          className="toggle-track flex items-center"
-          onClick={() => setRole(isHR ? 'employee' : 'hr')}
-          role="button"
-          tabIndex={0}
-          aria-label={`Switch to ${isHR ? 'Employee' : 'HR'} view`}
-          id="role-toggle"
+          className="flex items-center gap-2 px-4 py-2 rounded-full text-sm font-semibold"
+          style={{
+            background: 'rgba(255, 255, 255, 0.06)',
+            border: '1px solid rgba(255, 255, 255, 0.1)',
+          }}
+          id="role-badge"
         >
-          <div
-            className="toggle-thumb"
-            style={{ left: isHR ? '111px' : '3px' }}
-          />
-          <span
-            className={`relative z-10 flex-1 text-center text-sm font-semibold transition-colors duration-300 ${
-              !isHR ? 'text-white' : 'text-text-secondary'
-            }`}
-          >
-            Employee
-          </span>
-          <span
-            className={`relative z-10 flex-1 text-center text-sm font-semibold transition-colors duration-300 ${
-              isHR ? 'text-white' : 'text-text-secondary'
-            }`}
-          >
-            HR
+          <span>{isHR ? '🛡️' : '👤'}</span>
+          <span className="gradient-text">
+            {isHR ? 'HR Admin' : 'Employee'}
           </span>
         </div>
 
@@ -89,7 +80,35 @@ export default function Header() {
         >
           🧑‍💻
         </div>
+
+        {/* Logout Button */}
+        <button
+          onClick={handleLogout}
+          className="flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-semibold uppercase tracking-wider transition-all duration-300 hover:bg-white/[0.08]"
+          style={{
+            border: '1px solid rgba(255, 255, 255, 0.1)',
+            color: 'var(--color-text-secondary)',
+          }}
+          id="logout-btn"
+          aria-label="Log out"
+          onMouseEnter={(e) => {
+            e.currentTarget.style.borderColor = 'rgba(255, 80, 80, 0.3)';
+            e.currentTarget.style.color = '#ff6b6b';
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.1)';
+            e.currentTarget.style.color = 'var(--color-text-secondary)';
+          }}
+        >
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/>
+            <polyline points="16 17 21 12 16 7"/>
+            <line x1="21" y1="12" x2="9" y2="12"/>
+          </svg>
+          Logout
+        </button>
       </div>
     </header>
   );
 }
+

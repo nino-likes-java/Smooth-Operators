@@ -4,6 +4,7 @@ const AppContext = createContext(null);
 
 export function AppProvider({ children }) {
   const [role, setRole] = useState('employee'); // 'employee' | 'hr'
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
 
   const handleMouseMove = useCallback((e) => {
@@ -11,7 +12,7 @@ export function AppProvider({ children }) {
   }, []);
 
   return (
-    <AppContext.Provider value={{ role, setRole, mousePos, handleMouseMove }}>
+    <AppContext.Provider value={{ role, setRole, isLoggedIn, setIsLoggedIn, mousePos, handleMouseMove }}>
       {children}
     </AppContext.Provider>
   );

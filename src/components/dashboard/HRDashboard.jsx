@@ -1,12 +1,11 @@
 import AttendanceHeatmap from '../widgets/AttendanceHeatmap';
-import VibeRadarChart from '../widgets/VibeRadarChart';
 import FinancialDonut from '../widgets/FinancialDonut';
 import {
   attendanceData,
-  vibeDataTeam,
   budgetData,
   hrStats,
   hrActions,
+  complaints,
   announcements,
 } from '../../data/dummyData';
 
@@ -57,6 +56,18 @@ function DepartmentBar({ name, count, total, color }) {
   );
 }
 
+const STATUS_STYLES = {
+  Pending: { bg: 'rgba(251, 191, 36, 0.1)', border: 'rgba(251, 191, 36, 0.2)', text: '#fbbf24' },
+  'In Review': { bg: 'rgba(167, 139, 250, 0.1)', border: 'rgba(167, 139, 250, 0.2)', text: '#a78bfa' },
+  Resolved: { bg: 'rgba(74, 222, 128, 0.1)', border: 'rgba(74, 222, 128, 0.2)', text: '#4ade80' },
+};
+
+const SEVERITY_COLORS = {
+  Low: '#60a5fa',
+  Medium: '#fbbf24',
+  High: '#f87171',
+};
+
 export default function HRDashboard() {
   const stats = hrStats;
   const totalDeptCount = stats.departments.reduce((s, d) => s + d.count, 0);
@@ -89,12 +100,12 @@ export default function HRDashboard() {
             <div
               className="px-4 py-2 rounded-xl text-sm font-semibold"
               style={{
-                background: 'rgba(0, 245, 255, 0.1)',
-                border: '1px solid rgba(0, 245, 255, 0.2)',
-                color: '#00f5ff',
+                background: 'rgba(248, 113, 113, 0.1)',
+                border: '1px solid rgba(248, 113, 113, 0.2)',
+                color: '#f87171',
               }}
             >
-              ⭐ {stats.avgSatisfaction}/5 Satisfaction
+              📨 {complaints.filter((c) => c.status !== 'Resolved').length} Open Complaints
             </div>
           </div>
         </div>
@@ -147,16 +158,33 @@ export default function HRDashboard() {
             key={i}
             className="glass-card p-4 text-left cursor-pointer group relative"
             id={`hr-action-${action.label.toLowerCase().replace(/\s/g, '-')}`}
+            style={
+              action.isComplaint
+                ? {
+                    border: '1px solid rgba(248, 113, 113, 0.2)',
+                    background: 'rgba(248, 113, 113, 0.04)',
+                  }
+                : undefined
+            }
           >
             <div className="text-2xl mb-3 transition-transform duration-300 group-hover:scale-110">
               {action.icon}
             </div>
-            <p className="text-sm font-semibold text-text-primary">{action.label}</p>
+            <p
+              className="text-sm font-semibold"
+              style={{ color: action.isComplaint ? '#f87171' : 'var(--color-text-primary)' }}
+            >
+              {action.label}
+            </p>
             <p className="text-xs text-text-muted mt-0.5">{action.desc}</p>
             {action.badge && (
               <span
                 className="absolute top-3 right-3 w-6 h-6 rounded-full text-[10px] font-bold flex items-center justify-center text-white"
-                style={{ background: 'linear-gradient(135deg, #00f5ff, #7c3aed)' }}
+                style={{
+                  background: action.isComplaint
+                    ? 'linear-gradient(135deg, #f87171, #dc2626)'
+                    : 'linear-gradient(135deg, #00f5ff, #7c3aed)',
+                }}
               >
                 {action.badge}
               </span>
@@ -170,11 +198,6 @@ export default function HRDashboard() {
         {/* Financial Donut */}
         <div className="col-span-5">
           <FinancialDonut data={budgetData} title="Department Budget" />
-        </div>
-
-        {/* Team Vibe Radar */}
-        <div className="col-span-4">
-          <VibeRadarChart data={vibeDataTeam} title="Team Vibe Check" />
         </div>
 
         {/* Department Distribution */}
@@ -192,6 +215,72 @@ export default function HRDashboard() {
                   color={dept.color}
                 />
               ))}
+            </div>
+          </div>
+        </div>
+
+        {/* Employee Complaints Panel */}
+        <div className="col-span-4">
+          <div className="glass-card p-6 animate-fade-in-up delay-300 h-full" id="hr-complaints-panel">
+            <div className="flex items-center justify-between mb-4">
+              <div>
+                <h3 className="text-base font-semibold text-text-primary">Employee Complaints</h3>
+                <p className="text-xs text-text-secondary mt-1">
+                  {complaints.filter((c) => c.status !== 'Resolved').length} open · {complaints.filter((c) => c.status === 'Resolved').length} resolved
+                </p>
+              </div>
+              <div
+                className="w-10 h-10 rounded-xl flex items-center justify-center text-lg"
+                style={{ background: 'rgba(248, 113, 113, 0.1)' }}
+              >
+                📨
+              </div>
+            </div>
+            <div className="space-y-3">
+              {complaints.map((c) => {
+                const statusStyle = STATUS_STYLES[c.status] || STATUS_STYLES['Pending'];
+                return (
+                  <div
+                    key={c.id}
+                    className="p-3.5 rounded-xl hover:bg-white/[0.03] transition-colors cursor-pointer"
+                    style={{ background: 'rgba(255,255,255,0.02)' }}
+                  >
+                    <div className="flex items-center justify-between mb-1.5">
+                      <div className="flex items-center gap-2">
+                        <span className="text-[10px] text-text-muted font-mono">{c.id}</span>
+                        <span
+                          className="w-1.5 h-1.5 rounded-full"
+                          style={{ background: SEVERITY_COLORS[c.severity] }}
+                        />
+                        <span
+                          className="text-[10px] font-medium"
+                          style={{ color: SEVERITY_COLORS[c.severity] }}
+                        >
+                          {c.severity}
+                        </span>
+                      </div>
+                      <span
+                        className="text-[10px] font-medium px-2 py-0.5 rounded-full"
+                        style={{
+                          background: statusStyle.bg,
+                          border: `1px solid ${statusStyle.border}`,
+                          color: statusStyle.text,
+                        }}
+                      >
+                        {c.status}
+                      </span>
+                    </div>
+                    <h4 className="text-xs font-semibold text-text-primary mb-1">{c.subject}</h4>
+                    <div className="flex items-center gap-2">
+                      <span className="text-[10px] text-text-secondary">{c.employee}</span>
+                      <span className="text-[10px] text-text-muted">·</span>
+                      <span className="text-[10px] text-text-muted">{c.department}</span>
+                      <span className="text-[10px] text-text-muted">·</span>
+                      <span className="text-[10px] text-text-muted">{c.date}</span>
+                    </div>
+                  </div>
+                );
+              })}
             </div>
           </div>
         </div>

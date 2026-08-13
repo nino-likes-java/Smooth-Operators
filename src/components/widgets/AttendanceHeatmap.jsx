@@ -5,12 +5,21 @@ const CELL_GAP = 3;
 const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 const DAYS = ['', 'Mon', '', 'Wed', '', 'Fri', ''];
 
-const LEVEL_COLORS = [
-  'rgba(255, 255, 255, 0.04)',  // 0 - empty
-  'rgba(0, 245, 255, 0.2)',     // 1 - low
-  'rgba(0, 245, 255, 0.4)',     // 2 - medium
-  'rgba(0, 245, 255, 0.65)',    // 3 - high
-  'rgba(124, 58, 237, 0.85)',   // 4 - max
+// Hour-based slab colors
+const SLAB_COLORS = [
+  'rgba(255, 255, 255, 0.04)',  // 0 — Absent
+  'rgba(251, 191, 36, 0.50)',   // 1 — Half Day (1–4h) – amber
+  'rgba(96, 165, 250, 0.55)',   // 2 — Short Day (4–6h) – blue
+  'rgba(0, 245, 255, 0.65)',    // 3 — Standard (6–8h) – cyan
+  'rgba(124, 58, 237, 0.85)',   // 4 — Overtime (8h+) – violet
+];
+
+const SLAB_LABELS = [
+  { label: 'Absent', range: '0h', color: SLAB_COLORS[0], borderColor: 'rgba(255,255,255,0.15)' },
+  { label: 'Half Day', range: '1–4h', color: SLAB_COLORS[1], borderColor: 'rgba(251,191,36,0.4)' },
+  { label: 'Short', range: '4–6h', color: SLAB_COLORS[2], borderColor: 'rgba(96,165,250,0.4)' },
+  { label: 'Standard', range: '6–8h', color: SLAB_COLORS[3], borderColor: 'rgba(0,245,255,0.4)' },
+  { label: 'Overtime', range: '8h+', color: SLAB_COLORS[4], borderColor: 'rgba(124,58,237,0.4)' },
 ];
 
 export default function AttendanceHeatmap({ data, title = 'Attendance Heatmap' }) {
@@ -72,19 +81,26 @@ export default function AttendanceHeatmap({ data, title = 'Attendance Heatmap' }
         <div>
           <h3 className="text-base font-semibold text-text-primary">{title}</h3>
           <p className="text-xs text-text-secondary mt-1">
-            {totalDays} active days · {totalHours.toLocaleString()} hours logged
+            {totalDays} working days · {totalHours.toLocaleString()} hours logged
           </p>
         </div>
-        <div className="flex items-center gap-1.5 text-[10px] text-text-muted">
-          <span>Less</span>
-          {LEVEL_COLORS.map((color, i) => (
-            <div
-              key={i}
-              className="w-3 h-3 rounded-sm"
-              style={{ background: color }}
-            />
+        {/* Slab Legend */}
+        <div className="flex items-center gap-3 flex-wrap justify-end">
+          {SLAB_LABELS.map((slab, i) => (
+            <div key={i} className="flex items-center gap-1.5">
+              <div
+                className="w-3 h-3 rounded-sm"
+                style={{
+                  background: slab.color,
+                  border: `1px solid ${slab.borderColor}`,
+                }}
+              />
+              <span className="text-[10px] text-text-muted">
+                {slab.label}
+                <span className="text-text-muted ml-0.5 opacity-60">({slab.range})</span>
+              </span>
+            </div>
           ))}
-          <span>More</span>
         </div>
       </div>
 
@@ -129,7 +145,7 @@ export default function AttendanceHeatmap({ data, title = 'Attendance Heatmap' }
                       style={{
                         width: CELL_SIZE,
                         height: CELL_SIZE,
-                        background: day ? LEVEL_COLORS[day.level] : 'transparent',
+                        background: day ? SLAB_COLORS[day.level] : 'transparent',
                       }}
                       onMouseEnter={(e) =>
                         day &&
@@ -159,7 +175,9 @@ export default function AttendanceHeatmap({ data, title = 'Attendance Heatmap' }
         >
           <div className="font-semibold">{tooltip.date}</div>
           <div className="text-text-secondary">
-            {tooltip.hours > 0 ? `${tooltip.hours}h logged` : 'No activity'}
+            {tooltip.hours > 0
+              ? `${tooltip.hours}h worked · ${SLAB_LABELS[tooltip.level].label}`
+              : 'Absent'}
           </div>
         </div>
       )}

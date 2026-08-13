@@ -4,9 +4,14 @@ import Header from './components/layout/Header';
 import EmployeeDashboard from './components/dashboard/EmployeeDashboard';
 import HRDashboard from './components/dashboard/HRDashboard';
 import AICoPilotWidget from './components/widgets/AICoPilotWidget';
+import LoginPage from './components/LoginPage';
 
 function AppContent() {
-  const { role, handleMouseMove } = useApp();
+  const { role, isLoggedIn, handleMouseMove } = useApp();
+
+  if (!isLoggedIn) {
+    return <LoginPage />;
+  }
 
   return (
     <div
@@ -38,3 +43,4 @@ export default function App() {
     </AppProvider>
   );
 }
+
