@@ -1,9 +1,10 @@
 import { AppProvider, useApp } from './context/AppContext';
 import InteractiveBackground from './components/layout/InteractiveBackground';
 import Header from './components/layout/Header';
+import SidePanelDrawer from './components/layout/SidePanelDrawer';
 import EmployeeDashboard from './components/dashboard/EmployeeDashboard';
 import HRDashboard from './components/dashboard/HRDashboard';
-import AICoPilotWidget from './components/widgets/AICoPilotWidget';
+import MessagingWidget from './components/widgets/MessagingWidget';
 import LoginPage from './components/LoginPage';
 
 function AppContent() {
@@ -20,6 +21,7 @@ function AppContent() {
     >
       <InteractiveBackground />
       <Header />
+      <SidePanelDrawer />
 
       {/* Main Content */}
       <main
@@ -31,7 +33,8 @@ function AppContent() {
         </div>
       </main>
 
-      <AICoPilotWidget />
+      {/* Messaging Widget (replaces AI CoPilot) */}
+      <MessagingWidget />
     </div>
   );
 }
@@ -43,4 +46,3 @@ export default function App() {
     </AppProvider>
   );
 }
-
