@@ -194,30 +194,55 @@ function OpenPositionsPopup({ stats, onClose }) {
   );
 }
 
+const APPROVAL_DATA = [
+  { name: 'Priya Sharma', type: 'Casual Leave', days: '2 days', date: 'Aug 18-19', dept: 'Engineering', attendance: 92, tasks: 87, daysLeft: 4 },
+  { name: 'Raj Patel', type: 'Work From Home', days: '1 day', date: 'Aug 16', dept: 'Product', attendance: 88, tasks: 74, daysLeft: 2 },
+  { name: 'Sarah Chen', type: 'Sick Leave', days: '3 days', date: 'Aug 14-16', dept: 'Design', attendance: 79, tasks: 61, daysLeft: 0 },
+  { name: 'Mike Johnson', type: 'Earned Leave', days: '5 days', date: 'Aug 25-29', dept: 'Marketing', attendance: 95, tasks: 93, daysLeft: 11 },
+  { name: 'Aisha Khan', type: 'Casual Leave', days: '1 day', date: 'Aug 20', dept: 'Operations', attendance: 85, tasks: 78, daysLeft: 6 },
+];
+
+function MiniStatBar({ label, pct, color }) {
+  return (
+    <div className="flex items-center gap-2">
+      <span className="text-[9px] text-text-muted w-20 flex-shrink-0">{label}</span>
+      <div className="flex-1 h-1.5 rounded-full" style={{ background: 'rgba(255,255,255,0.06)' }}>
+        <div className="h-full rounded-full transition-all duration-500" style={{ width: `${pct}%`, background: color }} />
+      </div>
+      <span className="text-[9px] font-bold w-7 text-right" style={{ color }}>{pct}%</span>
+    </div>
+  );
+}
+
 function ApprovalsPopup({ stats, onClose }) {
-  const approvals = [
-    { name: 'Priya Sharma', type: 'Casual Leave', days: '2 days', date: 'Aug 18-19', dept: 'Engineering' },
-    { name: 'Raj Patel', type: 'Work From Home', days: '1 day', date: 'Aug 16', dept: 'Product' },
-    { name: 'Sarah Chen', type: 'Sick Leave', days: '3 days', date: 'Aug 14-16', dept: 'Design' },
-    { name: 'Mike Johnson', type: 'Earned Leave', days: '5 days', date: 'Aug 25-29', dept: 'Marketing' },
-  ];
+  const approvals = APPROVAL_DATA;
   const [decisions, setDecisions] = useState({});
   const decide = (i, val) => setDecisions((d) => ({ ...d, [i]: val }));
+  const attColor = (p) => p >= 90 ? '#4ade80' : p >= 80 ? '#fbbf24' : '#f87171';
   return (
     <DetailPopup title={`Pending Approvals (${stats.pendingApprovals})`} icon="⏳" onClose={onClose}>
-      <div className="space-y-3">
+      <div className="space-y-4">
         {approvals.map((item, i) => (
           <div key={i} className="p-4 rounded-xl" style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.06)' }}>
-            <div className="flex items-center justify-between mb-3">
+            <div className="flex items-center justify-between mb-2">
               <div>
                 <p className="text-sm font-semibold text-text-primary">{item.name}</p>
                 <p className="text-[10px] text-text-muted">{item.type} · {item.days} · {item.date} · {item.dept}</p>
               </div>
-              {decisions[i] && (
-                <span className="text-[10px] font-bold px-2.5 py-1 rounded-full" style={{ background: decisions[i] === 'approved' ? 'rgba(74,222,128,0.1)' : 'rgba(248,113,113,0.1)', border: `1px solid ${decisions[i] === 'approved' ? 'rgba(74,222,128,0.3)' : 'rgba(248,113,113,0.3)'}`, color: decisions[i] === 'approved' ? '#4ade80' : '#f87171' }}>{decisions[i] === 'approved' ? '✓ Approved' : '✕ Rejected'}</span>
-              )}
+              <div className="text-right">
+                {item.daysLeft > 0
+                  ? <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full" style={{ background: 'rgba(251,191,36,0.1)', border: '1px solid rgba(251,191,36,0.2)', color: '#fbbf24' }}>⏰ {item.daysLeft}d away</span>
+                  : <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full" style={{ background: 'rgba(248,113,113,0.1)', border: '1px solid rgba(248,113,113,0.2)', color: '#f87171' }}>Starts today</span>
+                }
+              </div>
             </div>
-            {!decisions[i] && (
+            <div className="space-y-1.5 mb-3">
+              <MiniStatBar label="Attendance" pct={item.attendance} color={attColor(item.attendance)} />
+              <MiniStatBar label="Tasks done" pct={item.tasks} color="#a78bfa" />
+            </div>
+            {decisions[i] ? (
+              <span className="text-[10px] font-bold px-2.5 py-1 rounded-full" style={{ background: decisions[i] === 'approved' ? 'rgba(74,222,128,0.1)' : 'rgba(248,113,113,0.1)', border: `1px solid ${decisions[i] === 'approved' ? 'rgba(74,222,128,0.3)' : 'rgba(248,113,113,0.3)'}`, color: decisions[i] === 'approved' ? '#4ade80' : '#f87171' }}>{decisions[i] === 'approved' ? '✓ Approved' : '✕ Rejected'}</span>
+            ) : (
               <div className="flex gap-2">
                 <button onClick={() => decide(i, 'approved')} className="flex-1 py-2 rounded-lg text-xs font-semibold transition-all hover:scale-105" style={{ background: 'rgba(74,222,128,0.1)', border: '1px solid rgba(74,222,128,0.2)', color: '#4ade80' }}>✓ Approve</button>
                 <button onClick={() => decide(i, 'rejected')} className="flex-1 py-2 rounded-lg text-xs font-semibold transition-all hover:scale-105" style={{ background: 'rgba(248,113,113,0.1)', border: '1px solid rgba(248,113,113,0.2)', color: '#f87171' }}>✕ Reject</button>
@@ -335,7 +360,7 @@ function DepartmentDetailPopup({ dept, stats, onClose }) {
   );
 }
 
-function ComplaintDetailPopup({ complaint, onClose, onResolve }) {
+function ComplaintDetailPopup({ complaint, onClose, onResolve, onUpdateStatus }) {
   if (!complaint) return null;
   const [status, setStatus] = useState(complaint.status);
   const [resolving, setResolving] = useState(false);
@@ -343,10 +368,16 @@ function ComplaintDetailPopup({ complaint, onClose, onResolve }) {
 
   const currentSt = STATUS_STYLES[status] || STATUS_STYLES['Pending'];
 
+  function handleMarkInReview() {
+    setStatus('In Review');
+    onUpdateStatus && onUpdateStatus(complaint.id, 'In Review');
+  }
+
   function handleMarkResolved() {
     setStatus('Resolved');
     setResolving(true);
     setCountdown(5);
+    onUpdateStatus && onUpdateStatus(complaint.id, 'Resolved');
     onResolve && onResolve(complaint.id);
   }
 
@@ -375,15 +406,20 @@ function ComplaintDetailPopup({ complaint, onClose, onResolve }) {
         </div>
       </div>
       {resolving && (
-        <div className="flex items-center justify-center gap-2 py-3 rounded-xl mb-3" style={{ background: 'rgba(74,222,128,0.08)', border: '1px solid rgba(74,222,128,0.2)' }}>
+        <div className="flex items-center justify-center gap-2 py-3 rounded-xl" style={{ background: 'rgba(74,222,128,0.08)', border: '1px solid rgba(74,222,128,0.2)' }}>
           <span className="text-sm">✓</span>
           <span className="text-xs font-semibold" style={{ color: '#4ade80' }}>Resolved — closing in {countdown}s</span>
         </div>
       )}
-      {status !== 'Resolved' && !resolving && (
+      {status === 'Resolved' && !resolving && (
+        <div className="flex items-center justify-center gap-2 py-3 rounded-xl" style={{ background: 'rgba(74,222,128,0.08)', border: '1px solid rgba(74,222,128,0.2)' }}>
+          <span className="text-xs font-semibold" style={{ color: '#4ade80' }}>✓ This complaint has been resolved</span>
+        </div>
+      )}
+      {status === 'Pending' && !resolving && (
         <div className="flex gap-2">
           <button
-            onClick={() => setStatus('In Review')}
+            onClick={handleMarkInReview}
             className="flex-1 py-2.5 rounded-xl text-xs font-bold transition-all hover:scale-105"
             style={{ background: 'rgba(251,146,60,0.15)', border: '1px solid rgba(251,146,60,0.35)', color: '#fb923c' }}
           >🔍 Mark In Review</button>
@@ -395,8 +431,10 @@ function ComplaintDetailPopup({ complaint, onClose, onResolve }) {
         </div>
       )}
       {status === 'In Review' && !resolving && (
-        <div className="flex gap-2 mt-0">
-          <div className="flex-1" />
+        <div className="flex gap-2">
+          <div className="flex-1 flex items-center gap-1.5 py-2 rounded-xl" style={{ background: 'rgba(251,146,60,0.08)', border: '1px solid rgba(251,146,60,0.2)' }}>
+            <span className="text-xs ml-3 font-semibold" style={{ color: '#fb923c' }}>🔍 Under Review</span>
+          </div>
           <button
             onClick={handleMarkResolved}
             className="flex-1 py-2.5 rounded-xl text-xs font-bold transition-all hover:scale-105"
@@ -448,7 +486,7 @@ function HRStatCard({ icon, label, value, trend, trendUp, color, delay, onClick 
 }
 
 /* ─── Tab Pages ────────────────────────────────────────────────────────── */
-function OverviewPage({ stats, onPopup }) {
+function OverviewPage({ stats, onPopup, complaints }) {
   const totalDeptCount = stats.departments.reduce((s, d) => s + d.count, 0);
   return (
     <div className="space-y-5">
@@ -462,7 +500,7 @@ function OverviewPage({ stats, onPopup }) {
             <p className="text-sm text-text-secondary mt-1">Managing {stats.totalEmployees} employees across {stats.departments.length} departments</p>
           </div>
           <div className="px-4 py-2 rounded-xl text-sm font-semibold" style={{ background: 'rgba(248, 113, 113, 0.1)', border: '1px solid rgba(248, 113, 113, 0.2)', color: '#f87171' }}>
-            📨 {initialComplaints.filter((c) => c.status !== 'Resolved').length} Open Complaints
+            📨 {complaints.filter((c) => c.status !== 'Resolved').length} Open Complaints
           </div>
         </div>
       </div>
@@ -527,12 +565,12 @@ function OverviewPage({ stats, onPopup }) {
             <div className="flex items-center justify-between mb-4">
               <div>
                 <h3 className="text-base font-semibold text-text-primary">Employee Complaints</h3>
-                <p className="text-xs text-text-secondary mt-1">{initialComplaints.filter((c) => c.status !== 'Resolved').length} open · {initialComplaints.filter((c) => c.status === 'Resolved').length} resolved</p>
+                <p className="text-xs text-text-secondary mt-1">{complaints.filter((c) => c.status !== 'Resolved').length} open · {complaints.filter((c) => c.status === 'Resolved').length} resolved</p>
               </div>
               <div className="w-10 h-10 rounded-xl flex items-center justify-center text-lg" style={{ background: 'rgba(248, 113, 113, 0.1)' }}>📨</div>
             </div>
             <div className="space-y-3">
-              {initialComplaints.slice(0, 2).map((c) => {
+              {complaints.slice(0, 2).map((c) => {
                 const st = STATUS_STYLES[c.status] || STATUS_STYLES['Pending'];
                 return (
                   <div key={c.id} className="p-3.5 rounded-xl hover:bg-white/[0.04] transition-colors cursor-pointer" style={{ background: 'rgba(255,255,255,0.02)' }} onClick={() => onPopup('complaint', c)}>
@@ -670,47 +708,68 @@ function ComplaintsPage({ onPopup, complaints: localComplaints }) {
 }
 
 function ApprovalsPage({ stats, onPopup }) {
-  const approvals = [
-    { name: 'Priya Sharma', type: 'Casual Leave', days: '2 days', date: 'Aug 18-19', dept: 'Engineering' },
-    { name: 'Raj Patel', type: 'Work From Home', days: '1 day', date: 'Aug 16', dept: 'Product' },
-    { name: 'Sarah Chen', type: 'Sick Leave', days: '3 days', date: 'Aug 14-16', dept: 'Design' },
-    { name: 'Mike Johnson', type: 'Earned Leave', days: '5 days', date: 'Aug 25-29', dept: 'Marketing' },
-    { name: 'Aisha Khan', type: 'Casual Leave', days: '1 day', date: 'Aug 20', dept: 'Operations' },
-  ];
+  const approvals = APPROVAL_DATA;
   const COLORS = ['#00f5ff', '#7c3aed', '#a78bfa', '#06b6d4', '#8b5cf6'];
   const [decisions, setDecisions] = useState({});
   const decide = (i, val) => setDecisions((d) => ({ ...d, [i]: val }));
+  const attColor = (p) => p >= 90 ? '#4ade80' : p >= 80 ? '#fbbf24' : '#f87171';
   return (
     <div className="space-y-5 animate-fade-in-up" style={{ opacity: 0 }}>
       <div className="glass-card p-6" id="approvals-page">
         <div className="flex items-center justify-between mb-5">
           <div>
             <h3 className="text-lg font-bold text-text-primary">⏳ Pending Approvals</h3>
-            <p className="text-xs text-text-secondary mt-1">{stats.pendingApprovals} requests awaiting your action</p>
+            <p className="text-xs text-text-secondary mt-1">{approvals.length} requests awaiting your action</p>
           </div>
         </div>
-        <div className="space-y-3">
+        <div className="space-y-4">
           {approvals.map((item, i) => (
-            <div key={i} className="p-4 rounded-xl" style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.06)' }}>
-              <div className="flex items-center justify-between mb-3">
+            <div key={i} className="p-5 rounded-xl" style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.06)' }}>
+              <div className="flex items-start justify-between mb-3">
                 <div className="flex items-center gap-4">
                   <div className="w-10 h-10 rounded-full flex items-center justify-center text-xs font-bold flex-shrink-0" style={{ background: `${COLORS[i]}20`, border: `1px solid ${COLORS[i]}40`, color: COLORS[i] }}>
                     {item.name.split(' ').map((n) => n[0]).join('')}
                   </div>
                   <div>
                     <p className="text-sm font-semibold text-text-primary">{item.name}</p>
-                    <p className="text-[10px] text-text-muted">{item.type} · {item.days} · {item.date} · {item.dept}</p>
+                    <p className="text-[10px] text-text-muted">{item.type} · {item.days} · {item.dept}</p>
                   </div>
                 </div>
-                {decisions[i] && (
-                  <span className="text-[10px] font-bold px-2.5 py-1 rounded-full" style={{ background: decisions[i] === 'approved' ? 'rgba(74,222,128,0.1)' : 'rgba(248,113,113,0.1)', border: `1px solid ${decisions[i] === 'approved' ? 'rgba(74,222,128,0.3)' : 'rgba(248,113,113,0.3)'}`, color: decisions[i] === 'approved' ? '#4ade80' : '#f87171' }}>{decisions[i] === 'approved' ? '✓ Approved' : '✕ Rejected'}</span>
-                )}
+                <div className="flex items-center gap-2">
+                  {item.daysLeft > 0
+                    ? <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full" style={{ background: 'rgba(251,191,36,0.1)', border: '1px solid rgba(251,191,36,0.2)', color: '#fbbf24' }}>⏰ {item.daysLeft}d away</span>
+                    : <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full" style={{ background: 'rgba(248,113,113,0.1)', border: '1px solid rgba(248,113,113,0.2)', color: '#f87171' }}>Starts today</span>
+                  }
+                  {decisions[i] && (
+                    <span className="text-[10px] font-bold px-2.5 py-1 rounded-full" style={{ background: decisions[i] === 'approved' ? 'rgba(74,222,128,0.1)' : 'rgba(248,113,113,0.1)', border: `1px solid ${decisions[i] === 'approved' ? 'rgba(74,222,128,0.3)' : 'rgba(248,113,113,0.3)'}`, color: decisions[i] === 'approved' ? '#4ade80' : '#f87171' }}>{decisions[i] === 'approved' ? '✓ Approved' : '✕ Rejected'}</span>
+                  )}
+                </div>
+              </div>
+              {/* Attendance & task stats */}
+              <div className="grid grid-cols-2 gap-3 mb-3">
+                <div className="p-3 rounded-lg" style={{ background: 'rgba(255,255,255,0.03)' }}>
+                  <div className="flex items-center justify-between mb-1.5">
+                    <span className="text-[10px] text-text-muted">Attendance</span>
+                    <span className="text-[10px] font-bold" style={{ color: attColor(item.attendance) }}>{item.attendance}%</span>
+                  </div>
+                  <div className="h-1.5 rounded-full" style={{ background: 'rgba(255,255,255,0.06)' }}>
+                    <div className="h-full rounded-full" style={{ width: `${item.attendance}%`, background: attColor(item.attendance) }} />
+                  </div>
+                </div>
+                <div className="p-3 rounded-lg" style={{ background: 'rgba(255,255,255,0.03)' }}>
+                  <div className="flex items-center justify-between mb-1.5">
+                    <span className="text-[10px] text-text-muted">Tasks Done</span>
+                    <span className="text-[10px] font-bold" style={{ color: '#a78bfa' }}>{item.tasks}%</span>
+                  </div>
+                  <div className="h-1.5 rounded-full" style={{ background: 'rgba(255,255,255,0.06)' }}>
+                    <div className="h-full rounded-full" style={{ width: `${item.tasks}%`, background: '#a78bfa' }} />
+                  </div>
+                </div>
               </div>
               {!decisions[i] && (
                 <div className="flex items-center gap-2">
-                  <button id={`approve-${i}`} onClick={() => decide(i, 'approved')} className="px-3 py-1.5 rounded-lg flex items-center gap-1 text-xs font-semibold cursor-pointer transition-all hover:scale-105" style={{ background: 'rgba(74,222,128,0.1)', border: '1px solid rgba(74,222,128,0.2)', color: '#4ade80' }}>✓ Approve</button>
-                  <button id={`reject-${i}`} onClick={() => decide(i, 'rejected')} className="px-3 py-1.5 rounded-lg flex items-center gap-1 text-xs font-semibold cursor-pointer transition-all hover:scale-105" style={{ background: 'rgba(248,113,113,0.1)', border: '1px solid rgba(248,113,113,0.2)', color: '#f87171' }}>✕ Reject</button>
-                  <button className="ml-auto text-[10px] text-text-muted hover:text-white transition-colors" onClick={() => onPopup('approval-detail', item)}>View Details →</button>
+                  <button id={`approve-${i}`} onClick={() => decide(i, 'approved')} className="flex-1 py-2 rounded-lg text-xs font-semibold cursor-pointer transition-all hover:scale-105" style={{ background: 'rgba(74,222,128,0.1)', border: '1px solid rgba(74,222,128,0.2)', color: '#4ade80' }}>✓ Approve</button>
+                  <button id={`reject-${i}`} onClick={() => decide(i, 'rejected')} className="flex-1 py-2 rounded-lg text-xs font-semibold cursor-pointer transition-all hover:scale-105" style={{ background: 'rgba(248,113,113,0.1)', border: '1px solid rgba(248,113,113,0.2)', color: '#f87171' }}>✕ Reject</button>
                 </div>
               )}
             </div>
@@ -840,10 +899,15 @@ export default function HRDashboard() {
   const closePopup = () => { setPopup(null); setPopupData(null); };
 
   function handleResolveComplaint(id) {
-    // Remove from list after popup auto-closes (5s)
-    setTimeout(() => {
-      setComplaintsList((prev) => prev.filter((c) => c.id !== id));
-    }, 5500);
+    setComplaintsList((prev) =>
+      prev.map((c) => c.id === id ? { ...c, status: 'Resolved' } : c)
+    );
+  }
+
+  function handleUpdateComplaintStatus(id, newStatus) {
+    setComplaintsList((prev) =>
+      prev.map((c) => c.id === id ? { ...c, status: newStatus } : c)
+    );
   }
 
   function handlePostAnnouncement({ title, body, tag, tagColor }) {
@@ -875,7 +939,7 @@ export default function HRDashboard() {
       </div>
 
       {/* Tab Content */}
-      {activeTab === 'overview' && <OverviewPage stats={stats} onPopup={openPopup} />}
+      {activeTab === 'overview' && <OverviewPage stats={stats} onPopup={openPopup} complaints={complaintsList} />}
       {activeTab === 'employees' && <EmployeesPage stats={stats} onPopup={openPopup} />}
       {activeTab === 'complaints' && <ComplaintsPage onPopup={openPopup} complaints={complaintsList} />}
       {activeTab === 'approvals' && <ApprovalsPage stats={stats} onPopup={openPopup} />}
@@ -892,7 +956,7 @@ export default function HRDashboard() {
       {popup === 'post-announcement' && <PostAnnouncementPopup onClose={closePopup} onPost={handlePostAnnouncement} />}
       {popup === 'budget' && <BudgetBreakdownPopup onClose={closePopup} />}
       {popup === 'dept-detail' && <DepartmentDetailPopup dept={popupData} stats={stats} onClose={closePopup} />}
-      {popup === 'complaint' && <ComplaintDetailPopup complaint={popupData} onClose={closePopup} onResolve={handleResolveComplaint} />}
+      {popup === 'complaint' && <ComplaintDetailPopup complaint={popupData} onClose={closePopup} onResolve={handleResolveComplaint} onUpdateStatus={handleUpdateComplaintStatus} />}
       {popup === 'announcement' && <AnnouncementPopup item={popupData} onClose={closePopup} />}
     </div>
   );
