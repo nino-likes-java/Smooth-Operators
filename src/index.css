@@ -1,0 +1,234 @@
+@import "tailwindcss";
+
+/* ── Spatial Web Theme ── */
+@theme {
+  --color-cyan-glow: #00f5ff;
+  --color-violet-deep: #7c3aed;
+  --color-violet-light: #a78bfa;
+  --color-glass-bg: rgba(255, 255, 255, 0.04);
+  --color-glass-bg-hover: rgba(255, 255, 255, 0.08);
+  --color-glass-border: rgba(255, 255, 255, 0.1);
+  --color-glass-border-hover: rgba(255, 255, 255, 0.18);
+  --color-text-primary: rgba(255, 255, 255, 0.95);
+  --color-text-secondary: rgba(255, 255, 255, 0.55);
+  --color-text-muted: rgba(255, 255, 255, 0.35);
+  --color-surface: #0a0a0f;
+  --font-family-sans: "Inter", system-ui, -apple-system, sans-serif;
+}
+
+/* ── Base Reset ── */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background: #000000;
+  color: var(--color-text-primary);
+  font-family: var(--font-family-sans);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ── Custom Scrollbar ── */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.25);
+}
+
+/* ── Glassmorphism Card ── */
+.glass-card {
+  background: var(--color-glass-bg);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid var(--color-glass-border);
+  border-radius: 20px;
+  transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.glass-card:hover {
+  background: var(--color-glass-bg-hover);
+  border-color: var(--color-glass-border-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 32px rgba(0, 245, 255, 0.06), 0 0 0 1px rgba(255, 255, 255, 0.05);
+}
+
+.glass-card-static {
+  background: var(--color-glass-bg);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid var(--color-glass-border);
+  border-radius: 20px;
+}
+
+/* ── Keyframe Animations ── */
+@keyframes pulse-glow {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(0, 245, 255, 0.3), 0 0 60px rgba(124, 58, 237, 0.15);
+  }
+  50% {
+    box-shadow: 0 0 30px rgba(0, 245, 255, 0.5), 0 0 80px rgba(124, 58, 237, 0.25);
+  }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-8px); }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes spin-slow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes typing-dot {
+  0%, 60%, 100% { opacity: 0.2; transform: translateY(0); }
+  30% { opacity: 1; transform: translateY(-4px); }
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 3s ease-in-out infinite;
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+.animate-shimmer {
+  background-size: 200% 100%;
+  animation: shimmer 2.5s linear infinite;
+}
+
+.animate-fade-in-up {
+  animation: fade-in-up 0.6s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.animate-spin-slow {
+  animation: spin-slow 8s linear infinite;
+}
+
+/* ── Stagger Delays ── */
+.delay-100 { animation-delay: 0.1s; }
+.delay-200 { animation-delay: 0.2s; }
+.delay-300 { animation-delay: 0.3s; }
+.delay-400 { animation-delay: 0.4s; }
+.delay-500 { animation-delay: 0.5s; }
+
+/* ── Gradient Text ── */
+.gradient-text {
+  background: linear-gradient(135deg, var(--color-cyan-glow), var(--color-violet-deep));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ── Toggle Switch ── */
+.toggle-track {
+  position: relative;
+  width: 220px;
+  height: 42px;
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.toggle-thumb {
+  position: absolute;
+  top: 3px;
+  width: 106px;
+  height: 36px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, var(--color-cyan-glow), var(--color-violet-deep));
+  transition: left 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+  box-shadow: 0 0 20px rgba(0, 245, 255, 0.3);
+}
+
+/* ── Tooltip ── */
+.heatmap-tooltip {
+  position: fixed;
+  pointer-events: none;
+  padding: 8px 14px;
+  background: rgba(10, 10, 15, 0.95);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 10px;
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.9);
+  z-index: 1000;
+  white-space: nowrap;
+  transform: translate(-50%, -120%);
+}
+
+/* ── Recharts Overrides ── */
+.recharts-default-tooltip {
+  background: rgba(10, 10, 15, 0.9) !important;
+  backdrop-filter: blur(12px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.12) !important;
+  border-radius: 12px !important;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4) !important;
+}
+
+.recharts-tooltip-item {
+  color: rgba(255, 255, 255, 0.85) !important;
+}
+
+/* ── Bento Grid ── */
+.bento-grid {
+  display: grid;
+  gap: 20px;
+  grid-template-columns: repeat(12, 1fr);
+}
+
+.bento-grid > .col-span-4 { grid-column: span 4; }
+.bento-grid > .col-span-5 { grid-column: span 5; }
+.bento-grid > .col-span-6 { grid-column: span 6; }
+.bento-grid > .col-span-7 { grid-column: span 7; }
+.bento-grid > .col-span-8 { grid-column: span 8; }
+.bento-grid > .col-span-12 { grid-column: span 12; }
+
+@media (max-width: 1024px) {
+  .bento-grid {
+    grid-template-columns: 1fr;
+  }
+  .bento-grid > [class*="col-span-"] {
+    grid-column: span 1;
+  }
+}
