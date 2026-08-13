@@ -431,8 +431,8 @@ export default function MessagingWidget() {
           className="fixed bottom-24 right-6 glass-card-static flex flex-col animate-fade-in-up overflow-hidden"
           style={{
             zIndex: 99,
-            width: 360,
-            height: 520,
+            width: 300,
+            height: 420,
             boxShadow: '0 8px 40px rgba(0, 0, 0, 0.5), 0 0 80px rgba(0, 245, 255, 0.06)',
           }}
           id="messaging-panel"

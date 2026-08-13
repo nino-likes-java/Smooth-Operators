@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import AttendanceHeatmap from '../widgets/AttendanceHeatmap';
 import FinancialDonut from '../widgets/FinancialDonut';
 import {
@@ -6,8 +6,8 @@ import {
   budgetData,
   hrStats,
   hrActions,
-  complaints,
-  announcements,
+  complaints as initialComplaints,
+  announcements as initialAnnouncements,
 } from '../../data/dummyData';
 
 /* ─── Helpers ──────────────────────────────────────────────────────────── */
@@ -230,28 +230,53 @@ function ApprovalsPopup({ stats, onClose }) {
   );
 }
 
-function PostAnnouncementPopup({ onClose }) {
+const CATEGORY_COLORS = {
+  Policy: '#f87171', Event: '#00f5ff', Holiday: '#4ade80',
+  Benefit: '#7c3aed', Achievement: '#fbbf24', General: '#a78bfa',
+};
+
+function PostAnnouncementPopup({ onClose, onPost }) {
+  const [title, setTitle] = useState('');
+  const [category, setCategory] = useState('General');
+  const [message, setMessage] = useState('');
+  const [posted, setPosted] = useState(false);
+
+  function handlePost() {
+    if (!title.trim() || !message.trim()) return;
+    onPost && onPost({ title: title.trim(), body: message.trim(), tag: category, tagColor: CATEGORY_COLORS[category] || '#a78bfa' });
+    setPosted(true);
+    setTimeout(() => onClose(), 1500);
+  }
+
   return (
     <DetailPopup title="Post Announcement" icon="📢" onClose={onClose}>
-      <div className="space-y-4">
-        <div>
-          <label className="text-[10px] uppercase tracking-widest text-text-muted block mb-2">Title</label>
-          <input className="w-full rounded-xl px-3 py-2.5 text-sm text-text-primary" style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)' }} placeholder="Announcement title..." />
+      {posted ? (
+        <div className="flex flex-col items-center justify-center gap-3 py-8">
+          <span className="text-4xl">📢</span>
+          <p className="text-sm font-bold text-text-primary">Posted successfully!</p>
+          <p className="text-xs text-text-muted">Your announcement is now live for all employees.</p>
         </div>
-        <div>
-          <label className="text-[10px] uppercase tracking-widest text-text-muted block mb-2">Category</label>
-          <div className="grid grid-cols-3 gap-2">
-            {['Policy', 'Event', 'Holiday', 'Benefit', 'Achievement', 'General'].map((c) => (
-              <button key={c} className="py-2 rounded-lg text-xs font-medium transition-all" style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.08)', color: 'var(--color-text-secondary)' }}>{c}</button>
-            ))}
+      ) : (
+        <div className="space-y-4">
+          <div>
+            <label className="text-[10px] uppercase tracking-widest text-text-muted block mb-2">Title</label>
+            <input value={title} onChange={(e) => setTitle(e.target.value)} className="w-full rounded-xl px-3 py-2.5 text-sm text-text-primary" style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)' }} placeholder="Announcement title..." />
           </div>
+          <div>
+            <label className="text-[10px] uppercase tracking-widest text-text-muted block mb-2">Category</label>
+            <div className="grid grid-cols-3 gap-2">
+              {['Policy', 'Event', 'Holiday', 'Benefit', 'Achievement', 'General'].map((c) => (
+                <button key={c} onClick={() => setCategory(c)} className="py-2 rounded-lg text-xs font-medium transition-all" style={{ background: category === c ? `${CATEGORY_COLORS[c]}18` : 'rgba(255,255,255,0.03)', border: `1px solid ${category === c ? CATEGORY_COLORS[c] + '50' : 'rgba(255,255,255,0.08)'}`, color: category === c ? CATEGORY_COLORS[c] : 'var(--color-text-secondary)' }}>{c}</button>
+              ))}
+            </div>
+          </div>
+          <div>
+            <label className="text-[10px] uppercase tracking-widest text-text-muted block mb-2">Message</label>
+            <textarea rows={4} value={message} onChange={(e) => setMessage(e.target.value)} className="w-full rounded-xl px-3 py-2 text-sm text-text-primary resize-none" style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)' }} placeholder="Write your announcement..." />
+          </div>
+          <button onClick={handlePost} disabled={!title.trim() || !message.trim()} className="w-full py-2.5 rounded-xl text-sm font-bold transition-all" style={{ background: title.trim() && message.trim() ? 'linear-gradient(135deg, #7c3aed, #00f5ff)' : 'rgba(255,255,255,0.06)', color: title.trim() && message.trim() ? '#000' : 'rgba(255,255,255,0.3)', cursor: title.trim() && message.trim() ? 'pointer' : 'not-allowed' }}>Post to All Employees</button>
         </div>
-        <div>
-          <label className="text-[10px] uppercase tracking-widest text-text-muted block mb-2">Message</label>
-          <textarea rows={4} className="w-full rounded-xl px-3 py-2 text-sm text-text-primary resize-none" style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)' }} placeholder="Write your announcement..." />
-        </div>
-        <button onClick={onClose} className="w-full py-2.5 rounded-xl text-sm font-bold" style={{ background: 'linear-gradient(135deg, #7c3aed, #00f5ff)', color: '#000' }}>Post to All Employees</button>
-      </div>
+      )}
     </DetailPopup>
   );
 }
@@ -310,14 +335,32 @@ function DepartmentDetailPopup({ dept, stats, onClose }) {
   );
 }
 
-function ComplaintDetailPopup({ complaint, onClose }) {
+function ComplaintDetailPopup({ complaint, onClose, onResolve }) {
   if (!complaint) return null;
-  const st = STATUS_STYLES[complaint.status] || STATUS_STYLES['Pending'];
   const [status, setStatus] = useState(complaint.status);
+  const [resolving, setResolving] = useState(false);
+  const [countdown, setCountdown] = useState(null);
+
+  const currentSt = STATUS_STYLES[status] || STATUS_STYLES['Pending'];
+
+  function handleMarkResolved() {
+    setStatus('Resolved');
+    setResolving(true);
+    setCountdown(5);
+    onResolve && onResolve(complaint.id);
+  }
+
+  useEffect(() => {
+    if (countdown === null) return;
+    if (countdown === 0) { onClose(); return; }
+    const t = setTimeout(() => setCountdown((c) => c - 1), 1000);
+    return () => clearTimeout(t);
+  }, [countdown]);
+
   return (
     <DetailPopup title="Complaint Detail" icon="📨" onClose={onClose}>
       <div className="flex items-center gap-2 mb-4">
-        <span className="text-xs font-semibold px-2 py-0.5 rounded-full" style={{ background: st.bg, border: `1px solid ${st.border}`, color: st.text }}>{status}</span>
+        <span className="text-xs font-semibold px-2 py-0.5 rounded-full" style={{ background: currentSt.bg, border: `1px solid ${currentSt.border}`, color: currentSt.text }}>{status}</span>
         <span className="w-2 h-2 rounded-full inline-block" style={{ background: SEVERITY_COLORS[complaint.severity] }} />
         <span className="text-xs font-semibold" style={{ color: SEVERITY_COLORS[complaint.severity] }}>{complaint.severity}</span>
         <span className="text-[10px] text-text-muted ml-auto">{complaint.date}</span>
@@ -331,10 +374,34 @@ function ComplaintDetailPopup({ complaint, onClose }) {
           <InfoRow label="ID" value={complaint.id} />
         </div>
       </div>
-      {status !== 'Resolved' && (
+      {resolving && (
+        <div className="flex items-center justify-center gap-2 py-3 rounded-xl mb-3" style={{ background: 'rgba(74,222,128,0.08)', border: '1px solid rgba(74,222,128,0.2)' }}>
+          <span className="text-sm">✓</span>
+          <span className="text-xs font-semibold" style={{ color: '#4ade80' }}>Resolved — closing in {countdown}s</span>
+        </div>
+      )}
+      {status !== 'Resolved' && !resolving && (
         <div className="flex gap-2">
-          <button onClick={() => setStatus('In Review')} className="flex-1 py-2.5 rounded-xl text-xs font-semibold transition-all hover:scale-105" style={{ background: 'rgba(167,139,250,0.1)', border: '1px solid rgba(167,139,250,0.2)', color: '#a78bfa' }}>Mark In Review</button>
-          <button onClick={() => setStatus('Resolved')} className="flex-1 py-2.5 rounded-xl text-xs font-semibold transition-all hover:scale-105" style={{ background: 'rgba(74,222,128,0.1)', border: '1px solid rgba(74,222,128,0.2)', color: '#4ade80' }}>✓ Mark Resolved</button>
+          <button
+            onClick={() => setStatus('In Review')}
+            className="flex-1 py-2.5 rounded-xl text-xs font-bold transition-all hover:scale-105"
+            style={{ background: 'rgba(251,146,60,0.15)', border: '1px solid rgba(251,146,60,0.35)', color: '#fb923c' }}
+          >🔍 Mark In Review</button>
+          <button
+            onClick={handleMarkResolved}
+            className="flex-1 py-2.5 rounded-xl text-xs font-bold transition-all hover:scale-105"
+            style={{ background: 'rgba(74,222,128,0.12)', border: '1px solid rgba(74,222,128,0.3)', color: '#4ade80' }}
+          >✓ Mark Resolved</button>
+        </div>
+      )}
+      {status === 'In Review' && !resolving && (
+        <div className="flex gap-2 mt-0">
+          <div className="flex-1" />
+          <button
+            onClick={handleMarkResolved}
+            className="flex-1 py-2.5 rounded-xl text-xs font-bold transition-all hover:scale-105"
+            style={{ background: 'rgba(74,222,128,0.12)', border: '1px solid rgba(74,222,128,0.3)', color: '#4ade80' }}
+          >✓ Mark Resolved</button>
         </div>
       )}
     </DetailPopup>
@@ -544,24 +611,38 @@ function EmployeesPage({ stats, onPopup }) {
   );
 }
 
-function ComplaintsPage({ onPopup }) {
+const STATUS_STYLES_EXTENDED = {
+  Pending: { bg: 'rgba(251, 191, 36, 0.1)', border: 'rgba(251, 191, 36, 0.2)', text: '#fbbf24' },
+  'In Review': { bg: 'rgba(251,146,60,0.12)', border: 'rgba(251,146,60,0.3)', text: '#fb923c' },
+  Resolved: { bg: 'rgba(74, 222, 128, 0.1)', border: 'rgba(74, 222, 128, 0.2)', text: '#4ade80' },
+};
+
+function ComplaintsPage({ onPopup, complaints: localComplaints }) {
+  const list = localComplaints || [];
   return (
     <div className="space-y-5 animate-fade-in-up" style={{ opacity: 0 }}>
       <div className="glass-card p-6" id="hr-complaints-full">
         <div className="flex items-center justify-between mb-5">
           <div>
             <h3 className="text-lg font-bold text-text-primary">Employee Complaints</h3>
-            <p className="text-xs text-text-secondary mt-1">{complaints.filter((c) => c.status !== 'Resolved').length} open · {complaints.filter((c) => c.status === 'Resolved').length} resolved — click any to review</p>
+            <p className="text-xs text-text-secondary mt-1">{list.filter((c) => c.status !== 'Resolved').length} open · {list.filter((c) => c.status === 'Resolved').length} resolved — click any to review</p>
           </div>
           <div className="flex items-center gap-3">
             <span className="px-3 py-1.5 rounded-full text-[10px] font-semibold" style={{ background: 'rgba(248,113,113,0.1)', border: '1px solid rgba(248,113,113,0.2)', color: '#f87171' }}>
-              {complaints.filter((c) => c.severity === 'High').length} High Priority
+              {list.filter((c) => c.severity === 'High').length} High Priority
             </span>
           </div>
         </div>
+        {list.length === 0 && (
+          <div className="text-center py-10">
+            <p className="text-3xl mb-3">🎉</p>
+            <p className="text-sm font-semibold text-text-primary">All complaints resolved!</p>
+            <p className="text-xs text-text-muted mt-1">No open complaints at the moment.</p>
+          </div>
+        )}
         <div className="space-y-4">
-          {complaints.map((c) => {
-            const st = STATUS_STYLES[c.status] || STATUS_STYLES['Pending'];
+          {list.map((c) => {
+            const st = STATUS_STYLES_EXTENDED[c.status] || STATUS_STYLES_EXTENDED['Pending'];
             return (
               <div key={c.id} className="p-5 rounded-2xl hover:bg-white/[0.04] transition-colors cursor-pointer" style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.06)' }} onClick={() => onPopup('complaint', c)}>
                 <div className="flex items-center justify-between mb-3">
@@ -640,25 +721,27 @@ function ApprovalsPage({ stats, onPopup }) {
   );
 }
 
-function AnnouncementsPage({ onPopup }) {
+function AnnouncementsPage({ onPopup, announcements: localAnnouncements }) {
+  const list = localAnnouncements || [];
   return (
     <div className="space-y-5 animate-fade-in-up" style={{ opacity: 0 }}>
       <div className="glass-card p-6" id="announcements-page">
         <div className="flex items-center justify-between mb-5">
           <div>
             <h3 className="text-lg font-bold text-text-primary">📢 Announcements</h3>
-            <p className="text-xs text-text-secondary mt-1">Click any to read in full · company-wide communications</p>
+            <p className="text-xs text-text-secondary mt-1">{list.length} post{list.length !== 1 ? 's' : ''} · company-wide communications</p>
           </div>
           <button id="new-announcement-btn" onClick={() => onPopup('post-announcement')} className="px-4 py-2 rounded-xl text-xs font-semibold cursor-pointer transition-all hover:scale-105" style={{ background: 'linear-gradient(135deg, rgba(0,245,255,0.1), rgba(124,58,237,0.1))', border: '1px solid rgba(0,245,255,0.2)', color: '#00f5ff' }}>+ New Post</button>
         </div>
         <div className="space-y-4">
-          {announcements.map((item) => (
+          {list.map((item) => (
             <div key={item.id} className="flex items-start gap-4 p-5 rounded-2xl hover:bg-white/[0.04] transition-colors cursor-pointer group" style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.06)' }} onClick={() => onPopup('announcement', item)}>
               <div className="w-2 h-2 rounded-full flex-shrink-0 mt-2" style={{ background: item.tagColor }} />
               <div className="flex-1 min-w-0">
                 <div className="flex items-center gap-2 mb-2">
                   <h4 className="text-sm font-semibold text-text-primary">{item.title}</h4>
                   <span className="text-[10px] font-medium px-2 py-0.5 rounded-full" style={{ background: `${item.tagColor}15`, color: item.tagColor }}>{item.tag}</span>
+                  {item.isNew && <span className="text-[10px] font-bold px-2 py-0.5 rounded-full" style={{ background: 'rgba(74,222,128,0.12)', border: '1px solid rgba(74,222,128,0.3)', color: '#4ade80' }}>NEW</span>}
                 </div>
                 <p className="text-xs text-text-secondary leading-relaxed line-clamp-1">{item.body}</p>
               </div>
@@ -694,6 +777,44 @@ function ReportsPage({ stats }) {
   );
 }
 
+/* ─── Recruitment Popup ────────────────────────────────────────────────── */
+function RecruitmentPopup({ stats, onClose }) {
+  const positions = [
+    { title: 'Sr. Backend Engineer', dept: 'Engineering', urgency: 'Urgent', since: 'Jun 12', applicants: 14 },
+    { title: 'Product Designer', dept: 'Design', urgency: 'High', since: 'Jul 5', applicants: 8 },
+    { title: 'Sales Manager', dept: 'Sales', urgency: 'Medium', since: 'Jul 20', applicants: 21 },
+    { title: 'Data Analyst', dept: 'Product', urgency: 'High', since: 'Aug 1', applicants: 5 },
+    { title: 'DevOps Engineer', dept: 'Engineering', urgency: 'Urgent', since: 'Aug 5', applicants: 3 },
+    { title: 'Marketing Lead', dept: 'Marketing', urgency: 'Medium', since: 'Aug 8', applicants: 11 },
+    { title: 'iOS Developer', dept: 'Engineering', urgency: 'High', since: 'Aug 9', applicants: 6 },
+    { title: 'Accounts Manager', dept: 'Finance', urgency: 'Medium', since: 'Aug 10', applicants: 9 },
+  ];
+  const urgencyColor = { Urgent: '#f87171', High: '#fbbf24', Medium: '#60a5fa' };
+  return (
+    <DetailPopup title={`Recruitment — ${stats.openPositions} Open Roles`} icon="👥" onClose={onClose} wide>
+      <div className="flex gap-3 mb-5">
+        {[{ label: 'Open Roles', value: stats.openPositions, color: '#f87171' }, { label: 'Urgent', value: positions.filter(p => p.urgency === 'Urgent').length, color: '#fbbf24' }, { label: 'Total Applicants', value: positions.reduce((s, p) => s + p.applicants, 0), color: '#4ade80' }].map((s, i) => (
+          <div key={i} className="flex-1 p-4 rounded-xl text-center" style={{ background: `${s.color}0d`, border: `1px solid ${s.color}30` }}>
+            <p className="text-2xl font-black" style={{ color: s.color }}>{s.value}</p>
+            <p className="text-[10px] text-text-muted mt-1">{s.label}</p>
+          </div>
+        ))}
+      </div>
+      <div className="space-y-3">
+        {positions.map((p, i) => (
+          <div key={i} className="flex items-center justify-between p-4 rounded-xl" style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.06)' }}>
+            <div>
+              <p className="text-sm font-semibold text-text-primary">{p.title}</p>
+              <p className="text-[10px] text-text-muted">{p.dept} · Open since {p.since} · {p.applicants} applicants</p>
+            </div>
+            <span className="text-[10px] font-bold px-2.5 py-1 rounded-full" style={{ background: `${urgencyColor[p.urgency]}15`, border: `1px solid ${urgencyColor[p.urgency]}40`, color: urgencyColor[p.urgency] }}>{p.urgency}</span>
+          </div>
+        ))}
+      </div>
+    </DetailPopup>
+  );
+}
+
 /* ─── Main Component ───────────────────────────────────────────────────── */
 const TABS = [
   { id: 'overview', label: '🏠 Overview' },
@@ -708,11 +829,29 @@ export default function HRDashboard() {
   const stats = hrStats;
   const [activeTab, setActiveTab] = useState('overview');
 
+  // Mutable complaints & announcements state
+  const [complaintsList, setComplaintsList] = useState(initialComplaints);
+  const [announcementsList, setAnnouncementsList] = useState(initialAnnouncements);
+
   // Popup state
   const [popup, setPopup] = useState(null);
   const [popupData, setPopupData] = useState(null);
   const openPopup = (key, data = null) => { setPopup(key); setPopupData(data); };
   const closePopup = () => { setPopup(null); setPopupData(null); };
+
+  function handleResolveComplaint(id) {
+    // Remove from list after popup auto-closes (5s)
+    setTimeout(() => {
+      setComplaintsList((prev) => prev.filter((c) => c.id !== id));
+    }, 5500);
+  }
+
+  function handlePostAnnouncement({ title, body, tag, tagColor }) {
+    const now = new Date();
+    const dateStr = now.toISOString().split('T')[0];
+    const newPost = { id: Date.now(), title, body, date: dateStr, tag, tagColor, isNew: true };
+    setAnnouncementsList((prev) => [newPost, ...prev]);
+  }
 
   return (
     <div id="hr-dashboard">
@@ -738,9 +877,9 @@ export default function HRDashboard() {
       {/* Tab Content */}
       {activeTab === 'overview' && <OverviewPage stats={stats} onPopup={openPopup} />}
       {activeTab === 'employees' && <EmployeesPage stats={stats} onPopup={openPopup} />}
-      {activeTab === 'complaints' && <ComplaintsPage onPopup={openPopup} />}
+      {activeTab === 'complaints' && <ComplaintsPage onPopup={openPopup} complaints={complaintsList} />}
       {activeTab === 'approvals' && <ApprovalsPage stats={stats} onPopup={openPopup} />}
-      {activeTab === 'announcements' && <AnnouncementsPage onPopup={openPopup} />}
+      {activeTab === 'announcements' && <AnnouncementsPage onPopup={openPopup} announcements={announcementsList} />}
       {activeTab === 'reports' && <ReportsPage stats={stats} />}
 
       {/* ── Popups ── */}
@@ -749,10 +888,11 @@ export default function HRDashboard() {
       {popup === 'attrition' && <AttritionPopup stats={stats} onClose={closePopup} />}
       {popup === 'open-positions' && <OpenPositionsPopup stats={stats} onClose={closePopup} />}
       {popup === 'approvals' && <ApprovalsPopup stats={stats} onClose={closePopup} />}
-      {popup === 'post-announcement' && <PostAnnouncementPopup onClose={closePopup} />}
+      {popup === 'recruitment' && <RecruitmentPopup stats={stats} onClose={closePopup} />}
+      {popup === 'post-announcement' && <PostAnnouncementPopup onClose={closePopup} onPost={handlePostAnnouncement} />}
       {popup === 'budget' && <BudgetBreakdownPopup onClose={closePopup} />}
       {popup === 'dept-detail' && <DepartmentDetailPopup dept={popupData} stats={stats} onClose={closePopup} />}
-      {popup === 'complaint' && <ComplaintDetailPopup complaint={popupData} onClose={closePopup} />}
+      {popup === 'complaint' && <ComplaintDetailPopup complaint={popupData} onClose={closePopup} onResolve={handleResolveComplaint} />}
       {popup === 'announcement' && <AnnouncementPopup item={popupData} onClose={closePopup} />}
     </div>
   );
