@@ -480,7 +480,7 @@ function OverviewPage({ stats, onOpenComplaint, onPopup }) {
               if (action.label === 'Apply Leave') { onPopup('apply-leave'); return; }
               if (action.label === 'My Goals') { onPopup('goals-quick'); return; }
             }}
-            style={action.isComplaint ? { border: '1px solid rgba(248,113,113,0.2)', background: 'rgba(248,113,113,0.04)' } : undefined}
+            style={action.isComplaint ? { border: '2px solid rgba(248,113,113,0.7)', background: 'rgba(248,113,113,0.04)' } : undefined}
           >
             <div className="text-2xl mb-3 transition-transform duration-300 group-hover:scale-110">{action.icon}</div>
             <p className="text-sm font-semibold" style={{ color: action.isComplaint ? '#f87171' : 'var(--color-text-primary)' }}>{action.label}</p>

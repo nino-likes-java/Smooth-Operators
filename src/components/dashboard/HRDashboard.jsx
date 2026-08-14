@@ -531,7 +531,7 @@ function OverviewPage({ stats, onPopup, complaints, onTabChange }) {
             key={i}
             className="glass-card p-5 text-left cursor-pointer group relative flex items-center gap-4"
             id={`hr-action-${action.label.toLowerCase().replace(/\s/g, '-')}`}
-            style={action.isComplaint ? { border: '1px solid rgba(248,113,113,0.2)', background: 'rgba(248,113,113,0.04)' } : undefined}
+            style={action.isComplaint ? { border: '2px solid rgba(248,113,113,0.7)', background: 'rgba(248,113,113,0.04)' } : undefined}
             onClick={() => {
               if (action.label === 'Approvals') { onPopup('approvals'); return; }
               if (action.label === 'Post Update') { onPopup('post-announcement'); return; }
