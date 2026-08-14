@@ -170,7 +170,7 @@ export default function Header() {
 
             {/* Name + role */}
             <div className="hidden sm:block text-left">
-              <h1 className="text-xs font-bold leading-tight font-playfair text-gold-muted tracking-wide">
+              <h1 className="text-xs font-bold leading-tight font-playfair tracking-wide" style={{ color: 'var(--color-gold-muted)' }}>
                 <span>{profile.name.split(' ')[0]}</span>
               </h1>
               <p className="text-[10px] text-text-muted-alt tracking-wide font-sans">
@@ -233,8 +233,8 @@ export default function Header() {
                 </div>
                 {/* Info */}
                 <div className="min-w-0 font-sans">
-                  <p className="text-sm font-bold text-gold-muted truncate font-playfair">{profile.name}</p>
-                  <p className="text-[10px] text-gold-muted truncate">{profile.role}</p>
+                  <p className="text-sm font-bold truncate font-playfair" style={{ color: 'var(--color-gold-muted)' }}>{profile.name}</p>
+                  <p className="text-[10px] text-gold-light truncate">{profile.role}</p>
                   <p className="text-[10px] text-text-muted-alt truncate">{profile.email}</p>
                   <span
                     className="inline-block mt-1.5 text-[9px] font-bold px-2 py-0.5 rounded-full text-gold-muted border border-gold-muted/30 bg-gold-muted/10"

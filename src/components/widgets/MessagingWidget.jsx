@@ -82,7 +82,7 @@ function EmployeeMessaging() {
               )}
               <div style={{ maxWidth: '78%' }}>
                 {!isOutgoing && (
-                  <p className="text-[10px] text-text-muted mb-1 ml-1">{msg.from}</p>
+                  <p className={`text-[10px] mb-1 ml-1 ${(msg.from?.includes('Alex') || msg.from?.includes('Rachel')) ? 'text-gold-muted font-semibold' : 'text-text-muted'}`}>{msg.from}</p>
                 )}
                 <div
                   className="px-4 py-3 rounded-2xl text-sm leading-relaxed"
@@ -276,7 +276,7 @@ function HRMessaging() {
                 </div>
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center justify-between">
-                    <p className="text-xs font-semibold text-text-primary">{emp}</p>
+                    <p className={`text-xs font-semibold ${(emp.includes('Alex') || emp.includes('Rachel')) ? 'text-gold-muted' : 'text-text-primary'}`}>{emp}</p>
                     <span className="text-[10px] text-text-muted">{lastMsg?.timestamp?.slice(-5)}</span>
                   </div>
                   <p className="text-[11px] text-text-secondary truncate mt-0.5">{lastMsg?.text}</p>
@@ -323,7 +323,7 @@ function HRMessaging() {
           {selectedEmployee.split(' ').map((n) => n[0]).join('')}
         </div>
         <div>
-          <p className="text-xs font-semibold text-text-primary">{selectedEmployee}</p>
+          <p className={`text-xs font-semibold ${(selectedEmployee?.includes('Alex') || selectedEmployee?.includes('Rachel')) ? 'text-gold-muted' : 'text-text-primary'}`}>{selectedEmployee}</p>
           <p className="text-[10px] text-text-muted">Employee</p>
         </div>
       </div>
@@ -336,7 +336,7 @@ function HRMessaging() {
             <div key={msg.id} className={`flex ${isOutgoing ? 'justify-end' : 'justify-start'}`}>
               <div style={{ maxWidth: '80%' }}>
                 {!isOutgoing && (
-                  <p className="text-[10px] text-text-muted mb-1 ml-1">{msg.from}</p>
+                  <p className={`text-[10px] mb-1 ml-1 ${(msg.from?.includes('Alex') || msg.from?.includes('Rachel')) ? 'text-gold-muted font-semibold' : 'text-text-muted'}`}>{msg.from}</p>
                 )}
                 <div
                   className="px-4 py-3 rounded-2xl text-sm leading-relaxed"

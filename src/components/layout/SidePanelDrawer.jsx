@@ -151,7 +151,7 @@ function HRComplaintsTab() {
             </div>
             <h4 className="text-sm font-bold font-playfair text-text-light mb-1">{c.subject}</h4>
             <div className="flex items-center gap-2">
-              <span className="text-[10px] text-text-secondary font-medium">{c.employee}</span>
+              <span className={`text-[10px] font-medium ${(c.employee?.includes('Alex') || c.employee?.includes('Rachel')) ? 'text-gold-muted font-semibold' : 'text-text-secondary'}`}>{c.employee}</span>
               <span className="text-[10px] text-text-muted">·</span>
               <span className="text-[10px] text-text-muted">{c.department}</span>
               <span className="text-[10px] text-text-muted">·</span>
