@@ -76,7 +76,7 @@ export function AppProvider({ children }) {
     setMousePos({ x: e.clientX, y: e.clientY });
   }, []);
 
-  // Send a message as employee â†’ HR
+  // Send a message as employee → HR
   const sendEmployeeMessage = useCallback((text) => {
     setEmployeeMessages((prev) => [
       ...prev,

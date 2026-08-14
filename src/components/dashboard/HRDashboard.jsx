@@ -13,7 +13,7 @@ import {
 /* â”€â”€â”€ Helpers â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 const STATUS_STYLES = {
   Pending: { bg: 'rgba(251, 191, 36, 0.1)', border: 'rgba(251, 191, 36, 0.2)', text: '#fbbf24' },
-  'In Review': { bg: 'rgba(167, 139, 250, 0.1)', border: 'rgba(167, 139, 250, 0.2)', text: '#a78bfa' },
+  'In Review': { bg: 'rgba(223, 201, 147, 0.1)', border: 'rgba(223, 201, 147, 0.2)', text: '#DFC993' },
   Resolved: { bg: 'rgba(74, 222, 128, 0.1)', border: 'rgba(74, 222, 128, 0.2)', text: '#4ade80' },
 };
 const SEVERITY_COLORS = { Low: '#60a5fa', Medium: '#fbbf24', High: '#f87171' };
@@ -44,8 +44,8 @@ function DetailPopup({ title, icon, onClose, children, wide }) {
           style={{
             width: '100%',
             maxWidth: wide ? 640 : 520,
-            background: 'rgba(19, 19, 25, 0.97)',
-            border: '1px solid rgba(55,55,68,0.85)',
+            background: 'var(--color-surface-card)',
+            border: '1px solid var(--color-surface-border)',
             boxShadow: '0 32px 80px rgba(0,0,0,0.6)',
             animation: 'popIn 0.2s cubic-bezier(0.34,1.56,0.64,1)',
           }}
@@ -54,7 +54,7 @@ function DetailPopup({ title, icon, onClose, children, wide }) {
           <div
             className="flex items-center justify-between px-6 py-4"
             style={{
-              background: 'linear-gradient(135deg, rgba(147,51,234,0.07), rgba(45,212,255,0.05))',
+              background: 'linear-gradient(135deg, rgba(13,32,53,0.07), rgba(200,169,107,0.05))',
               borderBottom: '1px solid rgba(38,38,47,0.9)',
             }}
           >
@@ -62,7 +62,7 @@ function DetailPopup({ title, icon, onClose, children, wide }) {
               <span className="text-2xl">{icon}</span>
               <h2 className="text-base font-bold text-text-primary">{title}</h2>
             </div>
-            <button onClick={onClose} className="w-8 h-8 rounded-lg flex items-center justify-center text-text-muted transition-all hover:bg-white/10 hover:text-white">âœ•</button>
+            <button onClick={onClose} className="w-8 h-8 rounded-lg flex items-center justify-center text-text-muted transition-all hover:bg-white/10 hover:text-white">✕</button>
           </div>
           <div className="p-6 max-h-[72vh] overflow-y-auto">{children}</div>
         </div>
@@ -84,10 +84,10 @@ function InfoRow({ label, value, color }) {
 /* â”€â”€â”€ Popup Components â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 function TotalEmployeesPopup({ stats, onClose }) {
   return (
-    <DetailPopup title="Total Employees" icon="ðŸ‘¥" onClose={onClose}>
+    <DetailPopup title="Total Employees" icon="👥" onClose={onClose}>
       <div className="flex gap-3 mb-5">
         {[
-          { label: 'Total', value: stats.totalEmployees, color: '#2DD4FF' },
+          { label: 'Total', value: stats.totalEmployees, color: '#C8A96B' },
           { label: 'New Hires', value: stats.newHires, color: '#4ade80' },
           { label: 'Open Roles', value: stats.openPositions, color: '#f87171' },
         ].map((c, i) => (
@@ -113,11 +113,11 @@ function NewHiresPopup({ stats, onClose }) {
     { name: 'Mei Zhang', role: 'Data Scientist', dept: 'Product', date: 'Jul 28' },
   ];
   return (
-    <DetailPopup title={`New Hires â€” ${stats.newHires} This Month`} icon="ðŸ†•" onClose={onClose}>
+    <DetailPopup title={`New Hires — ${stats.newHires} This Month`} icon="🆕" onClose={onClose}>
       <div className="space-y-3">
         {hires.map((h, i) => (
-          <div key={i} className="flex items-center gap-4 p-4 rounded-xl" style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(38,38,47,0.9)' }}>
-            <div className="w-9 h-9 rounded-full flex items-center justify-center text-xs font-bold flex-shrink-0" style={{ background: 'linear-gradient(135deg, rgba(45,212,255,0.15), rgba(147,51,234,0.15))', border: '1px solid rgba(45,212,255,0.15)', color: '#2DD4FF' }}>
+          <div key={i} className="flex items-center gap-4 p-4 rounded-xl" style={{ background: 'var(--color-surface-card)', border: '1px solid var(--color-surface-border)' }}>
+            <div className="w-9 h-9 rounded-full flex items-center justify-center text-xs font-bold flex-shrink-0" style={{ background: 'linear-gradient(135deg, rgba(200,169,107,0.15), rgba(13,32,53,0.15))', border: '1px solid rgba(200,169,107,0.15)', color: '#C8A96B' }}>
               {h.name.split(' ').map((n) => n[0]).join('')}
             </div>
             <div className="flex-1">
@@ -137,18 +137,18 @@ function AttritionPopup({ stats, onClose }) {
   const reasons = [
     { reason: 'Better Opportunity', pct: 42, color: '#f87171' },
     { reason: 'Work-Life Balance', pct: 28, color: '#fbbf24' },
-    { reason: 'Career Growth', pct: 18, color: '#a78bfa' },
+    { reason: 'Career Growth', pct: 18, color: '#DFC993' },
     { reason: 'Relocation', pct: 12, color: '#60a5fa' },
   ];
   return (
-    <DetailPopup title="Attrition Analysis" icon="ðŸ“‰" onClose={onClose}>
+    <DetailPopup title="Attrition Analysis" icon="📉" onClose={onClose}>
       <div className="flex gap-3 mb-5">
         <div className="flex-1 p-4 rounded-xl text-center" style={{ background: 'rgba(248,113,113,0.07)', border: '1px solid rgba(248,113,113,0.2)' }}>
           <p className="text-3xl font-black" style={{ color: '#f87171' }}>{stats.attritionRate}%</p>
           <p className="text-[10px] text-text-muted mt-1">Current Rate</p>
         </div>
         <div className="flex-1 p-4 rounded-xl text-center" style={{ background: 'rgba(74,222,128,0.07)', border: '1px solid rgba(74,222,128,0.2)' }}>
-          <p className="text-3xl font-black" style={{ color: '#4ade80' }}>âˆ’0.5%</p>
+          <p className="text-3xl font-black" style={{ color: '#4ade80' }}>−0.5%</p>
           <p className="text-[10px] text-text-muted mt-1">vs Last Month</p>
         </div>
       </div>
@@ -178,10 +178,10 @@ function OpenPositionsPopup({ stats, onClose }) {
   ];
   const urgencyColor = { Urgent: '#f87171', High: '#fbbf24', Medium: '#60a5fa' };
   return (
-    <DetailPopup title={`Open Positions (${stats.openPositions})`} icon="ðŸ“‹" onClose={onClose}>
+    <DetailPopup title={`Open Positions (${stats.openPositions})`} icon="📋" onClose={onClose}>
       <div className="space-y-3">
         {positions.map((p, i) => (
-          <div key={i} className="flex items-center justify-between p-4 rounded-xl" style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(38,38,47,0.9)' }}>
+          <div key={i} className="flex items-center justify-between p-4 rounded-xl" style={{ background: 'var(--color-surface-card)', border: '1px solid var(--color-surface-border)' }}>
             <div>
               <p className="text-sm font-semibold text-text-primary">{p.title}</p>
               <p className="text-[10px] text-text-muted">{p.dept} Â· Open since {p.since}</p>
@@ -223,7 +223,7 @@ function ApprovalsPopup({ stats, onClose }) {
     <DetailPopup title={`Pending Approvals (${stats.pendingApprovals})`} icon="â³" onClose={onClose}>
       <div className="space-y-4">
         {approvals.map((item, i) => (
-          <div key={i} className="p-4 rounded-xl" style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(38,38,47,0.9)' }}>
+          <div key={i} className="p-4 rounded-xl" style={{ background: 'var(--color-surface-card)', border: '1px solid var(--color-surface-border)' }}>
             {/* Header row: name + timing badge only */}
             <div className="flex items-center justify-between mb-2">
               <div>
@@ -238,17 +238,17 @@ function ApprovalsPopup({ stats, onClose }) {
             {/* Stats */}
             <div className="space-y-1.5 mb-3">
               <MiniStatBar label="Attendance" pct={item.attendance} color={attColor(item.attendance)} />
-              <MiniStatBar label="Tasks done" pct={item.tasks} color="#a78bfa" />
+              <MiniStatBar label="Tasks done" pct={item.tasks} color="#DFC993" />
             </div>
             {/* Action row: buttons OR decision badge */}
             {decisions[i] ? (
               <div className="flex items-center justify-center py-2 rounded-lg" style={{ background: decisions[i] === 'approved' ? 'rgba(74,222,128,0.06)' : 'rgba(248,113,113,0.06)', border: `1px solid ${decisions[i] === 'approved' ? 'rgba(74,222,128,0.2)' : 'rgba(248,113,113,0.2)'}` }}>
-                <span className="text-xs font-bold" style={{ color: decisions[i] === 'approved' ? '#4ade80' : '#f87171' }}>{decisions[i] === 'approved' ? 'âœ“ Approved' : 'âœ• Rejected'}</span>
+                <span className="text-xs font-bold" style={{ color: decisions[i] === 'approved' ? '#4ade80' : '#f87171' }}>{decisions[i] === 'approved' ? '✓ Approved' : '✕ Rejected'}</span>
               </div>
             ) : (
               <div className="flex gap-2">
-                <button onClick={() => decide(i, 'approved')} className="flex-1 py-2 rounded-lg text-xs font-semibold transition-all hover:scale-105" style={{ background: 'rgba(74,222,128,0.1)', border: '1px solid rgba(74,222,128,0.2)', color: '#4ade80' }}>âœ“ Approve</button>
-                <button onClick={() => decide(i, 'rejected')} className="flex-1 py-2 rounded-lg text-xs font-semibold transition-all hover:scale-105" style={{ background: 'rgba(248,113,113,0.1)', border: '1px solid rgba(248,113,113,0.2)', color: '#f87171' }}>âœ• Reject</button>
+                <button onClick={() => decide(i, 'approved')} className="flex-1 py-2 rounded-lg text-xs font-semibold transition-all hover:scale-105" style={{ background: 'rgba(74,222,128,0.1)', border: '1px solid rgba(74,222,128,0.2)', color: '#4ade80' }}>✓ Approve</button>
+                <button onClick={() => decide(i, 'rejected')} className="flex-1 py-2 rounded-lg text-xs font-semibold transition-all hover:scale-105" style={{ background: 'rgba(248,113,113,0.1)', border: '1px solid rgba(248,113,113,0.2)', color: '#f87171' }}>✕ Reject</button>
               </div>
             )}
           </div>
@@ -260,8 +260,8 @@ function ApprovalsPopup({ stats, onClose }) {
 
 
 const CATEGORY_COLORS = {
-  Policy: '#f87171', Event: '#2DD4FF', Holiday: '#4ade80',
-  Benefit: '#9333EA', Achievement: '#fbbf24', General: '#a78bfa',
+  Policy: '#f87171', Event: '#C8A96B', Holiday: '#4ade80',
+  Benefit: '#0D2035', Achievement: '#fbbf24', General: '#DFC993',
 };
 
 function PostAnnouncementPopup({ onClose, onPost }) {
@@ -272,16 +272,16 @@ function PostAnnouncementPopup({ onClose, onPost }) {
 
   function handlePost() {
     if (!title.trim() || !message.trim()) return;
-    onPost && onPost({ title: title.trim(), body: message.trim(), tag: category, tagColor: CATEGORY_COLORS[category] || '#a78bfa' });
+    onPost && onPost({ title: title.trim(), body: message.trim(), tag: category, tagColor: CATEGORY_COLORS[category] || '#DFC993' });
     setPosted(true);
     setTimeout(() => onClose(), 1500);
   }
 
   return (
-    <DetailPopup title="Post Announcement" icon="ðŸ“¢" onClose={onClose}>
+    <DetailPopup title="Post Announcement" icon="📢" onClose={onClose}>
       {posted ? (
         <div className="flex flex-col items-center justify-center gap-3 py-8">
-          <span className="text-4xl">ðŸ“¢</span>
+          <span className="text-4xl">📢</span>
           <p className="text-sm font-bold text-text-primary">Posted successfully!</p>
           <p className="text-xs text-text-muted">Your announcement is now live for all employees.</p>
         </div>
@@ -289,7 +289,7 @@ function PostAnnouncementPopup({ onClose, onPost }) {
         <div className="space-y-4">
           <div>
             <label className="text-[10px] uppercase tracking-widest text-text-muted block mb-2">Title</label>
-            <input value={title} onChange={(e) => setTitle(e.target.value)} className="w-full rounded-xl px-3 py-2.5 text-sm text-text-primary" style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(38,38,47,0.9)' }} placeholder="Announcement title..." />
+            <input value={title} onChange={(e) => setTitle(e.target.value)} className="w-full rounded-xl px-3 py-2.5 text-sm text-text-primary" style={{ background: 'var(--color-surface-card)', border: '1px solid var(--color-surface-border)' }} placeholder="Announcement title..." />
           </div>
           <div>
             <label className="text-[10px] uppercase tracking-widest text-text-muted block mb-2">Category</label>
@@ -301,9 +301,9 @@ function PostAnnouncementPopup({ onClose, onPost }) {
           </div>
           <div>
             <label className="text-[10px] uppercase tracking-widest text-text-muted block mb-2">Message</label>
-            <textarea rows={4} value={message} onChange={(e) => setMessage(e.target.value)} className="w-full rounded-xl px-3 py-2 text-sm text-text-primary resize-none" style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(38,38,47,0.9)' }} placeholder="Write your announcement..." />
+            <textarea rows={4} value={message} onChange={(e) => setMessage(e.target.value)} className="w-full rounded-xl px-3 py-2 text-sm text-text-primary resize-none" style={{ background: 'var(--color-surface-card)', border: '1px solid var(--color-surface-border)' }} placeholder="Write your announcement..." />
           </div>
-          <button onClick={handlePost} disabled={!title.trim() || !message.trim()} className="w-full py-2.5 rounded-xl text-sm font-bold transition-all" style={{ background: title.trim() && message.trim() ? 'linear-gradient(135deg, #9333EA, #2DD4FF)' : 'rgba(38,38,47,0.9)', color: title.trim() && message.trim() ? '#000' : 'rgba(255,255,255,0.3)', cursor: title.trim() && message.trim() ? 'pointer' : 'not-allowed' }}>Post to All Employees</button>
+          <button onClick={handlePost} disabled={!title.trim() || !message.trim()} className="w-full py-2.5 rounded-xl text-sm font-bold transition-all" style={{ background: title.trim() && message.trim() ? 'linear-gradient(135deg, #0D2035, #C8A96B)' : 'rgba(38,38,47,0.9)', color: title.trim() && message.trim() ? '#000' : 'rgba(255,255,255,0.3)', cursor: title.trim() && message.trim() ? 'pointer' : 'not-allowed' }}>Post to All Employees</button>
         </div>
       )}
     </DetailPopup>
@@ -312,7 +312,7 @@ function PostAnnouncementPopup({ onClose, onPost }) {
 
 function BudgetBreakdownPopup({ onClose }) {
   return (
-    <DetailPopup title="Department Budget Breakdown" icon="ðŸ’¹" onClose={onClose}>
+    <DetailPopup title="Department Budget Breakdown" icon="💸" onClose={onClose}>
       <div className="mb-5">
         <FinancialDonut data={budgetData} title="Budget Allocation" />
       </div>
@@ -325,7 +325,7 @@ function BudgetBreakdownPopup({ onClose }) {
             </div>
             <div className="flex items-center gap-3">
               <span className="text-xs font-semibold text-text-primary">{item.value}%</span>
-              <span className="text-[10px] text-text-muted">â‚¹{(item.value * 1.2).toFixed(0)}L</span>
+              <span className="text-[10px] text-text-muted">₹{(item.value * 1.2).toFixed(0)}L</span>
             </div>
           </div>
         ))}
@@ -343,7 +343,7 @@ function DepartmentDetailPopup({ dept, stats, onClose }) {
           <p className="text-3xl font-black" style={{ color: dept.color }}>{dept.count}</p>
           <p className="text-[10px] text-text-muted mt-1">Headcount</p>
         </div>
-        <div className="flex-1 p-4 rounded-xl text-center" style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(38,38,47,0.9)' }}>
+        <div className="flex-1 p-4 rounded-xl text-center" style={{ background: 'var(--color-surface-card)', border: '1px solid var(--color-surface-border)' }}>
           <p className="text-3xl font-black text-text-primary">{Math.floor(dept.count * 0.12)}</p>
           <p className="text-[10px] text-text-muted mt-1">New Hires</p>
         </div>
@@ -352,7 +352,7 @@ function DepartmentDetailPopup({ dept, stats, onClose }) {
           <p className="text-[10px] text-text-muted mt-1">Open Positions</p>
         </div>
       </div>
-      <div className="rounded-xl" style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(38,38,47,0.9)' }}>
+      <div className="rounded-xl" style={{ background: 'var(--color-surface-card)', border: '1px solid var(--color-surface-border)' }}>
         <div className="px-4">
           <InfoRow label="Manager" value="TBD" />
           <InfoRow label="Budget Share" value={`${((dept.count / stats.totalEmployees) * 100).toFixed(0)}%`} color={dept.color} />
@@ -393,7 +393,7 @@ function ComplaintDetailPopup({ complaint, onClose, onResolve, onUpdateStatus })
   }, [countdown]);
 
   return (
-    <DetailPopup title="Complaint Detail" icon="ðŸ“¨" onClose={onClose}>
+    <DetailPopup title="Complaint Detail" icon="📩" onClose={onClose}>
       <div className="flex items-center gap-2 mb-4">
         <span className="text-xs font-semibold px-2 py-0.5 rounded-full" style={{ background: currentSt.bg, border: `1px solid ${currentSt.border}`, color: currentSt.text }}>{status}</span>
         <span className="w-2 h-2 rounded-full inline-block" style={{ background: SEVERITY_COLORS[complaint.severity] }} />
@@ -402,22 +402,22 @@ function ComplaintDetailPopup({ complaint, onClose, onResolve, onUpdateStatus })
       </div>
       <h3 className="text-sm font-bold text-text-primary mb-3">{complaint.subject}</h3>
       <p className="text-xs text-text-secondary leading-relaxed mb-5">{complaint.description}</p>
-      <div className="rounded-xl mb-5" style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(38,38,47,0.9)' }}>
+      <div className="rounded-xl mb-5" style={{ background: 'var(--color-surface-card)', border: '1px solid var(--color-surface-border)' }}>
         <div className="px-4">
-          <InfoRow label="Filed by" value={complaint.employee} color="#2DD4FF" />
+          <InfoRow label="Filed by" value={complaint.employee} color="#C8A96B" />
           <InfoRow label="Department" value={complaint.department} />
           <InfoRow label="ID" value={complaint.id} />
         </div>
       </div>
       {resolving && (
         <div className="flex items-center justify-center gap-2 py-3 rounded-xl" style={{ background: 'rgba(74,222,128,0.08)', border: '1px solid rgba(74,222,128,0.2)' }}>
-          <span className="text-sm">âœ“</span>
-          <span className="text-xs font-semibold" style={{ color: '#4ade80' }}>Resolved â€” closing in {countdown}s</span>
+          <span className="text-sm">✓</span>
+          <span className="text-xs font-semibold" style={{ color: '#4ade80' }}>Resolved — closing in {countdown}s</span>
         </div>
       )}
       {status === 'Resolved' && !resolving && (
         <div className="flex items-center justify-center gap-2 py-3 rounded-xl" style={{ background: 'rgba(74,222,128,0.08)', border: '1px solid rgba(74,222,128,0.2)' }}>
-          <span className="text-xs font-semibold" style={{ color: '#4ade80' }}>âœ“ This complaint has been resolved</span>
+          <span className="text-xs font-semibold" style={{ color: '#4ade80' }}>✓ This complaint has been resolved</span>
         </div>
       )}
       {status === 'Pending' && !resolving && (
@@ -431,7 +431,7 @@ function ComplaintDetailPopup({ complaint, onClose, onResolve, onUpdateStatus })
             onClick={handleMarkResolved}
             className="flex-1 py-2.5 rounded-xl text-xs font-bold transition-all hover:scale-105"
             style={{ background: 'rgba(74,222,128,0.12)', border: '1px solid rgba(74,222,128,0.3)', color: '#4ade80' }}
-          >âœ“ Mark Resolved</button>
+          >✓ Mark Resolved</button>
         </div>
       )}
       {status === 'In Review' && !resolving && (
@@ -443,7 +443,7 @@ function ComplaintDetailPopup({ complaint, onClose, onResolve, onUpdateStatus })
             onClick={handleMarkResolved}
             className="flex-1 py-2.5 rounded-xl text-xs font-bold transition-all hover:scale-105"
             style={{ background: 'rgba(74,222,128,0.12)', border: '1px solid rgba(74,222,128,0.3)', color: '#4ade80' }}
-          >âœ“ Mark Resolved</button>
+          >✓ Mark Resolved</button>
         </div>
       )}
     </DetailPopup>
@@ -453,13 +453,13 @@ function ComplaintDetailPopup({ complaint, onClose, onResolve, onUpdateStatus })
 function AnnouncementPopup({ item, onClose }) {
   if (!item) return null;
   return (
-    <DetailPopup title={item.title} icon="ðŸ“¢" onClose={onClose}>
+    <DetailPopup title={item.title} icon="📢" onClose={onClose}>
       <div className="flex items-center gap-2 mb-4">
         <span className="text-[10px] font-semibold px-2.5 py-1 rounded-full" style={{ background: `${item.tagColor}15`, color: item.tagColor, border: `1px solid ${item.tagColor}30` }}>{item.tag}</span>
         <span className="text-[10px] text-text-muted">{item.date}</span>
       </div>
       <p className="text-sm text-text-secondary leading-relaxed">{item.body}</p>
-      <div className="mt-5 rounded-xl" style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(38,38,47,0.9)' }}>
+      <div className="mt-5 rounded-xl" style={{ background: 'var(--color-surface-card)', border: '1px solid var(--color-surface-border)' }}>
         <div className="px-4">
           <InfoRow label="Category" value={item.tag} color={item.tagColor} />
           <InfoRow label="Posted" value={item.date} />
@@ -483,8 +483,8 @@ function HRStatCard({ icon, label, value, trend, trendUp, color, delay, onClick 
       </div>
       <p className="text-2xl font-bold text-text-primary">{value}</p>
       <p className="text-xs text-text-secondary mt-1">{label}</p>
-      {trend && <p className="text-[10px] font-semibold mt-2" style={{ color: trendUp ? '#2DD4FF' : '#f87171' }}>{trendUp ? 'â†‘' : 'â†“'} {trend}</p>}
-      <p className="text-[10px] text-text-muted mt-1 opacity-0 group-hover:opacity-100 transition-opacity">Click for details â†’</p>
+      {trend && <p className="text-[10px] font-semibold mt-2" style={{ color: trendUp ? '#C8A96B' : '#f87171' }}>{trendUp ? '↑' : '↓'} {trend}</p>}
+      <p className="text-[10px] text-text-muted mt-1 opacity-0 group-hover:opacity-100 transition-opacity">Click for details →</p>
     </div>
   );
 }
@@ -496,7 +496,7 @@ function OverviewPage({ stats, onPopup, complaints, onTabChange }) {
     <div className="space-y-5">
       {/* Welcome Banner */}
       <div className="glass-card p-7 relative overflow-hidden animate-fade-in-up" style={{ opacity: 0 }}>
-        <div className="absolute inset-0 opacity-30" style={{ background: 'linear-gradient(135deg, rgba(147, 51, 234, 0.1), rgba(45, 212, 255, 0.06))' }} />
+        <div className="absolute inset-0 opacity-30" style={{ background: 'linear-gradient(135deg, rgba(13, 32, 53, 0.1), rgba(200, 169, 107, 0.06))' }} />
         <div className="relative flex items-center justify-between">
           <div>
             <p className="text-sm text-text-secondary mb-1">HR Control Center</p>
@@ -508,20 +508,20 @@ function OverviewPage({ stats, onPopup, complaints, onTabChange }) {
             className="px-4 py-2 rounded-xl text-sm font-semibold cursor-pointer transition-all hover:scale-105"
             style={{ background: 'rgba(248, 113, 113, 0.1)', border: '1px solid rgba(248, 113, 113, 0.2)', color: '#f87171' }}
           >
-            ðŸ“¨ {complaints.filter((c) => c.status !== 'Resolved').length} Open Complaints
+            📩 {complaints.filter((c) => c.status !== 'Resolved').length} Open Complaints
           </button>
         </div>
       </div>
 
       {/* Clickable Stat Cards */}
       <div className="grid grid-cols-4 gap-5">
-        <HRStatCard icon="ðŸ‘¥" label="Total Employees" value={stats.totalEmployees} trend="+12 this month" trendUp color="#2DD4FF" delay="delay-100" onClick={() => onPopup('total-employees')} />
-        <HRStatCard icon="ðŸ†•" label="New Hires" value={stats.newHires} trend="+4 vs last month" trendUp color="#9333EA" delay="delay-200" onClick={() => onPopup('new-hires')} />
-        <HRStatCard icon="ðŸ“‰" label="Attrition Rate" value={`${stats.attritionRate}%`} trend="-0.5% improvement" trendUp color="#a78bfa" delay="delay-300" onClick={() => onPopup('attrition')} />
-        <HRStatCard icon="ðŸ“‹" label="Open Positions" value={stats.openPositions} trend="3 urgent" trendUp={false} color="#06b6d4" delay="delay-400" onClick={() => onPopup('open-positions')} />
+        <HRStatCard icon="👥" label="Total Employees" value={stats.totalEmployees} trend="+12 this month" trendUp color="#C8A96B" delay="delay-100" onClick={() => onPopup('total-employees')} />
+        <HRStatCard icon="🆕" label="New Hires" value={stats.newHires} trend="+4 vs last month" trendUp color="#0D2035" delay="delay-200" onClick={() => onPopup('new-hires')} />
+        <HRStatCard icon="📉" label="Attrition Rate" value={`${stats.attritionRate}%`} trend="-0.5% improvement" trendUp color="#DFC993" delay="delay-300" onClick={() => onPopup('attrition')} />
+        <HRStatCard icon="📋" label="Open Positions" value={stats.openPositions} trend="3 urgent" trendUp={false} color="#123452" delay="delay-400" onClick={() => onPopup('open-positions')} />
       </div>
 
-      {/* Quick Actions â€” 2Ã—2 grid for breathing room */}
+      {/* Quick Actions — 2Ã—2 grid for breathing room */}
       <div className="grid grid-cols-2 gap-4 animate-fade-in-up delay-200" style={{ opacity: 0 }}>
         {hrActions.map((action, i) => (
           <button
@@ -549,7 +549,7 @@ function OverviewPage({ stats, onPopup, complaints, onTabChange }) {
             {action.badge && (
               <span
                 className="flex-shrink-0 min-w-[26px] h-6 px-1.5 rounded-full text-[10px] font-bold flex items-center justify-center text-white"
-                style={{ background: action.isComplaint ? 'linear-gradient(135deg, #f87171, #dc2626)' : 'linear-gradient(135deg, #2DD4FF, #9333EA)' }}
+                style={{ background: action.isComplaint ? 'linear-gradient(135deg, #f87171, #dc2626)' : 'linear-gradient(135deg, #C8A96B, #0D2035)' }}
               >
                 {action.badge}
               </span>
@@ -585,13 +585,13 @@ function OverviewPage({ stats, onPopup, complaints, onTabChange }) {
                 <h3 className="text-base font-semibold text-text-primary">Employee Complaints</h3>
                 <p className="text-xs text-text-secondary mt-1">{complaints.filter((c) => c.status !== 'Resolved').length} open Â· {complaints.filter((c) => c.status === 'Resolved').length} resolved</p>
               </div>
-              <div className="w-10 h-10 rounded-xl flex items-center justify-center text-lg" style={{ background: 'rgba(248, 113, 113, 0.1)' }}>ðŸ“¨</div>
+              <div className="w-10 h-10 rounded-xl flex items-center justify-center text-lg" style={{ background: 'rgba(248, 113, 113, 0.1)' }}>📩</div>
             </div>
             <div className="space-y-3">
               {complaints.slice(0, 2).map((c) => {
                 const st = STATUS_STYLES[c.status] || STATUS_STYLES['Pending'];
                 return (
-                  <div key={c.id} className="p-3.5 rounded-xl hover:bg-white/[0.04] transition-colors cursor-pointer" style={{ background: 'rgba(255,255,255,0.02)' }} onClick={() => onPopup('complaint', c)}>
+                  <div key={c.id} className="p-3.5 rounded-xl hover:bg-white/[0.04] transition-colors cursor-pointer" style={{ background: 'var(--color-surface-card)' }} onClick={() => onPopup('complaint', c)}>
                     <div className="flex items-center justify-between mb-1.5">
                       <div className="flex items-center gap-2">
                         <span className="text-[10px] text-text-muted font-mono">{c.id}</span>
@@ -645,19 +645,19 @@ function AddEmployeePopup({ onClose, onAdd }) {
     setTimeout(() => onClose(), 2000);
   }
 
-  const inputStyle = { background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(38,38,47,0.9)', color: 'var(--color-text-primary)' };
+  const inputStyle = { background: 'var(--color-surface-card)', border: '1px solid var(--color-surface-border)', color: 'var(--color-text-main)' };
   const labelCls = 'text-[10px] uppercase tracking-widest text-text-muted block mb-1.5';
   const inputCls = 'w-full rounded-xl px-3 py-2.5 text-xs outline-none focus:border-purple-500/50 transition-colors';
 
   return (
-    <DetailPopup title="Add New Employee" icon="ðŸ‘¤" onClose={onClose}>
+    <DetailPopup title="Add New Employee" icon="👤" onClose={onClose}>
       {/* Step indicator */}
       <div className="flex items-center gap-2 mb-5">
         {[{ n: 1, label: 'Personal' }, { n: 2, label: 'Job Info' }, { n: 3, label: 'Done' }].map(({ n, label }) => (
           <div key={n} className="flex items-center gap-1.5 flex-1">
-            <div className="w-5 h-5 rounded-full flex items-center justify-center text-[10px] font-bold flex-shrink-0" style={{ background: step >= n ? 'linear-gradient(135deg, #9333EA, #2DD4FF)' : 'rgba(38,38,47,0.9)', color: step >= n ? '#000' : 'rgba(255,255,255,0.3)' }}>{n}</div>
-            <span className="text-[10px] font-medium" style={{ color: step >= n ? '#a78bfa' : 'rgba(255,255,255,0.3)' }}>{label}</span>
-            {n < 3 && <div className="flex-1 h-px" style={{ background: step > n ? 'rgba(147,51,234,0.5)' : 'rgba(38,38,47,0.9)' }} />}
+            <div className="w-5 h-5 rounded-full flex items-center justify-center text-[10px] font-bold flex-shrink-0" style={{ background: step >= n ? 'linear-gradient(135deg, #0D2035, #C8A96B)' : 'rgba(38,38,47,0.9)', color: step >= n ? '#000' : 'rgba(255,255,255,0.3)' }}>{n}</div>
+            <span className="text-[10px] font-medium" style={{ color: step >= n ? '#DFC993' : 'rgba(255,255,255,0.3)' }}>{label}</span>
+            {n < 3 && <div className="flex-1 h-px" style={{ background: step > n ? 'rgba(13,32,53,0.5)' : 'rgba(38,38,47,0.9)' }} />}
           </div>
         ))}
       </div>
@@ -686,8 +686,8 @@ function AddEmployeePopup({ onClose, onAdd }) {
             onClick={() => setStep(2)}
             disabled={!form.firstName || !form.lastName || !form.email}
             className="w-full py-2.5 rounded-xl text-sm font-bold transition-all"
-            style={{ background: form.firstName && form.lastName && form.email ? 'linear-gradient(135deg, #9333EA, #2DD4FF)' : 'rgba(38,38,47,0.9)', color: form.firstName && form.lastName && form.email ? '#000' : 'rgba(255,255,255,0.3)', cursor: form.firstName && form.lastName && form.email ? 'pointer' : 'not-allowed' }}
-          >Next: Job Info â†’</button>
+            style={{ background: form.firstName && form.lastName && form.email ? 'linear-gradient(135deg, #0D2035, #C8A96B)' : 'rgba(38,38,47,0.9)', color: form.firstName && form.lastName && form.email ? '#000' : 'rgba(255,255,255,0.3)', cursor: form.firstName && form.lastName && form.email ? 'pointer' : 'not-allowed' }}
+          >Next: Job Info →</button>
         </div>
       )}
 
@@ -711,7 +711,7 @@ function AddEmployeePopup({ onClose, onAdd }) {
               <label className={labelCls}>Employment Type</label>
               <div className="flex flex-col gap-1.5">
                 {['Full-time', 'Part-time', 'Contract'].map((t) => (
-                  <button key={t} onClick={() => set('employmentType', t)} className="py-2 rounded-xl text-xs font-semibold transition-all" style={{ background: form.employmentType === t ? 'rgba(147,51,234,0.15)' : 'rgba(255,255,255,0.03)', border: `1px solid ${form.employmentType === t ? 'rgba(147,51,234,0.4)' : 'rgba(38,38,47,0.9)'}`, color: form.employmentType === t ? '#a78bfa' : 'var(--color-text-secondary)' }}>{t}</button>
+                  <button key={t} onClick={() => set('employmentType', t)} className="py-2 rounded-xl text-xs font-semibold transition-all" style={{ background: form.employmentType === t ? 'rgba(13,32,53,0.15)' : 'rgba(255,255,255,0.03)', border: `1px solid ${form.employmentType === t ? 'rgba(13,32,53,0.4)' : 'rgba(38,38,47,0.9)'}`, color: form.employmentType === t ? '#DFC993' : 'var(--color-text-secondary)' }}>{t}</button>
                 ))}
               </div>
             </div>
@@ -721,26 +721,26 @@ function AddEmployeePopup({ onClose, onAdd }) {
                 <input type="date" className={inputCls} style={inputStyle} value={form.startDate} onChange={(e) => set('startDate', e.target.value)} />
               </div>
               <div>
-                <label className={labelCls}>Annual Salary (â‚¹)</label>
+                <label className={labelCls}>Annual Salary (₹)</label>
                 <input type="number" className={inputCls} style={inputStyle} placeholder="1200000" value={form.salary} onChange={(e) => set('salary', e.target.value)} />
               </div>
             </div>
           </div>
           <div className="flex gap-2">
-            <button onClick={() => setStep(1)} className="flex-1 py-2.5 rounded-xl text-sm font-semibold transition-all" style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(55,55,68,0.8)', color: 'rgba(255,255,255,0.6)' }}>â† Back</button>
+            <button onClick={() => setStep(1)} className="flex-1 py-2.5 rounded-xl text-sm font-semibold transition-all" style={{ background: 'var(--color-surface-raised)', border: '1px solid rgba(55,55,68,0.8)', color: 'rgba(255,255,255,0.6)' }}>â† Back</button>
             <button
               onClick={handleSubmit}
               disabled={!form.role}
               className="flex-1 py-2.5 rounded-xl text-sm font-bold transition-all"
-              style={{ background: form.role ? 'linear-gradient(135deg, #9333EA, #2DD4FF)' : 'rgba(38,38,47,0.9)', color: form.role ? '#000' : 'rgba(255,255,255,0.3)', cursor: form.role ? 'pointer' : 'not-allowed' }}
-            >âœ“ Add Employee</button>
+              style={{ background: form.role ? 'linear-gradient(135deg, #0D2035, #C8A96B)' : 'rgba(38,38,47,0.9)', color: form.role ? '#000' : 'rgba(255,255,255,0.3)', cursor: form.role ? 'pointer' : 'not-allowed' }}
+            >✓ Add Employee</button>
           </div>
         </div>
       )}
 
       {step === 3 && (
         <div className="flex flex-col items-center justify-center gap-4 py-10">
-          <span className="text-5xl">ðŸŽ‰</span>
+          <span className="text-5xl">🎉</span>
           <p className="text-base font-bold text-text-primary">{form.firstName} {form.lastName} added!</p>
           <p className="text-xs text-text-muted text-center">They've been added to the {form.dept} team as {form.role}.</p>
         </div>
@@ -772,7 +772,7 @@ function EmployeesPage({ stats, onPopup, employees, onAddEmployee }) {
             <div className="h-1.5 rounded-full bg-white/[0.05] overflow-hidden">
               <div className="h-full rounded-full" style={{ width: `${(dept.count / totalDeptCount) * 100}%`, background: dept.color }} />
             </div>
-            <p className="text-[10px] text-text-muted mt-2 opacity-0 group-hover:opacity-100 transition-opacity">Click for details â†’</p>
+            <p className="text-[10px] text-text-muted mt-2 opacity-0 group-hover:opacity-100 transition-opacity">Click for details →</p>
           </div>
         ))}
       </div>
@@ -786,19 +786,19 @@ function EmployeesPage({ stats, onPopup, employees, onAddEmployee }) {
             id="add-employee-btn"
             onClick={() => onPopup('add-employee')}
             className="px-4 py-2 rounded-xl text-xs font-semibold cursor-pointer transition-all hover:scale-105"
-            style={{ background: 'linear-gradient(135deg, rgba(147,51,234,0.15), rgba(45,212,255,0.1))', border: '1px solid rgba(147,51,234,0.3)', color: '#a78bfa' }}
+            style={{ background: 'linear-gradient(135deg, rgba(13,32,53,0.15), rgba(200,169,107,0.1))', border: '1px solid rgba(13,32,53,0.3)', color: '#DFC993' }}
           >+ Add Employee</button>
         </div>
         <div className="space-y-2">
           {employees.map((emp, i) => (
-            <div key={emp.id} className="flex items-center gap-4 p-4 rounded-xl hover:bg-white/[0.03] transition-colors" style={{ background: 'rgba(255,255,255,0.02)', border: emp.isNew ? '1px solid rgba(147,51,234,0.2)' : '1px solid transparent' }}>
-              <div className="w-9 h-9 rounded-full flex items-center justify-center text-xs font-bold flex-shrink-0" style={{ background: 'linear-gradient(135deg, rgba(147,51,234,0.15), rgba(45,212,255,0.15))', border: '1px solid rgba(147,51,234,0.2)', color: '#a78bfa' }}>
+            <div key={emp.id} className="flex items-center gap-4 p-4 rounded-xl hover:bg-white/[0.03] transition-colors" style={{ background: 'var(--color-surface-card)', border: emp.isNew ? '1px solid rgba(13,32,53,0.2)' : '1px solid transparent' }}>
+              <div className="w-9 h-9 rounded-full flex items-center justify-center text-xs font-bold flex-shrink-0" style={{ background: 'linear-gradient(135deg, rgba(13,32,53,0.15), rgba(200,169,107,0.15))', border: '1px solid rgba(13,32,53,0.2)', color: '#DFC993' }}>
                 {emp.name.split(' ').map((n) => n[0]).join('')}
               </div>
               <div className="flex-1 min-w-0">
                 <div className="flex items-center gap-2">
                   <p className="text-sm font-semibold text-text-primary">{emp.name}</p>
-                  {emp.isNew && <span className="text-[9px] font-bold px-1.5 py-0.5 rounded-full" style={{ background: 'rgba(147,51,234,0.2)', border: '1px solid rgba(147,51,234,0.4)', color: '#a78bfa' }}>NEW</span>}
+                  {emp.isNew && <span className="text-[9px] font-bold px-1.5 py-0.5 rounded-full" style={{ background: 'rgba(13,32,53,0.2)', border: '1px solid rgba(13,32,53,0.4)', color: '#DFC993' }}>NEW</span>}
                 </div>
                 <p className="text-[10px] text-text-muted">{emp.role} Â· {emp.dept}</p>
               </div>
@@ -827,7 +827,7 @@ function ComplaintsPage({ onPopup, complaints: localComplaints }) {
         <div className="flex items-center justify-between mb-5">
           <div>
             <h3 className="text-lg font-bold text-text-primary">Employee Complaints</h3>
-            <p className="text-xs text-text-secondary mt-1">{list.filter((c) => c.status !== 'Resolved').length} open Â· {list.filter((c) => c.status === 'Resolved').length} resolved â€” click any to review</p>
+            <p className="text-xs text-text-secondary mt-1">{list.filter((c) => c.status !== 'Resolved').length} open Â· {list.filter((c) => c.status === 'Resolved').length} resolved — click any to review</p>
           </div>
           <div className="flex items-center gap-3">
             <span className="px-3 py-1.5 rounded-full text-[10px] font-semibold" style={{ background: 'rgba(248,113,113,0.1)', border: '1px solid rgba(248,113,113,0.2)', color: '#f87171' }}>
@@ -837,7 +837,7 @@ function ComplaintsPage({ onPopup, complaints: localComplaints }) {
         </div>
         {list.length === 0 && (
           <div className="text-center py-10">
-            <p className="text-3xl mb-3">ðŸŽ‰</p>
+            <p className="text-3xl mb-3">🎉</p>
             <p className="text-sm font-semibold text-text-primary">All complaints resolved!</p>
             <p className="text-xs text-text-muted mt-1">No open complaints at the moment.</p>
           </div>
@@ -846,7 +846,7 @@ function ComplaintsPage({ onPopup, complaints: localComplaints }) {
           {list.map((c) => {
             const st = STATUS_STYLES_EXTENDED[c.status] || STATUS_STYLES_EXTENDED['Pending'];
             return (
-              <div key={c.id} className="p-5 rounded-2xl hover:bg-white/[0.04] transition-colors cursor-pointer" style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(38,38,47,0.9)' }} onClick={() => onPopup('complaint', c)}>
+              <div key={c.id} className="p-5 rounded-2xl hover:bg-white/[0.04] transition-colors cursor-pointer" style={{ background: 'var(--color-surface-card)', border: '1px solid var(--color-surface-border)' }} onClick={() => onPopup('complaint', c)}>
                 <div className="flex items-center justify-between mb-3">
                   <div className="flex items-center gap-3">
                     <span className="text-[10px] text-text-muted font-mono">{c.id}</span>
@@ -873,7 +873,7 @@ function ComplaintsPage({ onPopup, complaints: localComplaints }) {
 
 function ApprovalsPage({ stats, onPopup }) {
   const approvals = APPROVAL_DATA;
-  const COLORS = ['#2DD4FF', '#9333EA', '#a78bfa', '#06b6d4', '#8b5cf6'];
+  const COLORS = ['#C8A96B', '#0D2035', '#DFC993', '#123452', '#8b5cf6'];
   const [decisions, setDecisions] = useState({});
   const decide = (i, val) => setDecisions((d) => ({ ...d, [i]: val }));
   const attColor = (p) => p >= 90 ? '#4ade80' : p >= 80 ? '#fbbf24' : '#f87171';
@@ -888,7 +888,7 @@ function ApprovalsPage({ stats, onPopup }) {
         </div>
         <div className="space-y-4">
           {approvals.map((item, i) => (
-            <div key={i} className="p-5 rounded-xl" style={{ background: 'rgba(255,255,255,0.02)', border: `1px solid ${decisions[i] === 'approved' ? 'rgba(74,222,128,0.15)' : decisions[i] === 'rejected' ? 'rgba(248,113,113,0.15)' : 'rgba(38,38,47,0.9)'}` }}>
+            <div key={i} className="p-5 rounded-xl" style={{ background: 'var(--color-surface-card)', border: `1px solid ${decisions[i] === 'approved' ? 'rgba(74,222,128,0.15)' : decisions[i] === 'rejected' ? 'rgba(248,113,113,0.15)' : 'rgba(38,38,47,0.9)'}` }}>
               {/* Header row: avatar + name + timing badge only */}
               <div className="flex items-center justify-between mb-3">
                 <div className="flex items-center gap-4">
@@ -900,7 +900,7 @@ function ApprovalsPage({ stats, onPopup }) {
                     <p className="text-[10px] text-text-muted">{item.type} Â· {item.days} Â· {item.dept}</p>
                   </div>
                 </div>
-                {/* Only timing badge here â€” no decision badge */}
+                {/* Only timing badge here — no decision badge */}
                 {item.daysLeft > 0
                   ? <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full flex-shrink-0" style={{ background: 'rgba(251,191,36,0.1)', border: '1px solid rgba(251,191,36,0.2)', color: '#fbbf24' }}>â° {item.daysLeft}d away</span>
                   : <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full flex-shrink-0" style={{ background: 'rgba(248,113,113,0.1)', border: '1px solid rgba(248,113,113,0.2)', color: '#f87171' }}>Starts today</span>
@@ -908,7 +908,7 @@ function ApprovalsPage({ stats, onPopup }) {
               </div>
               {/* Attendance & task stats */}
               <div className="grid grid-cols-2 gap-3 mb-3">
-                <div className="p-3 rounded-lg" style={{ background: 'rgba(255,255,255,0.03)' }}>
+                <div className="p-3 rounded-lg" style={{ background: 'var(--color-surface-raised)' }}>
                   <div className="flex items-center justify-between mb-1.5">
                     <span className="text-[10px] text-text-muted">Attendance</span>
                     <span className="text-[10px] font-bold" style={{ color: attColor(item.attendance) }}>{item.attendance}%</span>
@@ -917,25 +917,25 @@ function ApprovalsPage({ stats, onPopup }) {
                     <div className="h-full rounded-full" style={{ width: `${item.attendance}%`, background: attColor(item.attendance) }} />
                   </div>
                 </div>
-                <div className="p-3 rounded-lg" style={{ background: 'rgba(255,255,255,0.03)' }}>
+                <div className="p-3 rounded-lg" style={{ background: 'var(--color-surface-raised)' }}>
                   <div className="flex items-center justify-between mb-1.5">
                     <span className="text-[10px] text-text-muted">Tasks Done</span>
-                    <span className="text-[10px] font-bold" style={{ color: '#a78bfa' }}>{item.tasks}%</span>
+                    <span className="text-[10px] font-bold" style={{ color: '#DFC993' }}>{item.tasks}%</span>
                   </div>
                   <div className="h-1.5 rounded-full" style={{ background: 'rgba(38,38,47,0.9)' }}>
-                    <div className="h-full rounded-full" style={{ width: `${item.tasks}%`, background: '#a78bfa' }} />
+                    <div className="h-full rounded-full" style={{ width: `${item.tasks}%`, background: '#DFC993' }} />
                   </div>
                 </div>
               </div>
               {/* Action row: buttons OR full-width decision banner */}
               {decisions[i] ? (
                 <div className="flex items-center justify-center gap-2 py-2.5 rounded-lg" style={{ background: decisions[i] === 'approved' ? 'rgba(74,222,128,0.06)' : 'rgba(248,113,113,0.06)', border: `1px solid ${decisions[i] === 'approved' ? 'rgba(74,222,128,0.2)' : 'rgba(248,113,113,0.2)'}` }}>
-                  <span className="text-xs font-bold" style={{ color: decisions[i] === 'approved' ? '#4ade80' : '#f87171' }}>{decisions[i] === 'approved' ? 'âœ“ Approved' : 'âœ• Rejected'}</span>
+                  <span className="text-xs font-bold" style={{ color: decisions[i] === 'approved' ? '#4ade80' : '#f87171' }}>{decisions[i] === 'approved' ? '✓ Approved' : '✕ Rejected'}</span>
                 </div>
               ) : (
                 <div className="flex gap-2">
-                  <button id={`approve-${i}`} onClick={() => decide(i, 'approved')} className="flex-1 py-2.5 rounded-lg text-xs font-semibold cursor-pointer transition-all hover:scale-105" style={{ background: 'rgba(74,222,128,0.1)', border: '1px solid rgba(74,222,128,0.2)', color: '#4ade80' }}>âœ“ Approve</button>
-                  <button id={`reject-${i}`} onClick={() => decide(i, 'rejected')} className="flex-1 py-2.5 rounded-lg text-xs font-semibold cursor-pointer transition-all hover:scale-105" style={{ background: 'rgba(248,113,113,0.1)', border: '1px solid rgba(248,113,113,0.2)', color: '#f87171' }}>âœ• Reject</button>
+                  <button id={`approve-${i}`} onClick={() => decide(i, 'approved')} className="flex-1 py-2.5 rounded-lg text-xs font-semibold cursor-pointer transition-all hover:scale-105" style={{ background: 'rgba(74,222,128,0.1)', border: '1px solid rgba(74,222,128,0.2)', color: '#4ade80' }}>✓ Approve</button>
+                  <button id={`reject-${i}`} onClick={() => decide(i, 'rejected')} className="flex-1 py-2.5 rounded-lg text-xs font-semibold cursor-pointer transition-all hover:scale-105" style={{ background: 'rgba(248,113,113,0.1)', border: '1px solid rgba(248,113,113,0.2)', color: '#f87171' }}>✕ Reject</button>
                 </div>
               )}
             </div>
@@ -954,14 +954,14 @@ function AnnouncementsPage({ onPopup, announcements: localAnnouncements }) {
       <div className="glass-card p-6" id="announcements-page">
         <div className="flex items-center justify-between mb-5">
           <div>
-            <h3 className="text-lg font-bold text-text-primary">ðŸ“¢ Announcements</h3>
+            <h3 className="text-lg font-bold text-text-primary">📢 Announcements</h3>
             <p className="text-xs text-text-secondary mt-1">{list.length} post{list.length !== 1 ? 's' : ''} Â· company-wide communications</p>
           </div>
-          <button id="new-announcement-btn" onClick={() => onPopup('post-announcement')} className="px-4 py-2 rounded-xl text-xs font-semibold cursor-pointer transition-all hover:scale-105" style={{ background: 'linear-gradient(135deg, rgba(45,212,255,0.1), rgba(147,51,234,0.1))', border: '1px solid rgba(45,212,255,0.2)', color: '#2DD4FF' }}>+ New Post</button>
+          <button id="new-announcement-btn" onClick={() => onPopup('post-announcement')} className="px-4 py-2 rounded-xl text-xs font-semibold cursor-pointer transition-all hover:scale-105" style={{ background: 'linear-gradient(135deg, rgba(200,169,107,0.1), rgba(13,32,53,0.1))', border: '1px solid rgba(200,169,107,0.2)', color: '#C8A96B' }}>+ New Post</button>
         </div>
         <div className="space-y-4">
           {list.map((item) => (
-            <div key={item.id} className="flex items-start gap-4 p-5 rounded-2xl hover:bg-white/[0.04] transition-colors cursor-pointer group" style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(38,38,47,0.9)' }} onClick={() => onPopup('announcement', item)}>
+            <div key={item.id} className="flex items-start gap-4 p-5 rounded-2xl hover:bg-white/[0.04] transition-colors cursor-pointer group" style={{ background: 'var(--color-surface-card)', border: '1px solid var(--color-surface-border)' }} onClick={() => onPopup('announcement', item)}>
               <div className="w-2 h-2 rounded-full flex-shrink-0 mt-2" style={{ background: item.tagColor }} />
               <div className="flex-1 min-w-0">
                 <div className="flex items-center gap-2 mb-2">
@@ -1017,7 +1017,7 @@ function RecruitmentPopup({ stats, onClose }) {
   ];
   const urgencyColor = { Urgent: '#f87171', High: '#fbbf24', Medium: '#60a5fa' };
   return (
-    <DetailPopup title={`Recruitment â€” ${stats.openPositions} Open Roles`} icon="ðŸ‘¥" onClose={onClose} wide>
+    <DetailPopup title={`Recruitment — ${stats.openPositions} Open Roles`} icon="👥" onClose={onClose} wide>
       <div className="flex gap-3 mb-5">
         {[{ label: 'Open Roles', value: stats.openPositions, color: '#f87171' }, { label: 'Urgent', value: positions.filter(p => p.urgency === 'Urgent').length, color: '#fbbf24' }, { label: 'Total Applicants', value: positions.reduce((s, p) => s + p.applicants, 0), color: '#4ade80' }].map((s, i) => (
           <div key={i} className="flex-1 p-4 rounded-xl text-center" style={{ background: `${s.color}0d`, border: `1px solid ${s.color}30` }}>
@@ -1028,7 +1028,7 @@ function RecruitmentPopup({ stats, onClose }) {
       </div>
       <div className="space-y-3">
         {positions.map((p, i) => (
-          <div key={i} className="flex items-center justify-between p-4 rounded-xl" style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(38,38,47,0.9)' }}>
+          <div key={i} className="flex items-center justify-between p-4 rounded-xl" style={{ background: 'var(--color-surface-card)', border: '1px solid var(--color-surface-border)' }}>
             <div>
               <p className="text-sm font-semibold text-text-primary">{p.title}</p>
               <p className="text-[10px] text-text-muted">{p.dept} Â· Open since {p.since} Â· {p.applicants} applicants</p>
@@ -1044,11 +1044,11 @@ function RecruitmentPopup({ stats, onClose }) {
 /* â”€â”€â”€ Main Component â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 const TABS = [
   { id: 'overview', label: 'ðŸ  Overview' },
-  { id: 'employees', label: 'ðŸ‘¥ Employees' },
-  { id: 'complaints', label: 'ðŸ“¨ Complaints' },
+  { id: 'employees', label: '👥 Employees' },
+  { id: 'complaints', label: '📩 Complaints' },
   { id: 'approvals', label: 'â³ Approvals' },
-  { id: 'announcements', label: 'ðŸ“¢ Announcements' },
-  { id: 'reports', label: 'ðŸ“Š Reports' },
+  { id: 'announcements', label: '📢 Announcements' },
+  { id: 'reports', label: '📊 Reports' },
 ];
 
 export default function HRDashboard() {
@@ -1092,7 +1092,7 @@ export default function HRDashboard() {
   return (
     <div id="hr-dashboard">
       {/* Tab Navigation */}
-      <div className="flex items-center gap-1 mb-6 p-1 rounded-2xl overflow-x-auto" style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(38,38,47,0.9)' }}>
+      <div className="flex items-center gap-1 mb-6 p-1 rounded-2xl overflow-x-auto" style={{ background: 'var(--color-surface-raised)', border: '1px solid var(--color-surface-border)' }}>
         {TABS.map((tab) => (
           <button
             key={tab.id}
@@ -1100,9 +1100,9 @@ export default function HRDashboard() {
             onClick={() => setActiveTab(tab.id)}
             className="flex-shrink-0 px-4 py-2.5 rounded-xl text-xs font-semibold transition-all duration-250 cursor-pointer whitespace-nowrap"
             style={{
-              background: activeTab === tab.id ? 'linear-gradient(135deg, rgba(147,51,234,0.15), rgba(45,212,255,0.1))' : 'transparent',
-              border: activeTab === tab.id ? '1px solid rgba(147,51,234,0.3)' : '1px solid transparent',
-              color: activeTab === tab.id ? '#a78bfa' : 'rgba(255,255,255,0.5)',
+              background: activeTab === tab.id ? 'linear-gradient(135deg, rgba(13,32,53,0.15), rgba(200,169,107,0.1))' : 'transparent',
+              border: activeTab === tab.id ? '1px solid rgba(13,32,53,0.3)' : '1px solid transparent',
+              color: activeTab === tab.id ? '#DFC993' : 'rgba(255,255,255,0.5)',
             }}
           >
             {tab.label}

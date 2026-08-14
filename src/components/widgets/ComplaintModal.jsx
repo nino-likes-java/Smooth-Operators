@@ -34,13 +34,13 @@ export default function ComplaintModal({ isOpen, onClose }) {
   const inputStyle = {
     background: 'rgba(26, 26, 34, 0.8)',
     border: '1px solid rgba(55, 55, 68, 0.8)',
-    color: 'var(--color-text-primary)',
+    color: 'var(--color-text-main)',
     caretColor: 'var(--color-cyan-glow)',
   };
 
   const handleFocus = (e) => {
-    e.target.style.borderColor = 'rgba(45, 212, 255, 0.4)';
-    e.target.style.boxShadow = '0 0 0 3px rgba(45, 212, 255, 0.08)';
+    e.target.style.borderColor = 'rgba(200, 169, 107, 0.4)';
+    e.target.style.boxShadow = '0 0 0 3px rgba(200, 169, 107, 0.08)';
   };
 
   const handleBlur = (e) => {
@@ -67,7 +67,7 @@ export default function ComplaintModal({ isOpen, onClose }) {
           aria-label="Close"
           id="complaint-close-btn"
         >
-          âœ•
+          ✕
         </button>
 
         {submitted ? (
@@ -75,9 +75,9 @@ export default function ComplaintModal({ isOpen, onClose }) {
           <div className="flex flex-col items-center justify-center py-12">
             <div
               className="w-16 h-16 rounded-2xl flex items-center justify-center text-3xl mb-5"
-              style={{ background: 'rgba(45, 212, 255, 0.1)', border: '1px solid rgba(45, 212, 255, 0.2)' }}
+              style={{ background: 'rgba(200, 169, 107, 0.1)', border: '1px solid rgba(200, 169, 107, 0.2)' }}
             >
-              âœ“
+              ✓
             </div>
             <h3 className="text-lg font-bold text-text-primary mb-2">Complaint Submitted</h3>
             <p className="text-sm text-text-secondary text-center">

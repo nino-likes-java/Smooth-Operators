@@ -12,17 +12,17 @@ import {
 
 /* â”€â”€â”€ Helpers â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 function getBarColor(hours) {
-  if (hours >= 9) return '#9333EA';
-  if (hours >= 7) return '#2DD4FF';
+  if (hours >= 9) return '#0D2035';
+  if (hours >= 7) return '#C8A96B';
   if (hours >= 5) return '#60a5fa';
   return '#fbbf24';
 }
 
 const STATUS_STYLES = {
-  'In Progress': { bg: 'rgba(45, 212, 255, 0.1)', border: 'rgba(45, 212, 255, 0.2)', text: '#2DD4FF' },
+  'In Progress': { bg: 'rgba(200, 169, 107, 0.1)', border: 'rgba(200, 169, 107, 0.2)', text: '#C8A96B' },
   Completed: { bg: 'rgba(74, 222, 128, 0.1)', border: 'rgba(74, 222, 128, 0.2)', text: '#4ade80' },
   Pending: { bg: 'rgba(251, 191, 36, 0.1)', border: 'rgba(251, 191, 36, 0.2)', text: '#fbbf24' },
-  'In Review': { bg: 'rgba(167, 139, 250, 0.1)', border: 'rgba(167, 139, 250, 0.2)', text: '#a78bfa' },
+  'In Review': { bg: 'rgba(223, 201, 147, 0.1)', border: 'rgba(223, 201, 147, 0.2)', text: '#DFC993' },
 };
 
 /* â”€â”€â”€ Shared Popup Shell â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
@@ -37,8 +37,8 @@ function DetailPopup({ title, icon, onClose, children }) {
         <div
           className="relative rounded-2xl overflow-hidden w-full max-w-lg mx-4"
           style={{
-            background: 'rgba(19, 19, 25, 0.97)',
-            border: '1px solid rgba(55,55,68,0.85)',
+            background: 'var(--color-surface-card)',
+            border: '1px solid var(--color-surface-border)',
             boxShadow: '0 32px 80px rgba(0,0,0,0.6)',
             animation: 'popIn 0.2s cubic-bezier(0.34,1.56,0.64,1)',
           }}
@@ -47,7 +47,7 @@ function DetailPopup({ title, icon, onClose, children }) {
           <div
             className="flex items-center justify-between px-6 py-4"
             style={{
-              background: 'linear-gradient(135deg, rgba(45,212,255,0.05), rgba(147,51,234,0.08))',
+              background: 'linear-gradient(135deg, rgba(200,169,107,0.05), rgba(13,32,53,0.08))',
               borderBottom: '1px solid rgba(38,38,47,0.9)',
             }}
           >
@@ -58,7 +58,7 @@ function DetailPopup({ title, icon, onClose, children }) {
             <button
               onClick={onClose}
               className="w-8 h-8 rounded-lg flex items-center justify-center text-text-muted transition-all hover:bg-white/10 hover:text-white"
-            >âœ•</button>
+            >✕</button>
           </div>
           <div className="p-6 max-h-[70vh] overflow-y-auto">{children}</div>
         </div>
@@ -81,12 +81,12 @@ function InfoRow({ label, value, color }) {
 function AttendanceSummaryPopup({ onClose }) {
   const s = employeeStats;
   return (
-    <DetailPopup title="Attendance Summary" icon="ðŸ“…" onClose={onClose}>
+    <DetailPopup title="Attendance Summary" icon="📅" onClose={onClose}>
       <div className="grid grid-cols-2 gap-3 mb-4">
         {[
-          { label: 'Days Present', value: s.thisMonth.daysPresent, color: '#2DD4FF' },
+          { label: 'Days Present', value: s.thisMonth.daysPresent, color: '#C8A96B' },
           { label: 'Days Absent', value: s.thisMonth.totalDays - s.thisMonth.daysPresent, color: '#f87171' },
-          { label: 'Working Days', value: s.thisMonth.totalDays, color: '#a78bfa' },
+          { label: 'Working Days', value: s.thisMonth.totalDays, color: '#DFC993' },
           { label: 'Overtime Hours', value: `${s.thisMonth.overtimeHours}h`, color: '#4ade80' },
         ].map((item, i) => (
           <div key={i} className="p-4 rounded-xl text-center" style={{ background: `${item.color}0d`, border: `1px solid ${item.color}30` }}>
@@ -95,7 +95,7 @@ function AttendanceSummaryPopup({ onClose }) {
           </div>
         ))}
       </div>
-      <InfoRow label="Avg Hours / Day" value={`${s.thisMonth.avgHours.toFixed(1)}h`} color="#2DD4FF" />
+      <InfoRow label="Avg Hours / Day" value={`${s.thisMonth.avgHours.toFixed(1)}h`} color="#C8A96B" />
       <InfoRow label="Shift" value={s.shiftTiming} />
       <InfoRow label="Attendance Rate" value={`${((s.thisMonth.daysPresent / s.thisMonth.totalDays) * 100).toFixed(0)}%`} color="#4ade80" />
     </DetailPopup>
@@ -105,10 +105,10 @@ function AttendanceSummaryPopup({ onClose }) {
 function LeaveBalancePopup({ onClose }) {
   const lb = employeeStats.leaveBalance;
   return (
-    <DetailPopup title="Leave Balance" icon="ðŸŒ´" onClose={onClose}>
+    <DetailPopup title="Leave Balance" icon="🌴" onClose={onClose}>
       <div className="grid grid-cols-3 gap-3 mb-5">
         {[
-          { label: 'Casual', value: lb.casual, color: '#2DD4FF' },
+          { label: 'Casual', value: lb.casual, color: '#C8A96B' },
           { label: 'Sick', value: lb.sick, color: '#f87171' },
           { label: 'Earned', value: lb.earned, color: '#4ade80' },
         ].map((l, i) => (
@@ -118,9 +118,9 @@ function LeaveBalancePopup({ onClose }) {
           </div>
         ))}
       </div>
-      <InfoRow label="Total Available" value={lb.casual + lb.sick + lb.earned} color="#2DD4FF" />
+      <InfoRow label="Total Available" value={lb.casual + lb.sick + lb.earned} color="#C8A96B" />
       <InfoRow label="Policy Year" value="2026" />
-      <InfoRow label="Carry Forward" value="5 days (Earned)" color="#a78bfa" />
+      <InfoRow label="Carry Forward" value="5 days (Earned)" color="#DFC993" />
     </DetailPopup>
   );
 }
@@ -131,16 +131,16 @@ function OvertimePopup({ onClose }) {
   return (
     <DetailPopup title="Overtime Details" icon="â°" onClose={onClose}>
       <div className="flex gap-3 mb-5">
-        <div className="flex-1 p-5 rounded-xl text-center" style={{ background: 'rgba(45,212,255,0.06)', border: '1px solid rgba(45,212,255,0.15)' }}>
-          <p className="text-4xl font-black" style={{ color: '#2DD4FF' }}>{ot}h</p>
+        <div className="flex-1 p-5 rounded-xl text-center" style={{ background: 'rgba(200,169,107,0.06)', border: '1px solid rgba(200,169,107,0.15)' }}>
+          <p className="text-4xl font-black" style={{ color: '#C8A96B' }}>{ot}h</p>
           <p className="text-[10px] text-text-muted mt-1">This Month</p>
         </div>
-        <div className="flex-1 p-5 rounded-xl text-center" style={{ background: 'rgba(147,51,234,0.06)', border: '1px solid rgba(147,51,234,0.2)' }}>
-          <p className="text-2xl font-black" style={{ color: '#9333EA' }}>â‚¹{(ot * 250).toLocaleString()}</p>
+        <div className="flex-1 p-5 rounded-xl text-center" style={{ background: 'rgba(13,32,53,0.06)', border: '1px solid rgba(13,32,53,0.2)' }}>
+          <p className="text-2xl font-black" style={{ color: '#0D2035' }}>₹{(ot * 250).toLocaleString()}</p>
           <p className="text-[10px] text-text-muted mt-1">OT Pay</p>
         </div>
       </div>
-      <InfoRow label="Rate per hour" value="â‚¹250" color="#4ade80" />
+      <InfoRow label="Rate per hour" value="₹250" color="#4ade80" />
       <InfoRow label="Standard Hours" value="8h / day" />
       <InfoRow label="Avg Daily Hours" value={`${s.thisMonth.avgHours.toFixed(1)}h`} />
     </DetailPopup>
@@ -149,7 +149,7 @@ function OvertimePopup({ onClose }) {
 
 function SalaryBreakdownPopup({ payslip, onClose }) {
   const { month, gross, net } = payslip;
-  // Parse gross string like "â‚¹1,20,000" â†’ number
+  // Parse gross string like "₹1,20,000" → number
   const grossNum = parseInt(gross.replace(/[^0-9]/g, ''), 10) || 120000;
   const basic = Math.round(grossNum * 0.625);
   const hra = Math.round(grossNum * 0.183);
@@ -159,11 +159,11 @@ function SalaryBreakdownPopup({ payslip, onClose }) {
   const tax = Math.round(grossNum * 0.12);
   const pt = 200;
   return (
-    <DetailPopup title={`Salary Breakdown â€” ${month}`} icon="ðŸ’°" onClose={onClose}>
+    <DetailPopup title={`Salary Breakdown — ${month}`} icon="💰" onClose={onClose}>
       <div className="flex gap-3 mb-5">
-        <div className="flex-1 p-4 rounded-xl" style={{ background: 'rgba(45,212,255,0.06)', border: '1px solid rgba(45,212,255,0.15)' }}>
+        <div className="flex-1 p-4 rounded-xl" style={{ background: 'rgba(200,169,107,0.06)', border: '1px solid rgba(200,169,107,0.15)' }}>
           <p className="text-[10px] text-text-muted">Gross</p>
-          <p className="text-xl font-bold" style={{ color: '#2DD4FF' }}>{gross}</p>
+          <p className="text-xl font-bold" style={{ color: '#C8A96B' }}>{gross}</p>
         </div>
         <div className="flex-1 p-4 rounded-xl" style={{ background: 'rgba(74,222,128,0.06)', border: '1px solid rgba(74,222,128,0.15)' }}>
           <p className="text-[10px] text-text-muted">Net Pay</p>
@@ -172,12 +172,12 @@ function SalaryBreakdownPopup({ payslip, onClose }) {
       </div>
 
       <p className="text-[10px] font-bold uppercase tracking-widest text-text-muted mb-2">Earnings</p>
-      <div className="rounded-xl mb-4" style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(38,38,47,0.9)' }}>
+      <div className="rounded-xl mb-4" style={{ background: 'var(--color-surface-card)', border: '1px solid var(--color-surface-border)' }}>
         <div className="px-4">
-          <InfoRow label="Basic Salary" value={`â‚¹${basic.toLocaleString()}`} color="#2DD4FF" />
-          <InfoRow label="HRA" value={`â‚¹${hra.toLocaleString()}`} color="#9333EA" />
-          <InfoRow label="Conveyance" value={`â‚¹${conveyance.toLocaleString()}`} color="#a78bfa" />
-          <InfoRow label="Special Allowance" value={`â‚¹${special.toLocaleString()}`} color="#06b6d4" />
+          <InfoRow label="Basic Salary" value={`₹${basic.toLocaleString()}`} color="#C8A96B" />
+          <InfoRow label="HRA" value={`₹${hra.toLocaleString()}`} color="#0D2035" />
+          <InfoRow label="Conveyance" value={`₹${conveyance.toLocaleString()}`} color="#DFC993" />
+          <InfoRow label="Special Allowance" value={`₹${special.toLocaleString()}`} color="#123452" />
           <div className="flex items-center justify-between py-2.5">
             <span className="text-xs font-semibold text-text-secondary">Gross Total</span>
             <span className="text-sm font-bold text-text-primary">{gross}</span>
@@ -186,11 +186,11 @@ function SalaryBreakdownPopup({ payslip, onClose }) {
       </div>
 
       <p className="text-[10px] font-bold uppercase tracking-widest text-text-muted mb-2">Deductions</p>
-      <div className="rounded-xl" style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(38,38,47,0.9)' }}>
+      <div className="rounded-xl" style={{ background: 'var(--color-surface-card)', border: '1px solid var(--color-surface-border)' }}>
         <div className="px-4">
-          <InfoRow label="Provident Fund (PF)" value={`-â‚¹${pf.toLocaleString()}`} color="#f87171" />
-          <InfoRow label="Income Tax (TDS)" value={`-â‚¹${tax.toLocaleString()}`} color="#f87171" />
-          <InfoRow label="Professional Tax" value={`-â‚¹${pt}`} color="#f87171" />
+          <InfoRow label="Provident Fund (PF)" value={`-₹${pf.toLocaleString()}`} color="#f87171" />
+          <InfoRow label="Income Tax (TDS)" value={`-₹${tax.toLocaleString()}`} color="#f87171" />
+          <InfoRow label="Professional Tax" value={`-₹${pt}`} color="#f87171" />
           <div className="flex items-center justify-between py-2.5">
             <span className="text-xs font-semibold text-text-secondary">Net Pay</span>
             <span className="text-sm font-bold" style={{ color: '#4ade80' }}>{net}</span>
@@ -205,7 +205,7 @@ function ProjectDetailPopup({ project, onClose }) {
   if (!project) return null;
   const st = STATUS_STYLES[project.status] || STATUS_STYLES['Pending'];
   return (
-    <DetailPopup title={project.name} icon="ðŸš€" onClose={onClose}>
+    <DetailPopup title={project.name} icon="🚀" onClose={onClose}>
       <div className="flex items-center gap-2 mb-4">
         <span className="text-xs font-semibold px-2.5 py-1 rounded-full" style={{ background: st.bg, border: `1px solid ${st.border}`, color: st.text }}>{project.status}</span>
         <span className="text-xs text-text-muted">Due: {project.deadline}</span>
@@ -216,10 +216,10 @@ function ProjectDetailPopup({ project, onClose }) {
           <span className="font-bold" style={{ color: st.text }}>{project.progress}%</span>
         </div>
         <div className="h-3 rounded-full" style={{ background: 'rgba(38,38,47,0.9)' }}>
-          <div className="h-full rounded-full" style={{ width: `${project.progress}%`, background: project.progress === 100 ? '#4ade80' : 'linear-gradient(90deg, #2DD4FF, #9333EA)', boxShadow: '0 0 10px rgba(45,212,255,0.25)' }} />
+          <div className="h-full rounded-full" style={{ width: `${project.progress}%`, background: project.progress === 100 ? '#4ade80' : 'linear-gradient(90deg, #C8A96B, #0D2035)', boxShadow: '0 0 10px rgba(200,169,107,0.25)' }} />
         </div>
       </div>
-      <div className="rounded-xl" style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(38,38,47,0.9)' }}>
+      <div className="rounded-xl" style={{ background: 'var(--color-surface-card)', border: '1px solid var(--color-surface-border)' }}>
         <div className="px-4">
           <InfoRow label="Assigned To" value="Alex Morgan" />
           <InfoRow label="Department" value="Engineering" />
@@ -235,7 +235,7 @@ function GoalDetailPopup({ goal, onClose }) {
   if (!goal) return null;
   const st = STATUS_STYLES[goal.status] || STATUS_STYLES['Pending'];
   return (
-    <DetailPopup title={goal.title} icon="ðŸŽ¯" onClose={onClose}>
+    <DetailPopup title={goal.title} icon="🎯" onClose={onClose}>
       <div className="flex items-center gap-2 mb-4">
         <span className="text-xs font-semibold px-2.5 py-1 rounded-full" style={{ background: st.bg, border: `1px solid ${st.border}`, color: st.text }}>{goal.status}</span>
         <span className="text-xs text-text-muted">Due {goal.due}</span>
@@ -246,10 +246,10 @@ function GoalDetailPopup({ goal, onClose }) {
           <span className="font-bold" style={{ color: st.text }}>{goal.progress}%</span>
         </div>
         <div className="h-3 rounded-full" style={{ background: 'rgba(38,38,47,0.9)' }}>
-          <div className="h-full rounded-full" style={{ width: `${goal.progress}%`, background: goal.progress === 100 ? '#4ade80' : 'linear-gradient(90deg, #2DD4FF, #9333EA)' }} />
+          <div className="h-full rounded-full" style={{ width: `${goal.progress}%`, background: goal.progress === 100 ? '#4ade80' : 'linear-gradient(90deg, #C8A96B, #0D2035)' }} />
         </div>
       </div>
-      <div className="rounded-xl" style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(38,38,47,0.9)' }}>
+      <div className="rounded-xl" style={{ background: 'var(--color-surface-card)', border: '1px solid var(--color-surface-border)' }}>
         <div className="px-4">
           <InfoRow label="Quarter" value="Q3 2026" />
           <InfoRow label="Owner" value="Alex Morgan" />
@@ -269,12 +269,12 @@ function GoalsQuickPopup({ onClose }) {
   ];
   const completed = goals.filter((g) => g.status === 'Completed').length;
   return (
-    <DetailPopup title="My Q3 Goals" icon="ðŸŽ¯" onClose={onClose}>
+    <DetailPopup title="My Q3 Goals" icon="🎯" onClose={onClose}>
       <div className="flex gap-3 mb-5">
         {[
-          { label: 'Total', value: goals.length, color: '#2DD4FF' },
+          { label: 'Total', value: goals.length, color: '#C8A96B' },
           { label: 'Done', value: completed, color: '#4ade80' },
-          { label: 'In Progress', value: goals.filter(g => g.status === 'In Progress').length, color: '#a78bfa' },
+          { label: 'In Progress', value: goals.filter(g => g.status === 'In Progress').length, color: '#DFC993' },
         ].map((s, i) => (
           <div key={i} className="flex-1 p-3 rounded-xl text-center" style={{ background: `${s.color}0d`, border: `1px solid ${s.color}30` }}>
             <p className="text-2xl font-black" style={{ color: s.color }}>{s.value}</p>
@@ -286,14 +286,14 @@ function GoalsQuickPopup({ onClose }) {
         {goals.map((goal, i) => {
           const st = STATUS_STYLES[goal.status] || STATUS_STYLES['Pending'];
           return (
-            <div key={i} className="p-4 rounded-xl" style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(38,38,47,0.9)' }}>
+            <div key={i} className="p-4 rounded-xl" style={{ background: 'var(--color-surface-card)', border: '1px solid var(--color-surface-border)' }}>
               <div className="flex items-center justify-between mb-2">
                 <p className="text-xs font-semibold text-text-primary flex-1 mr-2">{goal.title}</p>
                 <span className="text-[10px] font-medium px-2 py-0.5 rounded-full flex-shrink-0" style={{ background: st.bg, border: `1px solid ${st.border}`, color: st.text }}>{goal.status}</span>
               </div>
               <div className="flex items-center gap-2">
                 <div className="flex-1 h-1.5 rounded-full bg-white/[0.06] overflow-hidden">
-                  <div className="h-full rounded-full" style={{ width: `${goal.progress}%`, background: goal.progress === 100 ? '#4ade80' : 'linear-gradient(90deg, #2DD4FF, #9333EA)' }} />
+                  <div className="h-full rounded-full" style={{ width: `${goal.progress}%`, background: goal.progress === 100 ? '#4ade80' : 'linear-gradient(90deg, #C8A96B, #0D2035)' }} />
                 </div>
                 <span className="text-[10px] font-semibold text-text-muted w-8 text-right">{goal.progress}%</span>
               </div>
@@ -309,13 +309,13 @@ function GoalsQuickPopup({ onClose }) {
 function AnnouncementPopup({ item, onClose }) {
   if (!item) return null;
   return (
-    <DetailPopup title={item.title} icon="ðŸ“¢" onClose={onClose}>
+    <DetailPopup title={item.title} icon="📢" onClose={onClose}>
       <div className="flex items-center gap-2 mb-4">
         <span className="text-[10px] font-semibold px-2.5 py-1 rounded-full" style={{ background: `${item.tagColor}15`, color: item.tagColor, border: `1px solid ${item.tagColor}30` }}>{item.tag}</span>
         <span className="text-[10px] text-text-muted">{item.date}</span>
       </div>
       <p className="text-sm text-text-secondary leading-relaxed">{item.body}</p>
-      <div className="mt-5 rounded-xl" style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(38,38,47,0.9)' }}>
+      <div className="mt-5 rounded-xl" style={{ background: 'var(--color-surface-card)', border: '1px solid var(--color-surface-border)' }}>
         <div className="px-4">
           <InfoRow label="Category" value={item.tag} color={item.tagColor} />
           <InfoRow label="Posted" value={item.date} />
@@ -337,9 +337,9 @@ function ComplaintDetailPopup({ complaint, onClose }) {
       </div>
       <h3 className="text-sm font-bold text-text-primary mb-3">{complaint.subject}</h3>
       <p className="text-xs text-text-secondary leading-relaxed mb-5">{complaint.description}</p>
-      <div className="rounded-xl" style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(38,38,47,0.9)' }}>
+      <div className="rounded-xl" style={{ background: 'var(--color-surface-card)', border: '1px solid var(--color-surface-border)' }}>
         <div className="px-4">
-          <InfoRow label="ID" value={complaint.id} color="#2DD4FF" />
+          <InfoRow label="ID" value={complaint.id} color="#C8A96B" />
           <InfoRow label="Category" value={complaint.category} />
           <InfoRow label="Severity" value={complaint.severity} color={complaint.severity === 'High' ? '#f87171' : complaint.severity === 'Medium' ? '#fbbf24' : '#60a5fa'} />
           <InfoRow label="Status" value={complaint.status} color={st.text} />
@@ -364,10 +364,10 @@ function ApplyLeavePopup({ onClose, onApply }) {
   }
 
   return (
-    <DetailPopup title="Apply for Leave" icon="ðŸ“‹" onClose={onClose}>
+    <DetailPopup title="Apply for Leave" icon="📋" onClose={onClose}>
       {submitted ? (
         <div className="flex flex-col items-center justify-center gap-3 py-8">
-          <span className="text-4xl">âœ…</span>
+          <span className="text-4xl">✅</span>
           <p className="text-sm font-bold text-text-primary">Leave request submitted!</p>
           <p className="text-xs text-text-muted">Your request is pending HR approval.</p>
         </div>
@@ -377,25 +377,25 @@ function ApplyLeavePopup({ onClose, onApply }) {
             <label className="text-[10px] uppercase tracking-widest text-text-muted block mb-2">Leave Type</label>
             <div className="grid grid-cols-3 gap-2">
               {['Casual', 'Sick', 'Earned'].map((t) => (
-                <button key={t} onClick={() => setType(t)} className="py-2 rounded-xl text-xs font-semibold transition-all" style={{ background: type === t ? 'rgba(45,212,255,0.15)' : 'rgba(255,255,255,0.03)', border: `1px solid ${type === t ? 'rgba(45,212,255,0.4)' : 'rgba(38,38,47,0.9)'}`, color: type === t ? '#2DD4FF' : 'var(--color-text-secondary)' }}>{t}</button>
+                <button key={t} onClick={() => setType(t)} className="py-2 rounded-xl text-xs font-semibold transition-all" style={{ background: type === t ? 'rgba(200,169,107,0.15)' : 'rgba(255,255,255,0.03)', border: `1px solid ${type === t ? 'rgba(200,169,107,0.4)' : 'rgba(38,38,47,0.9)'}`, color: type === t ? '#C8A96B' : 'var(--color-text-secondary)' }}>{t}</button>
               ))}
             </div>
           </div>
           <div className="grid grid-cols-2 gap-3">
             <div>
               <label className="text-[10px] uppercase tracking-widest text-text-muted block mb-2">From</label>
-              <input type="date" value={fromDate} onChange={(e) => setFromDate(e.target.value)} className="w-full rounded-xl px-3 py-2 text-xs text-text-primary" style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(38,38,47,0.9)' }} />
+              <input type="date" value={fromDate} onChange={(e) => setFromDate(e.target.value)} className="w-full rounded-xl px-3 py-2 text-xs text-text-primary" style={{ background: 'var(--color-surface-card)', border: '1px solid var(--color-surface-border)' }} />
             </div>
             <div>
               <label className="text-[10px] uppercase tracking-widest text-text-muted block mb-2">To</label>
-              <input type="date" value={toDate} onChange={(e) => setToDate(e.target.value)} className="w-full rounded-xl px-3 py-2 text-xs text-text-primary" style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(38,38,47,0.9)' }} />
+              <input type="date" value={toDate} onChange={(e) => setToDate(e.target.value)} className="w-full rounded-xl px-3 py-2 text-xs text-text-primary" style={{ background: 'var(--color-surface-card)', border: '1px solid var(--color-surface-border)' }} />
             </div>
           </div>
           <div>
             <label className="text-[10px] uppercase tracking-widest text-text-muted block mb-2">Reason</label>
-            <textarea rows={3} value={reason} onChange={(e) => setReason(e.target.value)} className="w-full rounded-xl px-3 py-2 text-xs text-text-primary resize-none" style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(38,38,47,0.9)' }} placeholder="Briefly describe your reason..." />
+            <textarea rows={3} value={reason} onChange={(e) => setReason(e.target.value)} className="w-full rounded-xl px-3 py-2 text-xs text-text-primary resize-none" style={{ background: 'var(--color-surface-card)', border: '1px solid var(--color-surface-border)' }} placeholder="Briefly describe your reason..." />
           </div>
-          <button onClick={handleSubmit} disabled={!fromDate} className="w-full py-2.5 rounded-xl text-sm font-bold transition-all" style={{ background: fromDate ? 'linear-gradient(135deg, #2DD4FF, #9333EA)' : 'rgba(38,38,47,0.9)', color: fromDate ? '#000' : 'rgba(255,255,255,0.3)', cursor: fromDate ? 'pointer' : 'not-allowed' }}>Submit Request</button>
+          <button onClick={handleSubmit} disabled={!fromDate} className="w-full py-2.5 rounded-xl text-sm font-bold transition-all" style={{ background: fromDate ? 'linear-gradient(135deg, #C8A96B, #0D2035)' : 'rgba(38,38,47,0.9)', color: fromDate ? '#000' : 'rgba(255,255,255,0.3)', cursor: fromDate ? 'pointer' : 'not-allowed' }}>Submit Request</button>
         </div>
       )}
     </DetailPopup>
@@ -416,7 +416,7 @@ function StatCard({ icon, label, value, sub, color, delay, onClick }) {
       </div>
       <p className="text-2xl font-bold text-text-primary">{value}</p>
       <p className="text-xs text-text-secondary mt-1">{label}</p>
-      <p className="text-[10px] text-text-muted mt-1.5 opacity-0 group-hover:opacity-100 transition-opacity">Click for details â†’</p>
+      <p className="text-[10px] text-text-muted mt-1.5 opacity-0 group-hover:opacity-100 transition-opacity">Click for details →</p>
     </div>
   );
 }
@@ -425,9 +425,9 @@ function WeeklyHoursTooltip({ active, payload }) {
   if (!active || !payload?.length) return null;
   const d = payload[0].payload;
   return (
-    <div style={{ background: 'rgba(8,8,12,0.92)', backdropFilter: 'blur(12px)', border: '1px solid rgba(55,55,68,0.85)', borderRadius: 12, padding: '8px 14px' }}>
-      <p style={{ color: '#2DD4FF', fontWeight: 600, fontSize: 13, margin: 0 }}>{d.day}</p>
-      <p style={{ color: 'rgba(255,255,255,0.65)', fontSize: 12, margin: '4px 0 0' }}>{d.hours}h worked</p>
+    <div style={{ background: 'rgba(8,8,12,0.92)', backdropFilter: 'blur(12px)', border: '1px solid var(--color-surface-border)', borderRadius: 12, padding: '8px 14px' }}>
+      <p style={{ color: '#C8A96B', fontWeight: 600, fontSize: 13, margin: 0 }}>{d.day}</p>
+      <p style={{ color: 'var(--color-text-muted)', fontSize: 12, margin: '4px 0 0' }}>{d.hours}h worked</p>
     </div>
   );
 }
@@ -439,14 +439,14 @@ function OverviewPage({ stats, onOpenComplaint, onPopup }) {
     <div className="space-y-5">
       {/* Welcome Banner */}
       <div className="glass-card p-7 relative overflow-hidden animate-fade-in-up" style={{ opacity: 0 }}>
-        <div className="absolute inset-0 opacity-30" style={{ background: 'linear-gradient(135deg, rgba(45, 212, 255, 0.08), rgba(147, 51, 234, 0.08))' }} />
+        <div className="absolute inset-0 opacity-30" style={{ background: 'linear-gradient(135deg, rgba(200, 169, 107, 0.08), rgba(13, 32, 53, 0.08))' }} />
         <div className="relative flex items-center justify-between">
           <div>
             <p className="text-sm text-text-secondary mb-1">Welcome back,</p>
             <h2 className="text-2xl font-bold text-text-primary">{stats.name} {stats.avatar}</h2>
             <p className="text-sm text-text-secondary mt-1">{stats.role} Â· {stats.department}</p>
             <div className="flex items-center gap-4 mt-4 flex-wrap">
-              <span className="text-xs font-bold px-2.5 py-1 rounded-full" style={{ background: 'rgba(45,212,255,0.1)', border: '1px solid rgba(45,212,255,0.2)', color: '#2DD4FF' }}>{stats.employeeId}</span>
+              <span className="text-xs font-bold px-2.5 py-1 rounded-full" style={{ background: 'rgba(200,169,107,0.1)', border: '1px solid rgba(200,169,107,0.2)', color: '#C8A96B' }}>{stats.employeeId}</span>
               <span className="text-xs text-text-muted">Manager: <span className="text-text-secondary font-medium">{stats.manager}</span></span>
               <span className="text-xs text-text-muted">Shift: <span className="text-text-secondary font-medium">{stats.shiftTiming}</span></span>
             </div>
@@ -458,12 +458,12 @@ function OverviewPage({ stats, onOpenComplaint, onPopup }) {
         </div>
       </div>
 
-      {/* Stat Cards â€” clickable */}
+      {/* Stat Cards — clickable */}
       <div className="grid grid-cols-4 gap-5">
-        <StatCard icon="ðŸ“…" label="Days Present" value={`${stats.thisMonth.daysPresent}/${stats.thisMonth.totalDays}`} sub="This Month" color="#2DD4FF" delay="delay-100" onClick={() => onPopup('attendance')} />
-        <StatCard icon="â±ï¸" label="Avg Hours/Day" value={stats.thisMonth.avgHours.toFixed(1)} sub="On Track" color="#9333EA" delay="delay-200" onClick={() => onPopup('attendance')} />
-        <StatCard icon="ðŸŒ´" label="Leave Balance" value={stats.leaveBalance.casual + stats.leaveBalance.sick + stats.leaveBalance.earned} sub={`${stats.leaveBalance.casual}C Â· ${stats.leaveBalance.sick}S Â· ${stats.leaveBalance.earned}E`} color="#a78bfa" delay="delay-300" onClick={() => onPopup('leave')} />
-        <StatCard icon="â°" label="Overtime Hours" value={stats.thisMonth.overtimeHours} sub="This Month" color="#06b6d4" delay="delay-400" onClick={() => onPopup('overtime')} />
+        <StatCard icon="📅" label="Days Present" value={`${stats.thisMonth.daysPresent}/${stats.thisMonth.totalDays}`} sub="This Month" color="#C8A96B" delay="delay-100" onClick={() => onPopup('attendance')} />
+        <StatCard icon="â±ï¸" label="Avg Hours/Day" value={stats.thisMonth.avgHours.toFixed(1)} sub="On Track" color="#0D2035" delay="delay-200" onClick={() => onPopup('attendance')} />
+        <StatCard icon="🌴" label="Leave Balance" value={stats.leaveBalance.casual + stats.leaveBalance.sick + stats.leaveBalance.earned} sub={`${stats.leaveBalance.casual}C Â· ${stats.leaveBalance.sick}S Â· ${stats.leaveBalance.earned}E`} color="#DFC993" delay="delay-300" onClick={() => onPopup('leave')} />
+        <StatCard icon="â°" label="Overtime Hours" value={stats.thisMonth.overtimeHours} sub="This Month" color="#123452" delay="delay-400" onClick={() => onPopup('overtime')} />
       </div>
 
       {/* Quick Actions */}
@@ -497,8 +497,8 @@ function OverviewPage({ stats, onOpenComplaint, onPopup }) {
             <p className="text-xs text-text-secondary mb-4">Daily working hours breakdown</p>
             <ResponsiveContainer width="100%" height={200}>
               <BarChart data={stats.weeklyHours} barSize={28}>
-                <XAxis dataKey="day" tick={{ fill: 'rgba(255,255,255,0.5)', fontSize: 11 }} axisLine={false} tickLine={false} />
-                <YAxis domain={[0, 12]} tick={{ fill: 'rgba(255,255,255,0.3)', fontSize: 10 }} axisLine={false} tickLine={false} width={24} />
+                <XAxis dataKey="day" tick={{ fill: 'var(--color-text-secondary)', fontSize: 11 }} axisLine={false} tickLine={false} />
+                <YAxis domain={[0, 12]} tick={{ fill: 'var(--color-text-muted)', fontSize: 10 }} axisLine={false} tickLine={false} width={24} />
                 <Tooltip content={<WeeklyHoursTooltip />} cursor={false} />
                 <Bar dataKey="hours" radius={[6, 6, 0, 0]}>
                   {stats.weeklyHours.map((entry, index) => <Cell key={index} fill={getBarColor(entry.hours)} />)}
@@ -506,16 +506,16 @@ function OverviewPage({ stats, onOpenComplaint, onPopup }) {
               </BarChart>
             </ResponsiveContainer>
             <div className="flex items-center gap-2 mt-3 text-[10px] text-text-muted">
-              <div className="w-3 h-[2px] rounded-full" style={{ background: '#2DD4FF' }} /><span>Standard (7â€“8h)</span>
-              <div className="w-3 h-[2px] rounded-full ml-2" style={{ background: '#9333EA' }} /><span>Overtime (9h+)</span>
+              <div className="w-3 h-[2px] rounded-full" style={{ background: '#C8A96B' }} /><span>Standard (7–8h)</span>
+              <div className="w-3 h-[2px] rounded-full ml-2" style={{ background: '#0D2035' }} /><span>Overtime (9h+)</span>
             </div>
           </div>
         </div>
       </div>
 
-      {/* Announcements â€” clickable */}
+      {/* Announcements — clickable */}
       <div className="glass-card p-6 animate-fade-in-up delay-300" style={{ opacity: 0 }}>
-        <h3 className="text-base font-semibold text-text-primary mb-4">ðŸ“¢ Announcements <span className="text-xs text-text-muted font-normal ml-2">â€” click to read more</span></h3>
+        <h3 className="text-base font-semibold text-text-primary mb-4">📢 Announcements <span className="text-xs text-text-muted font-normal ml-2">— click to read more</span></h3>
         <div className="space-y-3">
           {announcements.map((item) => (
             <div key={item.id} className="flex items-start gap-4 p-4 rounded-2xl transition-all duration-300 hover:bg-white/[0.04] cursor-pointer group" onClick={() => onPopup('announcement', item)}>
@@ -542,21 +542,21 @@ function AttendancePage({ onPopup }) {
     <div className="space-y-5 animate-fade-in-up" style={{ opacity: 0 }}>
       <div className="glass-card p-6">
         <h3 className="text-lg font-bold text-text-primary mb-1">Attendance Overview</h3>
-        <p className="text-xs text-text-secondary mb-6">Your full attendance history â€” past 12 months</p>
+        <p className="text-xs text-text-secondary mb-6">Your full attendance history — past 12 months</p>
         <AttendanceHeatmap data={attendanceData} title="Full Year Attendance" />
       </div>
       <div className="grid grid-cols-4 gap-5">
         {[
-          { label: 'Days Present', value: '18/22', color: '#2DD4FF', icon: 'âœ…', popup: 'attendance' },
+          { label: 'Days Present', value: '18/22', color: '#C8A96B', icon: '✅', popup: 'attendance' },
           { label: 'Absent Days', value: '4', color: '#f87171', icon: 'âŒ', popup: 'attendance' },
-          { label: 'Half Days', value: '2', color: '#fbbf24', icon: 'ðŸŒ—', popup: 'attendance' },
-          { label: 'Late Check-ins', value: '3', color: '#a78bfa', icon: 'â°', popup: 'attendance' },
+          { label: 'Half Days', value: '2', color: '#fbbf24', icon: '🌗', popup: 'attendance' },
+          { label: 'Late Check-ins', value: '3', color: '#DFC993', icon: 'â°', popup: 'attendance' },
         ].map((item, i) => (
           <div key={i} className="glass-card p-5 cursor-pointer group hover:scale-[1.02] transition-all duration-200" onClick={() => onPopup(item.popup)}>
             <div className="text-2xl mb-3">{item.icon}</div>
             <p className="text-2xl font-bold text-text-primary">{item.value}</p>
             <p className="text-xs text-text-secondary mt-1">{item.label}</p>
-            <p className="text-[10px] text-text-muted mt-1.5 opacity-0 group-hover:opacity-100 transition-opacity">Click for details â†’</p>
+            <p className="text-[10px] text-text-muted mt-1.5 opacity-0 group-hover:opacity-100 transition-opacity">Click for details →</p>
           </div>
         ))}
       </div>
@@ -574,7 +574,7 @@ function ProjectsPage({ stats, onPopup }) {
           {stats.recentProjects.map((project, i) => {
             const st = STATUS_STYLES[project.status] || STATUS_STYLES['Pending'];
             return (
-              <div key={i} className="p-5 rounded-2xl hover:bg-white/[0.04] transition-colors cursor-pointer group" style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(38,38,47,0.9)' }} onClick={() => onPopup('project', project)}>
+              <div key={i} className="p-5 rounded-2xl hover:bg-white/[0.04] transition-colors cursor-pointer group" style={{ background: 'var(--color-surface-card)', border: '1px solid var(--color-surface-border)' }} onClick={() => onPopup('project', project)}>
                 <div className="flex items-center justify-between mb-3">
                   <h4 className="text-sm font-semibold text-text-primary">{project.name}</h4>
                   <div className="flex items-center gap-2">
@@ -584,7 +584,7 @@ function ProjectsPage({ stats, onPopup }) {
                 </div>
                 <div className="flex items-center gap-3">
                   <div className="flex-1 h-2 rounded-full bg-white/[0.06] overflow-hidden">
-                    <div className="h-full rounded-full transition-all duration-700" style={{ width: `${project.progress}%`, background: project.progress === 100 ? '#4ade80' : 'linear-gradient(90deg, #2DD4FF, #9333EA)' }} />
+                    <div className="h-full rounded-full transition-all duration-700" style={{ width: `${project.progress}%`, background: project.progress === 100 ? '#4ade80' : 'linear-gradient(90deg, #C8A96B, #0D2035)' }} />
                   </div>
                   <span className="text-xs font-semibold text-text-secondary w-10 text-right">{project.progress}%</span>
                   <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" strokeWidth="2" className="text-text-muted opacity-0 group-hover:opacity-60 transition-opacity flex-shrink-0"><polyline points="9 18 15 12 9 6" /></svg>
@@ -600,9 +600,9 @@ function ProjectsPage({ stats, onPopup }) {
 
 function LeavePage({ stats, onPopup, leaveHistory: propLeaveHistory }) {
   const leaveTypes = [
-    { type: 'Casual Leave', balance: stats.leaveBalance.casual, total: 12, color: '#2DD4FF', icon: 'ðŸ–ï¸' },
-    { type: 'Sick Leave', balance: stats.leaveBalance.sick, total: 10, color: '#9333EA', icon: 'ðŸ¥' },
-    { type: 'Earned Leave', balance: stats.leaveBalance.earned, total: 15, color: '#a78bfa', icon: 'ðŸ’¼' },
+    { type: 'Casual Leave', balance: stats.leaveBalance.casual, total: 12, color: '#C8A96B', icon: 'ðŸ–ï¸' },
+    { type: 'Sick Leave', balance: stats.leaveBalance.sick, total: 10, color: '#0D2035', icon: 'ðŸ¥' },
+    { type: 'Earned Leave', balance: stats.leaveBalance.earned, total: 15, color: '#DFC993', icon: '💼' },
   ];
   const leaveHistory = propLeaveHistory || [
     { type: 'Casual', date: 'Aug 2, 2026', days: 1, status: 'Approved' },
@@ -624,7 +624,7 @@ function LeavePage({ stats, onPopup, leaveHistory: propLeaveHistory }) {
             <div className="h-1.5 rounded-full bg-white/[0.06] overflow-hidden">
               <div className="h-full rounded-full" style={{ width: `${(lt.balance / lt.total) * 100}%`, background: lt.color }} />
             </div>
-            <p className="text-[10px] text-text-muted mt-2 opacity-0 group-hover:opacity-100 transition-opacity">Click for details â†’</p>
+            <p className="text-[10px] text-text-muted mt-2 opacity-0 group-hover:opacity-100 transition-opacity">Click for details →</p>
           </div>
         ))}
       </div>
@@ -634,7 +634,7 @@ function LeavePage({ stats, onPopup, leaveHistory: propLeaveHistory }) {
             <h3 className="text-base font-semibold text-text-primary">Leave History</h3>
             <p className="text-xs text-text-secondary mt-1">Recent approved & rejected requests</p>
           </div>
-          <button id="apply-leave-btn" onClick={() => onPopup('apply-leave')} className="px-4 py-2 rounded-xl text-xs font-semibold cursor-pointer transition-all hover:scale-105" style={{ background: 'linear-gradient(135deg, rgba(45,212,255,0.1), rgba(147,51,234,0.1))', border: '1px solid rgba(45,212,255,0.2)', color: '#2DD4FF' }}>
+          <button id="apply-leave-btn" onClick={() => onPopup('apply-leave')} className="px-4 py-2 rounded-xl text-xs font-semibold cursor-pointer transition-all hover:scale-105" style={{ background: 'linear-gradient(135deg, rgba(200,169,107,0.1), rgba(13,32,53,0.1))', border: '1px solid rgba(200,169,107,0.2)', color: '#C8A96B' }}>
             + Apply Leave
           </button>
         </div>
@@ -643,9 +643,9 @@ function LeavePage({ stats, onPopup, leaveHistory: propLeaveHistory }) {
             const approved = item.status === 'Approved';
             const isPending = item.status === 'Pending';
             return (
-              <div key={i} className="flex items-center justify-between p-4 rounded-xl hover:bg-white/[0.03] transition-colors" style={{ background: 'rgba(255,255,255,0.02)' }}>
+              <div key={i} className="flex items-center justify-between p-4 rounded-xl hover:bg-white/[0.03] transition-colors" style={{ background: 'var(--color-surface-card)' }}>
                 <div className="flex items-center gap-3">
-                  <div className="w-8 h-8 rounded-lg flex items-center justify-center text-sm" style={{ background: 'rgba(255,255,255,0.05)' }}>ðŸŒ´</div>
+                  <div className="w-8 h-8 rounded-lg flex items-center justify-center text-sm" style={{ background: 'var(--color-surface-raised)' }}>🌴</div>
                   <div>
                     <p className="text-xs font-semibold text-text-primary">{item.type} Leave</p>
                     <p className="text-[10px] text-text-muted">{item.date} Â· {item.days} day{item.days > 1 ? 's' : ''}</p>
@@ -665,10 +665,10 @@ function LeavePage({ stats, onPopup, leaveHistory: propLeaveHistory }) {
 
 function PayslipPage({ onSalaryPopup }) {
   const payslips = [
-    { month: 'July 2026', gross: 'â‚¹1,20,000', net: 'â‚¹98,400', status: 'Credited' },
-    { month: 'June 2026', gross: 'â‚¹1,20,000', net: 'â‚¹98,400', status: 'Credited' },
-    { month: 'May 2026', gross: 'â‚¹1,18,000', net: 'â‚¹96,780', status: 'Credited' },
-    { month: 'April 2026', gross: 'â‚¹1,18,000', net: 'â‚¹96,780', status: 'Credited' },
+    { month: 'July 2026', gross: '₹1,20,000', net: '₹98,400', status: 'Credited' },
+    { month: 'June 2026', gross: '₹1,20,000', net: '₹98,400', status: 'Credited' },
+    { month: 'May 2026', gross: '₹1,18,000', net: '₹96,780', status: 'Credited' },
+    { month: 'April 2026', gross: '₹1,18,000', net: '₹96,780', status: 'Credited' },
   ];
   return (
     <div className="space-y-5 animate-fade-in-up" style={{ opacity: 0 }}>
@@ -680,11 +680,11 @@ function PayslipPage({ onSalaryPopup }) {
             <div
               key={i}
               className="flex items-center justify-between p-5 rounded-2xl hover:bg-white/[0.04] transition-colors cursor-pointer group"
-              style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(38,38,47,0.9)' }}
+              style={{ background: 'var(--color-surface-card)', border: '1px solid var(--color-surface-border)' }}
               onClick={() => onSalaryPopup(p)}
             >
               <div className="flex items-center gap-4">
-                <div className="w-10 h-10 rounded-xl flex items-center justify-center text-lg" style={{ background: 'rgba(45,212,255,0.08)', border: '1px solid rgba(45,212,255,0.15)' }}>ðŸ’°</div>
+                <div className="w-10 h-10 rounded-xl flex items-center justify-center text-lg" style={{ background: 'rgba(200,169,107,0.08)', border: '1px solid rgba(200,169,107,0.15)' }}>💰</div>
                 <div>
                   <p className="text-sm font-semibold text-text-primary">{p.month}</p>
                   <p className="text-xs text-text-muted">Gross: {p.gross} Â· Net: <span className="text-text-secondary font-semibold">{p.net}</span></p>
@@ -695,10 +695,10 @@ function PayslipPage({ onSalaryPopup }) {
                 <button
                   id={`download-payslip-${i}`}
                   className="px-3 py-1.5 rounded-lg text-xs font-semibold cursor-pointer transition-all hover:scale-105"
-                  style={{ background: 'rgba(45,212,255,0.08)', border: '1px solid rgba(45,212,255,0.2)', color: '#2DD4FF' }}
+                  style={{ background: 'rgba(200,169,107,0.08)', border: '1px solid rgba(200,169,107,0.2)', color: '#C8A96B' }}
                   onClick={(e) => { e.stopPropagation(); }}
                 >
-                  â†“ Download
+                  ↓ Download
                 </button>
                 <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" strokeWidth="2" className="text-text-muted opacity-0 group-hover:opacity-60 transition-opacity"><polyline points="9 18 15 12 9 6" /></svg>
               </div>
@@ -733,7 +733,7 @@ function GoalsPage({ onPopup }) {
           {goals.map((goal, i) => {
             const st = STATUS_STYLES[goal.status] || STATUS_STYLES['Pending'];
             return (
-              <div key={i} className="p-5 rounded-2xl hover:bg-white/[0.04] transition-colors cursor-pointer group" style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(38,38,47,0.9)' }} onClick={() => onPopup('goal', goal)}>
+              <div key={i} className="p-5 rounded-2xl hover:bg-white/[0.04] transition-colors cursor-pointer group" style={{ background: 'var(--color-surface-card)', border: '1px solid var(--color-surface-border)' }} onClick={() => onPopup('goal', goal)}>
                 <div className="flex items-center justify-between mb-3">
                   <h4 className="text-sm font-semibold text-text-primary">{goal.title}</h4>
                   <div className="flex items-center gap-2">
@@ -744,7 +744,7 @@ function GoalsPage({ onPopup }) {
                 </div>
                 <div className="flex items-center gap-3">
                   <div className="flex-1 h-2 rounded-full bg-white/[0.06] overflow-hidden">
-                    <div className="h-full rounded-full transition-all duration-700" style={{ width: `${goal.progress}%`, background: goal.progress === 100 ? '#4ade80' : 'linear-gradient(90deg, #2DD4FF, #9333EA)' }} />
+                    <div className="h-full rounded-full transition-all duration-700" style={{ width: `${goal.progress}%`, background: goal.progress === 100 ? '#4ade80' : 'linear-gradient(90deg, #C8A96B, #0D2035)' }} />
                   </div>
                   <span className="text-xs font-semibold text-text-secondary w-10 text-right">{goal.progress}%</span>
                 </div>
@@ -760,11 +760,11 @@ function GoalsPage({ onPopup }) {
 /* â”€â”€â”€ Main Component â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 const TABS = [
   { id: 'overview', label: 'ðŸ  Overview' },
-  { id: 'attendance', label: 'ðŸ“… Attendance' },
-  { id: 'projects', label: 'ðŸ“Š Projects' },
-  { id: 'leave', label: 'ðŸŒ´ Leave' },
-  { id: 'payslip', label: 'ðŸ’° Payslip' },
-  { id: 'goals', label: 'ðŸŽ¯ Goals' },
+  { id: 'attendance', label: '📅 Attendance' },
+  { id: 'projects', label: '📊 Projects' },
+  { id: 'leave', label: '🌴 Leave' },
+  { id: 'payslip', label: '💰 Payslip' },
+  { id: 'goals', label: '🎯 Goals' },
 ];
 
 const INITIAL_LEAVE_HISTORY = [
@@ -791,14 +791,14 @@ export default function EmployeeDashboard() {
   function handleApplyLeave({ type, from, to }) {
     const days = from === to ? 1 : Math.max(1, Math.round((new Date(to) - new Date(from)) / 86400000) + 1);
     const dateStr = from === to ? new Date(from).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })
-      : `${new Date(from).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}â€“${new Date(to).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}`;
+      : `${new Date(from).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}–${new Date(to).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}`;
     setLeaveHistory((prev) => [{ type, date: dateStr, days, status: 'Pending' }, ...prev]);
   }
 
   return (
     <div id="employee-dashboard">
       {/* Tab Navigation */}
-      <div className="flex items-center gap-1 mb-6 p-1 rounded-2xl overflow-x-auto" style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(38,38,47,0.9)' }}>
+      <div className="flex items-center gap-1 mb-6 p-1 rounded-2xl overflow-x-auto" style={{ background: 'var(--color-surface-raised)', border: '1px solid var(--color-surface-border)' }}>
         {TABS.map((tab) => (
           <button
             key={tab.id}
@@ -806,9 +806,9 @@ export default function EmployeeDashboard() {
             onClick={() => setActiveTab(tab.id)}
             className="flex-shrink-0 px-4 py-2.5 rounded-xl text-xs font-semibold transition-all duration-250 cursor-pointer whitespace-nowrap"
             style={{
-              background: activeTab === tab.id ? 'linear-gradient(135deg, rgba(45,212,255,0.15), rgba(147,51,234,0.15))' : 'transparent',
-              border: activeTab === tab.id ? '1px solid rgba(45,212,255,0.25)' : '1px solid transparent',
-              color: activeTab === tab.id ? '#2DD4FF' : 'rgba(255,255,255,0.5)',
+              background: activeTab === tab.id ? 'linear-gradient(135deg, rgba(200,169,107,0.15), rgba(13,32,53,0.15))' : 'transparent',
+              border: activeTab === tab.id ? '1px solid rgba(200,169,107,0.25)' : '1px solid transparent',
+              color: activeTab === tab.id ? '#C8A96B' : 'rgba(255,255,255,0.5)',
             }}
           >
             {tab.label}
@@ -836,9 +836,9 @@ export default function EmployeeDashboard() {
       {popup === 'goal' && <GoalDetailPopup goal={popupData} onClose={closePopup} />}
       {popup === 'announcement' && <AnnouncementPopup item={popupData} onClose={closePopup} />}
       {popup === 'complaint' && <ComplaintDetailPopup complaint={popupData} onClose={closePopup} />}
-      {/* Quick action salary popup â€” opens breakdown for latest month */}
+      {/* Quick action salary popup — opens breakdown for latest month */}
       {popup === 'salary-quick' && (
-        <SalaryBreakdownPopup payslip={{ month: 'August 2026', gross: 'â‚¹1,25,000', net: 'â‚¹1,01,300' }} onClose={closePopup} />
+        <SalaryBreakdownPopup payslip={{ month: 'August 2026', gross: '₹1,25,000', net: '₹1,01,300' }} onClose={closePopup} />
       )}
       {popup === 'goals-quick' && <GoalsQuickPopup onClose={closePopup} />}
       {/* Payslip tab salary popup */}

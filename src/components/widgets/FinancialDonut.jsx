@@ -56,7 +56,7 @@ function renderActiveShape(props) {
         x={cx}
         y={cy + 8}
         textAnchor="middle"
-        fill="#2DD4FF"
+        fill="#C8A96B"
         fontSize={18}
         fontWeight={700}
         fontFamily="Inter, sans-serif"
@@ -94,9 +94,9 @@ export default function FinancialDonut({ data, title = 'Budget Allocation' }) {
         </div>
         <div
           className="w-12 h-12 rounded-xl flex items-center justify-center text-xl"
-          style={{ background: 'rgba(147, 51, 234, 0.1)' }}
+          style={{ background: 'rgba(13, 32, 53, 0.1)' }}
         >
-          ðŸ’°
+          💰
         </div>
       </div>
 

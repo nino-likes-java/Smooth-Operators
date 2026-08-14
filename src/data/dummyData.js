@@ -52,8 +52,8 @@ export const attendanceData = generateHeatmapData();
 export const budgetData = [
   { name: 'Salaries', value: 485000, color: '#00f5ff' },
   { name: 'Benefits', value: 125000, color: '#7c3aed' },
-  { name: 'Training', value: 68000, color: '#a78bfa' },
-  { name: 'Equipment', value: 45000, color: '#06b6d4' },
+  { name: 'Training', value: 68000, color: '#DFC993' },
+  { name: 'Equipment', value: 45000, color: '#123452' },
   { name: 'Events', value: 32000, color: '#8b5cf6' },
   { name: 'Misc', value: 15000, color: '#22d3ee' },
 ];
@@ -100,8 +100,8 @@ export const hrStats = {
   departments: [
     { name: 'Engineering', count: 89, color: '#00f5ff' },
     { name: 'Design', count: 34, color: '#7c3aed' },
-    { name: 'Product', count: 28, color: '#a78bfa' },
-    { name: 'Marketing', count: 42, color: '#06b6d4' },
+    { name: 'Product', count: 28, color: '#DFC993' },
+    { name: 'Marketing', count: 42, color: '#123452' },
     { name: 'Sales', count: 31, color: '#8b5cf6' },
     { name: 'Operations', count: 23, color: '#22d3ee' },
   ],
@@ -131,7 +131,7 @@ export const announcements = [
     body: 'The office will be closed on Aug 22 for scheduled maintenance. Please plan accordingly.',
     date: '2026-08-10',
     tag: 'Notice',
-    tagColor: '#a78bfa',
+    tagColor: '#DFC993',
   },
 ];
 
