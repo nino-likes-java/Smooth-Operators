@@ -73,10 +73,11 @@ function DetailPopup({ title, icon, onClose, children, wide }) {
 }
 
 function InfoRow({ label, value, color }) {
+  const isGoldName = typeof value === 'string' && (value.includes('Alex') || value.includes('Rachel'));
   return (
     <div className="flex items-center justify-between py-2.5" style={{ borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
       <span className="text-xs text-text-muted">{label}</span>
-      <span className="text-xs font-semibold" style={{ color: color || 'var(--color-text-primary)' }}>{value}</span>
+      <span className="text-xs font-semibold" style={{ color: color || (isGoldName ? 'var(--color-gold-muted)' : 'var(--color-text-primary)') }}>{value}</span>
     </div>
   );
 }
@@ -121,7 +122,7 @@ function NewHiresPopup({ stats, onClose }) {
               {h.name.split(' ').map((n) => n[0]).join('')}
             </div>
             <div className="flex-1">
-              <p className="text-sm font-semibold text-text-primary">{h.name}</p>
+              <p className={`text-sm font-semibold ${(h.name.includes('Alex') || h.name.includes('Rachel')) ? 'text-gold-muted' : 'text-text-primary'}`}>{h.name}</p>
               <p className="text-[10px] text-text-muted">{h.role} · {h.dept}</p>
             </div>
             <span className="text-[10px] text-text-muted">{h.date}</span>
@@ -227,7 +228,7 @@ function ApprovalsPopup({ stats, onClose }) {
             {/* Header row: name + timing badge only */}
             <div className="flex items-center justify-between mb-2">
               <div>
-                <p className="text-sm font-semibold text-text-primary">{item.name}</p>
+                <p className={`text-sm font-semibold ${(item.name.includes('Alex') || item.name.includes('Rachel')) ? 'text-gold-muted' : 'text-text-primary'}`}>{item.name}</p>
                 <p className="text-[10px] text-text-muted">{item.type} · {item.days} · {item.date} · {item.dept}</p>
               </div>
               {item.daysLeft > 0
@@ -242,13 +243,15 @@ function ApprovalsPopup({ stats, onClose }) {
             </div>
             {/* Action row: buttons OR decision badge */}
             {decisions[i] ? (
-              <div className="flex items-center justify-center py-2 rounded-lg" style={{ background: decisions[i] === 'approved' ? 'rgba(74,222,128,0.06)' : 'rgba(248,113,113,0.06)', border: `1px solid ${decisions[i] === 'approved' ? 'rgba(74,222,128,0.2)' : 'rgba(248,113,113,0.2)'}` }}>
-                <span className="text-xs font-bold" style={{ color: decisions[i] === 'approved' ? '#4ade80' : '#f87171' }}>{decisions[i] === 'approved' ? '✓ Approved' : '✕ Rejected'}</span>
+              <div className="flex justify-end">
+                <span className="px-3 py-1 rounded-md text-[11px] font-semibold" style={{ background: decisions[i] === 'approved' ? 'rgba(74,222,128,0.1)' : 'rgba(248,113,113,0.1)', border: `1px solid ${decisions[i] === 'approved' ? 'rgba(74,222,128,0.2)' : 'rgba(248,113,113,0.2)'}`, color: decisions[i] === 'approved' ? '#4ade80' : '#f87171' }}>
+                  {decisions[i] === 'approved' ? '✓ Approved' : '✕ Rejected'}
+                </span>
               </div>
             ) : (
-              <div className="flex gap-2 justify-center">
-                <button onClick={() => decide(i, 'approved')} className="py-1 px-3 rounded text-[10px] font-semibold transition-all hover:scale-105" style={{ background: 'rgba(74,222,128,0.1)', border: '1px solid rgba(74,222,128,0.2)', color: '#4ade80' }}>✓ Approve</button>
-                <button onClick={() => decide(i, 'rejected')} className="py-1 px-3 rounded text-[10px] font-semibold transition-all hover:scale-105" style={{ background: 'rgba(248,113,113,0.1)', border: '1px solid rgba(248,113,113,0.2)', color: '#f87171' }}>✕ Reject</button>
+              <div className="flex gap-2 justify-end">
+                <button onClick={() => decide(i, 'approved')} className="px-3 py-1 rounded-md text-[11px] font-semibold transition-all hover:scale-105" style={{ background: 'rgba(74,222,128,0.1)', border: '1px solid rgba(74,222,128,0.2)', color: '#4ade80' }}>✓ Approve</button>
+                <button onClick={() => decide(i, 'rejected')} className="px-3 py-1 rounded-md text-[11px] font-semibold transition-all hover:scale-105" style={{ background: 'rgba(248,113,113,0.1)', border: '1px solid rgba(248,113,113,0.2)', color: '#f87171' }}>✕ Reject</button>
               </div>
             )}
           </div>
@@ -500,7 +503,7 @@ function OverviewPage({ stats, onPopup, complaints, onTabChange }) {
         <div className="relative flex items-center justify-between">
           <div>
             <p className="text-sm text-text-secondary mb-1">HR Control Center</p>
-            <h2 className="text-2xl font-bold text-gold-muted">Organization Overview 🏢</h2>
+            <h2 className="text-2xl font-bold text-text-primary">Organization Overview 🏢</h2>
             <p className="text-sm text-text-secondary mt-1">Managing {stats.totalEmployees} employees across {stats.departments.length} departments</p>
           </div>
           <button
@@ -528,7 +531,7 @@ function OverviewPage({ stats, onPopup, complaints, onTabChange }) {
             key={i}
             className="glass-card p-5 text-left cursor-pointer group relative flex items-center gap-4"
             id={`hr-action-${action.label.toLowerCase().replace(/\s/g, '-')}`}
-            style={action.isComplaint ? { border: '1px solid rgba(248,113,113,0.2)', background: 'rgba(248,113,113,0.04)' } : undefined}
+            style={action.isComplaint ? { border: '2px solid rgba(248,113,113,0.7)', background: 'rgba(248,113,113,0.04)' } : undefined}
             onClick={() => {
               if (action.label === 'Approvals') { onPopup('approvals'); return; }
               if (action.label === 'Post Update') { onPopup('post-announcement'); return; }
@@ -600,7 +603,8 @@ function OverviewPage({ stats, onPopup, complaints, onTabChange }) {
                       <span className="text-[10px] font-medium px-2 py-0.5 rounded-full" style={{ background: st.bg, border: `1px solid ${st.border}`, color: st.text }}>{c.status}</span>
                     </div>
                     <h4 className="text-xs font-semibold text-text-primary mb-1">{c.subject}</h4>
-                    <span className="text-[10px] text-text-secondary">{c.employee} · {c.department}</span>
+                    <span className={`text-[10px] ${(c.employee.includes('Alex') || c.employee.includes('Rachel')) ? 'text-gold-muted font-semibold' : 'text-text-secondary'}`}>{c.employee}</span>
+                    <span className="text-[10px] text-text-muted"> · {c.department}</span>
                   </div>
                 );
               })}
@@ -797,7 +801,7 @@ function EmployeesPage({ stats, onPopup, employees, onAddEmployee }) {
               </div>
               <div className="flex-1 min-w-0">
                 <div className="flex items-center gap-2">
-                  <p className="text-sm font-semibold text-text-primary">{emp.name}</p>
+                  <p className={`text-sm font-semibold ${(emp.name.includes('Alex') || emp.name.includes('Rachel')) ? 'text-gold-muted' : 'text-text-primary'}`}>{emp.name}</p>
                   {emp.isNew && <span className="text-[9px] font-bold px-1.5 py-0.5 rounded-full" style={{ background: 'rgba(13,32,53,0.2)', border: '1px solid rgba(13,32,53,0.4)', color: '#DFC993' }}>NEW</span>}
                 </div>
                 <p className="text-[10px] text-text-muted">{emp.role} · {emp.dept}</p>
@@ -860,7 +864,7 @@ function ComplaintsPage({ onPopup, complaints: localComplaints }) {
                 </div>
                 <h4 className="text-sm font-semibold text-text-primary mb-2">{c.subject}</h4>
                 <p className="text-xs text-text-secondary leading-relaxed mb-3">{c.description}</p>
-                <span className="text-[10px] text-text-secondary font-semibold">{c.employee}</span>
+                <span className={`text-[10px] font-semibold ${(c.employee.includes('Alex') || c.employee.includes('Rachel')) ? 'text-gold-muted' : 'text-text-secondary'}`}>{c.employee}</span>
                 <span className="text-[10px] text-text-muted"> · {c.department}</span>
               </div>
             );
@@ -896,7 +900,7 @@ function ApprovalsPage({ stats, onPopup }) {
                     {item.name.split(' ').map((n) => n[0]).join('')}
                   </div>
                   <div>
-                    <p className="text-sm font-semibold text-text-primary">{item.name}</p>
+                    <p className={`text-sm font-semibold ${(item.name.includes('Alex') || item.name.includes('Rachel')) ? 'text-gold-muted' : 'text-text-primary'}`}>{item.name}</p>
                     <p className="text-[10px] text-text-muted">{item.type} · {item.days} · {item.dept}</p>
                   </div>
                 </div>
@@ -929,13 +933,15 @@ function ApprovalsPage({ stats, onPopup }) {
               </div>
               {/* Action row: buttons OR full-width decision banner */}
               {decisions[i] ? (
-                <div className="flex items-center justify-center gap-2 py-2.5 rounded-lg" style={{ background: decisions[i] === 'approved' ? 'rgba(74,222,128,0.06)' : 'rgba(248,113,113,0.06)', border: `1px solid ${decisions[i] === 'approved' ? 'rgba(74,222,128,0.2)' : 'rgba(248,113,113,0.2)'}` }}>
-                  <span className="text-xs font-bold" style={{ color: decisions[i] === 'approved' ? '#4ade80' : '#f87171' }}>{decisions[i] === 'approved' ? '✓ Approved' : '✕ Rejected'}</span>
+                <div className="flex justify-end">
+                  <span className="px-3 py-1 rounded-md text-[11px] font-semibold" style={{ background: decisions[i] === 'approved' ? 'rgba(74,222,128,0.1)' : 'rgba(248,113,113,0.1)', border: `1px solid ${decisions[i] === 'approved' ? 'rgba(74,222,128,0.2)' : 'rgba(248,113,113,0.2)'}`, color: decisions[i] === 'approved' ? '#4ade80' : '#f87171' }}>
+                    {decisions[i] === 'approved' ? '✓ Approved' : '✕ Rejected'}
+                  </span>
                 </div>
               ) : (
-                <div className="flex gap-2 justify-center">
-                  <button id={`approve-${i}`} onClick={() => decide(i, 'approved')} className="py-1 px-3 rounded text-[10px] font-semibold cursor-pointer transition-all hover:scale-105" style={{ background: 'rgba(74,222,128,0.1)', border: '1px solid rgba(74,222,128,0.2)', color: '#4ade80' }}>✓ Approve</button>
-                  <button id={`reject-${i}`} onClick={() => decide(i, 'rejected')} className="py-1 px-3 rounded text-[10px] font-semibold cursor-pointer transition-all hover:scale-105" style={{ background: 'rgba(248,113,113,0.1)', border: '1px solid rgba(248,113,113,0.2)', color: '#f87171' }}>✕ Reject</button>
+                <div className="flex gap-2 justify-end">
+                  <button id={`approve-${i}`} onClick={() => decide(i, 'approved')} className="px-3 py-1 rounded-md text-[11px] font-semibold cursor-pointer transition-all hover:scale-105" style={{ background: 'rgba(74,222,128,0.1)', border: '1px solid rgba(74,222,128,0.2)', color: '#4ade80' }}>✓ Approve</button>
+                  <button id={`reject-${i}`} onClick={() => decide(i, 'rejected')} className="px-3 py-1 rounded-md text-[11px] font-semibold cursor-pointer transition-all hover:scale-105" style={{ background: 'rgba(248,113,113,0.1)', border: '1px solid rgba(248,113,113,0.2)', color: '#f87171' }}>✕ Reject</button>
                 </div>
               )}
             </div>
