@@ -443,7 +443,7 @@ function OverviewPage({ stats, onOpenComplaint, onPopup }) {
         <div className="relative flex items-center justify-between">
           <div>
             <p className="text-sm text-text-secondary mb-1">Welcome back,</p>
-            <h2 className="text-2xl font-bold text-text-primary">{stats.name} {stats.avatar}</h2>
+            <h2 className="text-2xl font-bold text-gold-muted">{stats.name} {stats.avatar}</h2>
             <p className="text-sm text-text-secondary mt-1">{stats.role} · {stats.department}</p>
             <div className="flex items-center gap-4 mt-4 flex-wrap">
               <span className="text-xs font-bold px-2.5 py-1 rounded-full" style={{ background: 'rgba(200,169,107,0.1)', border: '1px solid rgba(200,169,107,0.2)', color: '#C8A96B' }}>{stats.employeeId}</span>

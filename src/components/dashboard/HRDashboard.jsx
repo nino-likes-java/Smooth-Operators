@@ -500,7 +500,7 @@ function OverviewPage({ stats, onPopup, complaints, onTabChange }) {
         <div className="relative flex items-center justify-between">
           <div>
             <p className="text-sm text-text-secondary mb-1">HR Control Center</p>
-            <h2 className="text-2xl font-bold text-text-primary">Organization Overview 🏢</h2>
+            <h2 className="text-2xl font-bold text-gold-muted">Organization Overview 🏢</h2>
             <p className="text-sm text-text-secondary mt-1">Managing {stats.totalEmployees} employees across {stats.departments.length} departments</p>
           </div>
           <button
