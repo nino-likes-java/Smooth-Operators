@@ -246,9 +246,9 @@ function ApprovalsPopup({ stats, onClose }) {
                 <span className="text-xs font-bold" style={{ color: decisions[i] === 'approved' ? '#4ade80' : '#f87171' }}>{decisions[i] === 'approved' ? '✓ Approved' : '✕ Rejected'}</span>
               </div>
             ) : (
-              <div className="flex gap-2">
-                <button onClick={() => decide(i, 'approved')} className="flex-1 py-2 rounded-lg text-xs font-semibold transition-all hover:scale-105" style={{ background: 'rgba(74,222,128,0.1)', border: '1px solid rgba(74,222,128,0.2)', color: '#4ade80' }}>✓ Approve</button>
-                <button onClick={() => decide(i, 'rejected')} className="flex-1 py-2 rounded-lg text-xs font-semibold transition-all hover:scale-105" style={{ background: 'rgba(248,113,113,0.1)', border: '1px solid rgba(248,113,113,0.2)', color: '#f87171' }}>✕ Reject</button>
+              <div className="flex gap-2 justify-center">
+                <button onClick={() => decide(i, 'approved')} className="py-1 px-3 rounded text-[10px] font-semibold transition-all hover:scale-105" style={{ background: 'rgba(74,222,128,0.1)', border: '1px solid rgba(74,222,128,0.2)', color: '#4ade80' }}>✓ Approve</button>
+                <button onClick={() => decide(i, 'rejected')} className="py-1 px-3 rounded text-[10px] font-semibold transition-all hover:scale-105" style={{ background: 'rgba(248,113,113,0.1)', border: '1px solid rgba(248,113,113,0.2)', color: '#f87171' }}>✕ Reject</button>
               </div>
             )}
           </div>
@@ -933,9 +933,9 @@ function ApprovalsPage({ stats, onPopup }) {
                   <span className="text-xs font-bold" style={{ color: decisions[i] === 'approved' ? '#4ade80' : '#f87171' }}>{decisions[i] === 'approved' ? '✓ Approved' : '✕ Rejected'}</span>
                 </div>
               ) : (
-                <div className="flex gap-2">
-                  <button id={`approve-${i}`} onClick={() => decide(i, 'approved')} className="flex-1 py-2.5 rounded-lg text-xs font-semibold cursor-pointer transition-all hover:scale-105" style={{ background: 'rgba(74,222,128,0.1)', border: '1px solid rgba(74,222,128,0.2)', color: '#4ade80' }}>✓ Approve</button>
-                  <button id={`reject-${i}`} onClick={() => decide(i, 'rejected')} className="flex-1 py-2.5 rounded-lg text-xs font-semibold cursor-pointer transition-all hover:scale-105" style={{ background: 'rgba(248,113,113,0.1)', border: '1px solid rgba(248,113,113,0.2)', color: '#f87171' }}>✕ Reject</button>
+                <div className="flex gap-2 justify-center">
+                  <button id={`approve-${i}`} onClick={() => decide(i, 'approved')} className="py-1 px-3 rounded text-[10px] font-semibold cursor-pointer transition-all hover:scale-105" style={{ background: 'rgba(74,222,128,0.1)', border: '1px solid rgba(74,222,128,0.2)', color: '#4ade80' }}>✓ Approve</button>
+                  <button id={`reject-${i}`} onClick={() => decide(i, 'rejected')} className="py-1 px-3 rounded text-[10px] font-semibold cursor-pointer transition-all hover:scale-105" style={{ background: 'rgba(248,113,113,0.1)', border: '1px solid rgba(248,113,113,0.2)', color: '#f87171' }}>✕ Reject</button>
                 </div>
               )}
             </div>
