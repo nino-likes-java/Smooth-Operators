@@ -1,4 +1,4 @@
-﻿import { useState } from 'react';
+import { useState } from 'react';
 import { BarChart, Bar, XAxis, YAxis, ResponsiveContainer, Cell, Tooltip } from 'recharts';
 import AttendanceHeatmap from '../widgets/AttendanceHeatmap';
 import ComplaintModal from '../widgets/ComplaintModal';
@@ -798,7 +798,7 @@ export default function EmployeeDashboard() {
   return (
     <div id="employee-dashboard">
       {/* Tab Navigation */}
-      <div className="flex items-center gap-1 mb-6 p-1 rounded-2xl overflow-x-auto" style={{ background: 'var(--color-surface-raised)', border: '1px solid var(--color-surface-border)' }}>
+      <div className="flex items-center gap-1 mb-6 p-1 rounded-2xl overflow-x-auto" style={{ background: 'var(--color-surface-raised)', border: '1px solid rgba(0, 0, 0, 0.15)' }}>
         {TABS.map((tab) => (
           <button
             key={tab.id}
@@ -807,8 +807,8 @@ export default function EmployeeDashboard() {
             className="flex-shrink-0 px-4 py-2.5 rounded-xl text-xs font-semibold transition-all duration-250 cursor-pointer whitespace-nowrap"
             style={{
               background: activeTab === tab.id ? 'linear-gradient(135deg, rgba(200,169,107,0.15), rgba(13,32,53,0.15))' : 'transparent',
-              border: activeTab === tab.id ? '1px solid rgba(200,169,107,0.25)' : '1px solid transparent',
-              color: activeTab === tab.id ? '#C8A96B' : 'rgba(255,255,255,0.5)',
+              border: activeTab === tab.id ? '1px solid rgba(0, 0, 0, 0.25)' : '1px solid rgba(0, 0, 0, 0.08)',
+              color: activeTab === tab.id ? '#C8A96B' : 'var(--color-text-secondary)',
             }}
           >
             {tab.label}
