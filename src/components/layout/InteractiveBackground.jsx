@@ -17,9 +17,9 @@ export default function InteractiveBackground() {
       if (glowRef.current) {
         glowRef.current.style.background = `
           radial-gradient(
-            800px circle at ${animPos.current.x}px ${animPos.current.y}px,
-            rgba(0, 245, 255, 0.12),
-            rgba(124, 58, 237, 0.08) 40%,
+            700px circle at ${animPos.current.x}px ${animPos.current.y}px,
+            rgba(34, 211, 238, 0.10),
+            rgba(139, 92, 246, 0.06) 45%,
             transparent 70%
           )
         `;
@@ -42,8 +42,9 @@ export default function InteractiveBackground() {
         style={{
           zIndex: 0,
           background: `
-            radial-gradient(ellipse 60% 50% at 10% 90%, rgba(124, 58, 237, 0.06), transparent),
-            radial-gradient(ellipse 50% 40% at 90% 10%, rgba(0, 245, 255, 0.04), transparent)
+            radial-gradient(ellipse 70% 55% at 0% 100%, rgba(139, 92, 246, 0.09), transparent),
+            radial-gradient(ellipse 60% 45% at 100% 0%, rgba(34, 211, 238, 0.06), transparent),
+            radial-gradient(ellipse 40% 30% at 100% 100%, rgba(168, 85, 247, 0.05), transparent)
           `,
         }}
       />

@@ -1,22 +1,28 @@
+﻿@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap");
 @import "tailwindcss";
 
-/* ── Spatial Web Theme ── */
+/* Aurora HR — Futuristic Spatial Command-Center Theme */
 @theme {
-  --color-cyan-glow: #00f5ff;
-  --color-violet-deep: #7c3aed;
-  --color-violet-light: #a78bfa;
-  --color-glass-bg: rgba(255, 255, 255, 0.04);
-  --color-glass-bg-hover: rgba(255, 255, 255, 0.08);
-  --color-glass-border: rgba(255, 255, 255, 0.1);
-  --color-glass-border-hover: rgba(255, 255, 255, 0.18);
-  --color-text-primary: rgba(255, 255, 255, 0.95);
-  --color-text-secondary: rgba(255, 255, 255, 0.55);
-  --color-text-muted: rgba(255, 255, 255, 0.35);
-  --color-surface: #0a0a0f;
-  --font-family-sans: "Inter", system-ui, -apple-system, sans-serif;
+  --color-cyan-glow:          #22d3ee;
+  --color-cyan-soft:          #38bdf8;
+  --color-violet-deep:        #8b5cf6;
+  --color-violet-light:       #a855f7;
+  --color-violet-pale:        #a78bfa;
+  --color-teal:               #2dd4bf;
+  --color-amber:              #f5b754;
+  --color-red-alert:          #f87171;
+  --color-glass-bg:           rgba(19, 19, 24, 0.72);
+  --color-glass-bg-hover:     rgba(23, 23, 31, 0.88);
+  --color-glass-border:       rgba(42, 42, 53, 0.9);
+  --color-glass-border-hover: rgba(80, 80, 100, 0.55);
+  --color-text-primary:       #f5f5f7;
+  --color-text-secondary:     #9ca3af;
+  --color-text-muted:         #6b7280;
+  --color-surface:            #0a0a0f;
+  --font-family-sans:         "Inter", system-ui, -apple-system, sans-serif;
 }
 
-/* ── Base Reset ── */
+/* Base Reset */
 *,
 *::before,
 *::after {
@@ -30,7 +36,7 @@ html {
 body {
   margin: 0;
   padding: 0;
-  background: #000000;
+  background: #0a0a0f;
   color: var(--color-text-primary);
   font-family: var(--font-family-sans);
   overflow-x: hidden;
@@ -38,7 +44,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* ── Custom Scrollbar ── */
+/* Custom Scrollbar */
 ::-webkit-scrollbar {
   width: 6px;
 }
@@ -48,15 +54,15 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.15);
+  background: rgba(255, 255, 255, 0.12);
   border-radius: 999px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(255, 255, 255, 0.25);
+  background: rgba(255, 255, 255, 0.22);
 }
 
-/* ── Glassmorphism Card ── */
+/* Glassmorphism Card */
 .glass-card {
   background: var(--color-glass-bg);
   backdrop-filter: blur(24px);
@@ -70,7 +76,10 @@ body {
   background: var(--color-glass-bg-hover);
   border-color: var(--color-glass-border-hover);
   transform: translateY(-2px);
-  box-shadow: 0 8px 32px rgba(0, 245, 255, 0.06), 0 0 0 1px rgba(255, 255, 255, 0.05);
+  box-shadow:
+    0 8px 32px rgba(34, 211, 238, 0.07),
+    0 0 0 1px rgba(139, 92, 246, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.04);
 }
 
 .glass-card-static {
@@ -81,13 +90,13 @@ body {
   border-radius: 20px;
 }
 
-/* ── Keyframe Animations ── */
+/* Keyframe Animations */
 @keyframes pulse-glow {
   0%, 100% {
-    box-shadow: 0 0 20px rgba(0, 245, 255, 0.3), 0 0 60px rgba(124, 58, 237, 0.15);
+    box-shadow: 0 0 20px rgba(34, 211, 238, 0.3), 0 0 60px rgba(139, 92, 246, 0.15);
   }
   50% {
-    box-shadow: 0 0 30px rgba(0, 245, 255, 0.5), 0 0 80px rgba(124, 58, 237, 0.25);
+    box-shadow: 0 0 30px rgba(34, 211, 238, 0.5), 0 0 80px rgba(139, 92, 246, 0.25);
   }
 }
 
@@ -122,6 +131,12 @@ body {
   30% { opacity: 1; transform: translateY(-4px); }
 }
 
+@keyframes aurora-sweep {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
 .animate-pulse-glow {
   animation: pulse-glow 3s ease-in-out infinite;
 }
@@ -143,22 +158,22 @@ body {
   animation: spin-slow 8s linear infinite;
 }
 
-/* ── Stagger Delays ── */
+/* Stagger Delays */
 .delay-100 { animation-delay: 0.1s; }
 .delay-200 { animation-delay: 0.2s; }
 .delay-300 { animation-delay: 0.3s; }
 .delay-400 { animation-delay: 0.4s; }
 .delay-500 { animation-delay: 0.5s; }
 
-/* ── Gradient Text ── */
+/* Cyan -> Violet Gradient Text */
 .gradient-text {
-  background: linear-gradient(135deg, var(--color-cyan-glow), var(--color-violet-deep));
+  background: linear-gradient(135deg, #22d3ee, #8b5cf6);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
 
-/* ── Toggle Switch ── */
+/* Toggle Switch */
 .toggle-track {
   position: relative;
   width: 220px;
@@ -176,52 +191,53 @@ body {
   width: 106px;
   height: 36px;
   border-radius: 999px;
-  background: linear-gradient(135deg, var(--color-cyan-glow), var(--color-violet-deep));
+  background: linear-gradient(135deg, #22d3ee, #8b5cf6);
   transition: left 0.4s cubic-bezier(0.22, 1, 0.36, 1);
-  box-shadow: 0 0 20px rgba(0, 245, 255, 0.3);
+  box-shadow: 0 0 20px rgba(34, 211, 238, 0.35);
 }
 
-/* ── Tooltip ── */
+/* Heatmap Tooltip */
 .heatmap-tooltip {
   position: fixed;
   pointer-events: none;
   padding: 8px 14px;
-  background: rgba(10, 10, 15, 0.95);
+  background: rgba(13, 13, 20, 0.97);
   backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: 10px;
   font-size: 12px;
-  color: rgba(255, 255, 255, 0.9);
+  color: rgba(245, 245, 247, 0.92);
   z-index: 1000;
   white-space: nowrap;
   transform: translate(-50%, -120%);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
 }
 
-/* ── Recharts Overrides ── */
+/* Recharts Overrides */
 .recharts-default-tooltip {
-  background: rgba(10, 10, 15, 0.9) !important;
+  background: rgba(13, 13, 20, 0.95) !important;
   backdrop-filter: blur(12px) !important;
-  border: 1px solid rgba(255, 255, 255, 0.12) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
   border-radius: 12px !important;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4) !important;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5) !important;
 }
 
 .recharts-tooltip-item {
-  color: rgba(255, 255, 255, 0.85) !important;
+  color: rgba(245, 245, 247, 0.85) !important;
 }
 
-/* ── Bento Grid ── */
+/* Bento Grid */
 .bento-grid {
   display: grid;
   gap: 20px;
   grid-template-columns: repeat(12, 1fr);
 }
 
-.bento-grid > .col-span-4 { grid-column: span 4; }
-.bento-grid > .col-span-5 { grid-column: span 5; }
-.bento-grid > .col-span-6 { grid-column: span 6; }
-.bento-grid > .col-span-7 { grid-column: span 7; }
-.bento-grid > .col-span-8 { grid-column: span 8; }
+.bento-grid > .col-span-4  { grid-column: span 4; }
+.bento-grid > .col-span-5  { grid-column: span 5; }
+.bento-grid > .col-span-6  { grid-column: span 6; }
+.bento-grid > .col-span-7  { grid-column: span 7; }
+.bento-grid > .col-span-8  { grid-column: span 8; }
 .bento-grid > .col-span-12 { grid-column: span 12; }
 
 @media (max-width: 1024px) {
