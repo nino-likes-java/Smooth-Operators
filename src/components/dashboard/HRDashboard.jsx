@@ -244,7 +244,7 @@ function ApprovalsPopup({ stats, onClose }) {
             {/* Action row: buttons OR decision badge */}
             {decisions[i] ? (
               <div className="flex justify-end">
-                <span className="px-3 py-1 rounded-md text-[11px] font-bold" style={{ background: decisions[i] === 'approved' ? 'rgba(74,222,128,0.06)' : 'rgba(248,113,113,0.06)', border: `1px solid ${decisions[i] === 'approved' ? 'rgba(74,222,128,0.2)' : 'rgba(248,113,113,0.2)'}`, color: decisions[i] === 'approved' ? '#4ade80' : '#f87171' }}>
+                <span className="px-3 py-1 rounded-md text-[11px] font-semibold" style={{ background: decisions[i] === 'approved' ? 'rgba(74,222,128,0.1)' : 'rgba(248,113,113,0.1)', border: `1px solid ${decisions[i] === 'approved' ? 'rgba(74,222,128,0.2)' : 'rgba(248,113,113,0.2)'}`, color: decisions[i] === 'approved' ? '#4ade80' : '#f87171' }}>
                   {decisions[i] === 'approved' ? '✓ Approved' : '✕ Rejected'}
                 </span>
               </div>
@@ -934,7 +934,7 @@ function ApprovalsPage({ stats, onPopup }) {
               {/* Action row: buttons OR full-width decision banner */}
               {decisions[i] ? (
                 <div className="flex justify-end">
-                  <span className="px-3 py-1 rounded-md text-[11px] font-bold" style={{ background: decisions[i] === 'approved' ? 'rgba(74,222,128,0.06)' : 'rgba(248,113,113,0.06)', border: `1px solid ${decisions[i] === 'approved' ? 'rgba(74,222,128,0.2)' : 'rgba(248,113,113,0.2)'}`, color: decisions[i] === 'approved' ? '#4ade80' : '#f87171' }}>
+                  <span className="px-3 py-1 rounded-md text-[11px] font-semibold" style={{ background: decisions[i] === 'approved' ? 'rgba(74,222,128,0.1)' : 'rgba(248,113,113,0.1)', border: `1px solid ${decisions[i] === 'approved' ? 'rgba(74,222,128,0.2)' : 'rgba(248,113,113,0.2)'}`, color: decisions[i] === 'approved' ? '#4ade80' : '#f87171' }}>
                     {decisions[i] === 'approved' ? '✓ Approved' : '✕ Rejected'}
                   </span>
                 </div>
