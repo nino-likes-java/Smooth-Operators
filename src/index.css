@@ -1,4 +1,4 @@
-﻿@import "tailwindcss";
+@import "tailwindcss";
 
 /* ── Meridian Theme ── */
 @theme {
@@ -103,7 +103,7 @@ h1, h2, h3, h4, h5, h6 {
   backdrop-filter: blur(24px);
   -webkit-backdrop-filter: blur(24px);
   border: 1px solid var(--color-glass-border);
-  border-radius: 20px;
+  border-radius: 8px;
   transition: all 0.35s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
@@ -122,7 +122,7 @@ h1, h2, h3, h4, h5, h6 {
   backdrop-filter: blur(24px);
   -webkit-backdrop-filter: blur(24px);
   border: 1px solid var(--color-glass-border);
-  border-radius: 20px;
+  border-radius: 8px;
 }
 
 /* ── Keyframe Animations ── */
@@ -194,7 +194,7 @@ h1, h2, h3, h4, h5, h6 {
   width: 220px;
   height: 42px;
   background: rgba(255, 255, 255, 0.05);
-  border-radius: 999px;
+  border-radius: 6px;
   border: 1px solid rgba(38, 38, 47, 1);
   cursor: pointer;
   transition: all 0.3s ease;
@@ -205,7 +205,7 @@ h1, h2, h3, h4, h5, h6 {
   top: 3px;
   width: 106px;
   height: 36px;
-  border-radius: 999px;
+  border-radius: 4px;
   background: linear-gradient(135deg, #2DD4FF, #9333EA);
   transition: left 0.4s cubic-bezier(0.22, 1, 0.36, 1);
   box-shadow: 0 0 20px rgba(45, 212, 255, 0.30);
@@ -219,7 +219,7 @@ h1, h2, h3, h4, h5, h6 {
   background: rgba(8, 8, 12, 0.97);
   backdrop-filter: blur(14px);
   border: 1px solid rgba(38, 38, 47, 1);
-  border-radius: 10px;
+  border-radius: 6px;
   font-family: "Inter", sans-serif;
   font-size: 12px;
   color: #F4F4F6;
@@ -234,7 +234,7 @@ h1, h2, h3, h4, h5, h6 {
   background: rgba(19, 19, 25, 0.97) !important;
   backdrop-filter: blur(14px) !important;
   border: 1px solid rgba(38, 38, 47, 1) !important;
-  border-radius: 12px !important;
+  border-radius: 6px !important;
   box-shadow: 0 0 24px rgba(45, 212, 255, 0.10), 0 8px 32px rgba(0, 0, 0, 0.5) !important;
 }
 
@@ -271,3 +271,14 @@ h1, h2, h3, h4, h5, h6 {
     grid-column: span 1;
   }
 }
+
+/* ── Global Boxy Override ── */
+/* Flatten Tailwind's rounded-* utilities to a tighter scale */
+.rounded-sm   { border-radius: 3px  !important; }
+.rounded      { border-radius: 4px  !important; }
+.rounded-md   { border-radius: 5px  !important; }
+.rounded-lg   { border-radius: 6px  !important; }
+.rounded-xl   { border-radius: 8px  !important; }
+.rounded-2xl  { border-radius: 8px  !important; }
+.rounded-3xl  { border-radius: 10px !important; }
+.rounded-full { border-radius: 999px !important; } /* keep pills/avatars circular */
