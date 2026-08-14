@@ -207,6 +207,14 @@ export const aiSuggestions = [
   '📅 My schedule today',
 ];
 
+export const hrQuickTopics = [
+  { label: '🗂️ Project Exec', query: 'Project Exec' },
+  { label: '📋 Leave Request', query: 'Leave request query' },
+  { label: '💰 Payroll Question', query: 'Payroll question' },
+  { label: '📜 Policy Clarification', query: 'Policy clarification' },
+  { label: '🎁 Benefits Question', query: 'Benefits question' },
+];
+
 export const aiChatHistory = [
   { role: 'assistant', text: 'Hey there! 👋 I\'m your AI CoPilot. How can I help you today?' },
 ];
