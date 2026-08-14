@@ -173,7 +173,7 @@ export default function Header() {
               <h1 className="text-xs font-bold leading-tight font-playfair text-text-light tracking-wide">
                 <span>{profile.name.split(' ')[0]}</span>
               </h1>
-              <p className="text-[10px] text-text-muted tracking-wide font-sans">
+              <p className="text-[10px] text-text-muted-alt tracking-wide font-sans">
                 {isHR ? 'HR Admin' : 'Employee'}
               </p>
             </div>
@@ -235,7 +235,7 @@ export default function Header() {
                 <div className="min-w-0 font-sans">
                   <p className="text-sm font-bold text-text-light truncate font-playfair">{profile.name}</p>
                   <p className="text-[10px] text-gold-muted truncate">{profile.role}</p>
-                  <p className="text-[10px] text-text-muted truncate">{profile.email}</p>
+                  <p className="text-[10px] text-text-muted-alt truncate">{profile.email}</p>
                   <span
                     className="inline-block mt-1.5 text-[9px] font-bold px-2 py-0.5 rounded-full text-gold-muted border border-gold-muted/30 bg-gold-muted/10"
                   >
@@ -263,7 +263,7 @@ export default function Header() {
                       onClick={item.onClick}
                       className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-left text-xs font-medium transition-all duration-150 cursor-pointer group"
                       style={{
-                        color: item.danger ? '#f87171' : 'var(--color-text-muted)',
+                        color: item.danger ? '#f87171' : 'var(--color-text-muted-alt)',
                         background: 'transparent',
                         border: 'none',
                       }}
@@ -275,7 +275,7 @@ export default function Header() {
                       }}
                       onMouseLeave={(e) => {
                         e.currentTarget.style.background = 'transparent';
-                        e.currentTarget.style.color = item.danger ? '#f87171' : 'var(--color-text-muted)';
+                        e.currentTarget.style.color = item.danger ? '#f87171' : 'var(--color-text-muted-alt)';
                       }}
                     >
                       <span className="flex items-center justify-center w-5">{item.icon}</span>
@@ -333,7 +333,7 @@ export default function Header() {
               style={{
                 width: i === 1 ? 14 : 18,
                 height: 2,
-                background: isSidePanelOpen ? 'var(--color-gold-light)' : 'var(--color-text-muted)',
+                background: isSidePanelOpen ? 'var(--color-gold-light)' : 'var(--color-text-muted-alt)',
               }}
             />
           ))}

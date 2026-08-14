@@ -5,13 +5,18 @@
   /* Enterprise Colors */
   --color-navy-deep:          #071525;
   --color-navy-secondary:     #0D2035;
+  --color-navy:               #0D2035;
+  --color-navy-dark:          #050F1A;
   --color-blue-dark:          #123452;
   --color-white-warm:         #F4F1E8;
   --color-white:              #FFFFFF;
   --color-gold-muted:         #C8A96B;
   --color-gold-light:         #DFC993;
+  --color-cyan-glow:          #C8A96B;
   
   /* Text */
+  --color-text-light:         #F4F1E8;
+  --color-text-muted-alt:     #A3B1C6;
   --color-text-main:          #172332;
   --color-text-primary:       #172332;
   --color-text-secondary:     #4B5563;
@@ -21,7 +26,7 @@
   --color-surface-base:       #F4F1E8;
   --color-surface-card:       #FFFFFF;
   --color-surface-raised:     #F9FAFB;
-  --color-surface-border:     #E5E7EB;
+  --color-surface-border:     var(--color-navy-deep);
 
   /* Status / data */
   --color-success:            #059669;
@@ -98,23 +103,22 @@ h1, h2, h3, h4, h5, h6 {
 /* ── Professional Card (Replaces Glassmorphism) ── */
 .glass-card {
   background: var(--color-surface-card);
-  border: 1px solid var(--color-surface-border);
-  border-radius: 8px;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+  border: 2px solid var(--color-surface-border);
+  border-radius: 0px !important;
+  box-shadow: 4px 4px 0px var(--color-surface-border);
   transition: all 0.2s ease-in-out;
 }
 
 .glass-card:hover {
-  box-shadow: 0 4px 6px rgba(0,0,0,0.08);
-  border-color: #D1D5DB;
-  transform: translateY(-1px);
+  box-shadow: 6px 6px 0px var(--color-surface-border);
+  transform: translate(-2px, -2px);
 }
 
 .glass-card-static {
   background: var(--color-surface-card);
-  border: 1px solid var(--color-surface-border);
-  border-radius: 8px;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+  border: 2px solid var(--color-surface-border);
+  border-radius: 0px !important;
+  box-shadow: 4px 4px 0px var(--color-surface-border);
 }
 
 /* ── Keyframe Animations ── */
@@ -199,12 +203,12 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* ── Global Boxy Override ── */
-/* Flatten Tailwind's rounded-* utilities to a tighter scale */
-.rounded-sm   { border-radius: 3px  !important; }
-.rounded      { border-radius: 4px  !important; }
-.rounded-md   { border-radius: 5px  !important; }
-.rounded-lg   { border-radius: 6px  !important; }
-.rounded-xl   { border-radius: 8px  !important; }
-.rounded-2xl  { border-radius: 8px  !important; }
-.rounded-3xl  { border-radius: 10px !important; }
+/* Flatten Tailwind's rounded-* utilities to sharp edges */
+.rounded-sm   { border-radius: 0px  !important; }
+.rounded      { border-radius: 0px  !important; }
+.rounded-md   { border-radius: 0px  !important; }
+.rounded-lg   { border-radius: 0px  !important; }
+.rounded-xl   { border-radius: 0px  !important; }
+.rounded-2xl  { border-radius: 0px  !important; }
+.rounded-3xl  { border-radius: 0px  !important; }
 .rounded-full { border-radius: 999px !important; }
