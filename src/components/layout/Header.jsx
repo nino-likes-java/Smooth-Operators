@@ -131,7 +131,7 @@ export default function Header() {
           backdropFilter: 'blur(30px)',
         }}
       >
-        {/* â”€â”€ Left: Profile Avatar Button â”€â”€ */}
+        {/* ──── Left: Profile Avatar Button ──── */}
         <div className="relative" ref={logoMenuRef}>
           <button
             id="logo-menu-trigger"
@@ -291,7 +291,7 @@ export default function Header() {
           )}
         </div>
 
-        {/* â”€â”€ Center: Role Badge â”€â”€ */}
+        {/* ──── Center: Role Badge ──── */}
         <div
           className="flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-semibold font-sans border border-gold-muted/40 bg-navy text-gold-light shadow-sm"
           id="role-badge"
@@ -300,7 +300,7 @@ export default function Header() {
           <span>{isHR ? 'HR Admin' : 'Employee'}</span>
         </div>
 
-        {/* â”€â”€ Right: Hamburger â”€â”€ */}
+        {/* ──── Right: Hamburger ──── */}
         <button
           id="hamburger-panel-btn"
           aria-label="Open announcements and messages panel"

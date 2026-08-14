@@ -1,7 +1,7 @@
-﻿import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { useApp } from '../../context/AppContext';
 
-// â”€â”€ Employee view: contact HR or Project Executive â”€â”€
+// ──── Employee view: contact HR or Project Executive ────
 function EmployeeMessaging() {
   const { employeeMessages, sendEmployeeMessage } = useApp();
   const [inputValue, setInputValue] = useState('');
@@ -26,7 +26,7 @@ function EmployeeMessaging() {
     '📋 Leave request query',
     '💰 Payroll question',
     '📜 Policy clarification',
-    'ðŸ¥ Benefits question',
+    '🏥 Benefits question',
   ];
 
   return (
@@ -47,7 +47,7 @@ function EmployeeMessaging() {
             color: recipient === 'hr' ? '#C8A96B' : 'rgba(255,255,255,0.5)',
           }}
         >
-          ðŸ›¡ï¸ HR Team
+          🛡️ HR Team
         </button>
         <button
           id="msg-recipient-pm"
@@ -77,7 +77,7 @@ function EmployeeMessaging() {
                   className="w-7 h-7 rounded-full flex items-center justify-center text-sm mr-2 flex-shrink-0 self-end"
                   style={{ background: 'linear-gradient(135deg, #C8A96B22, #0D203522)', border: '1px solid rgba(200,169,107,0.2)' }}
                 >
-                  ðŸ›¡ï¸
+                  🛡️
                 </div>
               )}
               <div style={{ maxWidth: '78%' }}>
@@ -112,7 +112,7 @@ function EmployeeMessaging() {
               className="w-7 h-7 rounded-full flex items-center justify-center text-sm mr-2 flex-shrink-0 self-end"
               style={{ background: 'linear-gradient(135deg, #C8A96B22, #0D203522)', border: '1px solid rgba(200,169,107,0.2)' }}
             >
-              ðŸ›¡ï¸
+              🛡️
             </div>
             <div
               className="px-4 py-3 rounded-2xl flex items-center gap-1.5"
@@ -181,7 +181,7 @@ function EmployeeMessaging() {
           value={inputValue}
           onChange={(e) => setInputValue(e.target.value)}
           onKeyDown={(e) => e.key === 'Enter' && handleSend()}
-          placeholder={`Message ${recipient === 'hr' ? 'HR Team' : 'Project Executive'}â€¦`}
+          placeholder={`Message ${recipient === 'hr' ? 'HR Team' : 'Project Executive'}…`}
           className="flex-1 bg-transparent text-sm text-text-primary placeholder:text-text-muted outline-none border-none"
           id="msg-input-employee"
         />
@@ -206,7 +206,7 @@ function EmployeeMessaging() {
   );
 }
 
-// â”€â”€ HR view: see messages from employees â”€â”€
+// ──── HR view: see messages from employees ────
 function HRMessaging() {
   const { hrMessages, sendHrReply } = useApp();
   const [selectedEmployee, setSelectedEmployee] = useState(null);
@@ -310,7 +310,7 @@ function HRMessaging() {
           aria-label="Back to list"
           id="hr-msg-back-btn"
         >
-          â†
+          ←
         </button>
         <div
           className="w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold"
@@ -374,7 +374,7 @@ function HRMessaging() {
           value={replyText}
           onChange={(e) => setReplyText(e.target.value)}
           onKeyDown={(e) => e.key === 'Enter' && handleReply()}
-          placeholder={`Reply to ${selectedEmployee}â€¦`}
+          placeholder={`Reply to ${selectedEmployee}…`}
           className="flex-1 bg-transparent text-sm text-text-primary placeholder:text-text-muted outline-none border-none"
           id="hr-msg-reply-input"
         />
@@ -399,7 +399,7 @@ function HRMessaging() {
   );
 }
 
-// â”€â”€ Main Widget â”€â”€
+// ──── Main Widget ────
 export default function MessagingWidget() {
   const { role } = useApp();
   const isHR = role === 'hr';

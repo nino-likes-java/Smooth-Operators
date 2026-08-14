@@ -3,42 +3,75 @@
 /* ── Smooth Operators Enterprise Theme ── */
 @theme {
   /* Enterprise Colors */
-  --color-navy-deep:          #071525;
-  --color-navy-secondary:     #0D2035;
-  --color-navy:               #0D2035;
-  --color-navy-dark:          #050F1A;
-  --color-blue-dark:          #123452;
-  --color-white-warm:         #F4F1E8;
-  --color-white:              #FFFFFF;
-  --color-gold-muted:         #C8A96B;
-  --color-gold-light:         #DFC993;
-  --color-cyan-glow:          #C8A96B;
-  
+  --color-navy-deep: #071525;
+  --color-navy-secondary: #0D2035;
+  --color-navy: #0D2035;
+  --color-navy-dark: #050F1A;
+  --color-blue-dark: #123452;
+  --color-white-warm: #F4F1E8;
+  --color-white: #FFFFFF;
+  --color-gold-muted: #C8A96B;
+  --color-gold-light: #DFC993;
+  --color-cyan-glow: #C8A96B;
+
   /* Text */
-  --color-text-light:         #F4F1E8;
-  --color-text-muted-alt:     #A3B1C6;
-  --color-text-main:          #172332;
-  --color-text-primary:       #172332;
-  --color-text-secondary:     #4B5563;
-  --color-text-muted:         #6D7782;
+  --color-text-light: #F4F1E8;
+  --color-text-muted-alt: #A3B1C6;
+  --color-text-main: #172332;
+  --color-text-primary: #172332;
+  --color-text-secondary: #4B5563;
+  --color-text-muted: #6D7782;
 
   /* Surfaces */
-  --color-surface-base:       #F4F1E8;
-  --color-surface-card:       #FFFFFF;
-  --color-surface-raised:     #F9FAFB;
-  --color-surface-border:     var(--color-navy-deep);
+  --color-surface-base: #F4F1E8;
+  --color-surface-card: #FFFFFF;
+  --color-surface-raised: #F9FAFB;
+  --color-surface-border: #071525;
 
   /* Status / data */
-  --color-success:            #059669;
-  --color-info:               #2563EB;
-  --color-warning:            #D97706;
-  --color-premium:            #0D2035;
-  --color-danger:             #DC2626;
+  --color-success: #059669;
+  --color-info: #2563EB;
+  --color-warning: #D97706;
+  --color-premium: #0D2035;
+  --color-danger: #DC2626;
 
   /* Typography */
-  --font-heading: "Playfair Display", serif;
-  --font-body:    "Inter", system-ui, -apple-system, sans-serif;
-  --font-family-sans: "Inter", system-ui, -apple-system, sans-serif;
+  --font-heading: "Playfair Display", "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", serif;
+  --font-body: "Inter", system-ui, -apple-system, "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", sans-serif;
+  --font-family-sans: "Inter", system-ui, -apple-system, "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", sans-serif;
+}
+
+:root {
+  --color-navy-deep: #071525;
+  --color-navy-secondary: #0D2035;
+  --color-navy: #0D2035;
+  --color-navy-dark: #050F1A;
+  --color-blue-dark: #123452;
+  --color-white-warm: #F4F1E8;
+  --color-white: #FFFFFF;
+  --color-gold-muted: #C8A96B;
+  --color-gold-light: #DFC993;
+  --color-cyan-glow: #C8A96B;
+
+  --color-text-light: #F4F1E8;
+  --color-text-muted-alt: #A3B1C6;
+  --color-text-main: #172332;
+  --color-text-primary: #172332;
+  --color-text-secondary: #4B5563;
+  --color-text-muted: #6D7782;
+
+  --color-surface-base: #F4F1E8;
+  --color-surface-card: #FFFFFF;
+  --color-surface-raised: #F9FAFB;
+  --color-surface-border: #071525;
+
+  --color-success: #059669;
+  --color-info: #2563EB;
+  --color-warning: #D97706;
+  --color-premium: #0D2035;
+  --color-danger: #DC2626;
+
+  --font-family-sans: "Inter", system-ui, -apple-system, "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", sans-serif;
 }
 
 /* ── Base Reset ── */
@@ -57,7 +90,7 @@ body {
   padding: 0;
   background: var(--color-surface-base);
   color: var(--color-text-main);
-  font-family: "Inter", system-ui, -apple-system, sans-serif;
+  font-family: "Inter", system-ui, -apple-system, "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", sans-serif;
   font-size: 15px;
   font-weight: 400;
   line-height: 1.6;
@@ -67,7 +100,12 @@ body {
 }
 
 /* ── Heading / Logo typography ── */
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-family: "Playfair Display", serif;
   font-weight: 600;
   color: var(--color-navy-deep);
@@ -123,18 +161,41 @@ h1, h2, h3, h4, h5, h6 {
 
 /* ── Keyframe Animations ── */
 @keyframes fade-in-up {
-  from { opacity: 0; transform: translateY(10px); }
-  to   { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
-.animate-fade-in-up  { animation: fade-in-up  0.4s ease-out forwards; }
+.animate-fade-in-up {
+  animation: fade-in-up 0.4s ease-out forwards;
+}
 
 /* ── Stagger Delays ── */
-.delay-100 { animation-delay: 0.1s; }
-.delay-200 { animation-delay: 0.2s; }
-.delay-300 { animation-delay: 0.3s; }
-.delay-400 { animation-delay: 0.4s; }
-.delay-500 { animation-delay: 0.5s; }
+.delay-100 {
+  animation-delay: 0.1s;
+}
+
+.delay-200 {
+  animation-delay: 0.2s;
+}
+
+.delay-300 {
+  animation-delay: 0.3s;
+}
+
+.delay-400 {
+  animation-delay: 0.4s;
+}
+
+.delay-500 {
+  animation-delay: 0.5s;
+}
 
 /* ── Gradient Text Replacement ── */
 .gradient-text {
@@ -157,7 +218,7 @@ h1, h2, h3, h4, h5, h6 {
   z-index: 1000;
   white-space: nowrap;
   transform: translate(-50%, -120%);
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 /* ── Recharts Overrides ── */
@@ -165,7 +226,7 @@ h1, h2, h3, h4, h5, h6 {
   background: #FFFFFF !important;
   border: 1px solid #E5E7EB !important;
   border-radius: 6px !important;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1) !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1) !important;
 }
 
 .recharts-tooltip-label {
@@ -186,29 +247,70 @@ h1, h2, h3, h4, h5, h6 {
   grid-template-columns: repeat(12, 1fr);
 }
 
-.bento-grid > .col-span-4  { grid-column: span 4; }
-.bento-grid > .col-span-5  { grid-column: span 5; }
-.bento-grid > .col-span-6  { grid-column: span 6; }
-.bento-grid > .col-span-7  { grid-column: span 7; }
-.bento-grid > .col-span-8  { grid-column: span 8; }
-.bento-grid > .col-span-12 { grid-column: span 12; }
+.bento-grid>.col-span-4 {
+  grid-column: span 4;
+}
+
+.bento-grid>.col-span-5 {
+  grid-column: span 5;
+}
+
+.bento-grid>.col-span-6 {
+  grid-column: span 6;
+}
+
+.bento-grid>.col-span-7 {
+  grid-column: span 7;
+}
+
+.bento-grid>.col-span-8 {
+  grid-column: span 8;
+}
+
+.bento-grid>.col-span-12 {
+  grid-column: span 12;
+}
 
 @media (max-width: 1024px) {
   .bento-grid {
     grid-template-columns: 1fr;
   }
-  .bento-grid > [class*="col-span-"] {
+
+  .bento-grid>[class*="col-span-"] {
     grid-column: span 1;
   }
 }
 
 /* ── Global Boxy Override ── */
 /* Flatten Tailwind's rounded-* utilities to sharp edges */
-.rounded-sm   { border-radius: 0px  !important; }
-.rounded      { border-radius: 0px  !important; }
-.rounded-md   { border-radius: 0px  !important; }
-.rounded-lg   { border-radius: 0px  !important; }
-.rounded-xl   { border-radius: 0px  !important; }
-.rounded-2xl  { border-radius: 0px  !important; }
-.rounded-3xl  { border-radius: 0px  !important; }
-.rounded-full { border-radius: 999px !important; }
+.rounded-sm {
+  border-radius: 0px !important;
+}
+
+.rounded {
+  border-radius: 0px !important;
+}
+
+.rounded-md {
+  border-radius: 0px !important;
+}
+
+.rounded-lg {
+  border-radius: 0px !important;
+}
+
+.rounded-xl {
+  border-radius: 0px !important;
+}
+
+.rounded-2xl {
+  border-radius: 0px !important;
+}
+
+.rounded-3xl {
+  border-radius: 0px !important;
+}
+
+.rounded-full {
+  border-radius: 999px !important;
+}

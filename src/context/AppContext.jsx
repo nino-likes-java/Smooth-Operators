@@ -1,4 +1,4 @@
-﻿import { createContext, useContext, useState, useCallback } from 'react';
+import { createContext, useContext, useState, useCallback } from 'react';
 import { announcements } from '../data/dummyData';
 
 const AppContext = createContext(null);

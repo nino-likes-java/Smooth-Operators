@@ -1,15 +1,15 @@
-﻿import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { aiSuggestions, aiChatHistory } from '../../data/dummyData';
 
 const AI_RESPONSES = {
   '📊 Summarize my week':
-    'This week you logged 38.5 hours across 5 days. You completed 12 tasks, attended 4 meetings, and your productivity score was 87%. Your attendance streak is at 14 days! ðŸ”¥',
-  'ðŸ“ Draft leave request':
+    'This week you logged 38.5 hours across 5 days. You completed 12 tasks, attended 4 meetings, and your productivity score was 87%. Your attendance streak is at 14 days! 🔥',
+  '📝 Draft leave request':
     'Here\'s a draft: "Hi Manager, I\'d like to request casual leave on Aug 18-19 for personal reasons. My tasks are up to date and I\'ve briefed the team. Please approve." Shall I submit this?',
   '🎯 Show my goals':
-    'Your Q3 goals: \n1. ✅ Complete React migration (Done)\n2. ðŸ”„ Improve test coverage to 80% (Currently: 62%)\n3. â³ Lead 2 knowledge-sharing sessions (1/2 done)\n4. â³ Reduce API response time by 20%',
-  'ðŸ’¡ Suggest a training':
-    'Based on your skill tree, I recommend: "Advanced TypeScript Patterns" — it aligns with your in-progress TypeScript skill and would unlock the Architecture path. There\'s a workshop next Tuesday! ðŸ“š',
+    'Your Q3 goals: \n1. ✅ Complete React migration (Done)\n2. 🔄 Improve test coverage to 80% (Currently: 62%)\n3. ⏳ Lead 2 knowledge-sharing sessions (1/2 done)\n4. ⏳ Reduce API response time by 20%',
+  '💡 Suggest a training':
+    'Based on your skill tree, I recommend: "Advanced TypeScript Patterns" — it aligns with your in-progress TypeScript skill and would unlock the Architecture path. There\'s a workshop next Tuesday! 📚',
 };
 
 export default function AICoPilotWidget() {
@@ -59,7 +59,7 @@ export default function AICoPilotWidget() {
         id="ai-copilot-toggle"
         aria-label="Toggle AI CoPilot"
       >
-        {isOpen ? '✕' : 'âœ¨'}
+        {isOpen ? '✕' : '✨'}
       </button>
 
       {/* Chat Panel */}
@@ -82,7 +82,7 @@ export default function AICoPilotWidget() {
               className="w-9 h-9 rounded-xl flex items-center justify-center text-base animate-pulse-glow"
               style={{ background: 'linear-gradient(135deg, #C8A96B, #0D2035)' }}
             >
-              ðŸ¤–
+              🤖
             </div>
             <div>
               <h4 className="text-sm font-semibold text-text-primary">AI CoPilot</h4>
@@ -91,7 +91,7 @@ export default function AICoPilotWidget() {
                   className="w-1.5 h-1.5 rounded-full inline-block"
                   style={{ background: '#C8A96B' }}
                 />
-                Online Â· Ready to assist
+                Online · Ready to assist
               </p>
             </div>
           </div>

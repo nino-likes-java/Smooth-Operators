@@ -100,9 +100,9 @@ function EmployeeComplaintsTab() {
                 >
                   {c.severity}
                 </span>
-                <span className="text-[10px] text-text-muted">Â·</span>
+                <span className="text-[10px] text-text-muted">·</span>
                 <span className="text-[10px] text-text-muted">{c.category}</span>
-                <span className="text-[10px] text-text-muted">Â·</span>
+                <span className="text-[10px] text-text-muted">·</span>
                 <span className="text-[10px] text-text-muted">{c.date}</span>
               </div>
             </div>
@@ -152,9 +152,9 @@ function HRComplaintsTab() {
             <h4 className="text-sm font-bold font-playfair text-text-light mb-1">{c.subject}</h4>
             <div className="flex items-center gap-2">
               <span className="text-[10px] text-text-secondary font-medium">{c.employee}</span>
-              <span className="text-[10px] text-text-muted">Â·</span>
+              <span className="text-[10px] text-text-muted">·</span>
               <span className="text-[10px] text-text-muted">{c.department}</span>
-              <span className="text-[10px] text-text-muted">Â·</span>
+              <span className="text-[10px] text-text-muted">·</span>
               <span className="text-[10px] text-text-muted">{c.date}</span>
             </div>
           </div>
