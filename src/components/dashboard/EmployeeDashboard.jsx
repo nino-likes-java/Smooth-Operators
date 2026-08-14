@@ -10,7 +10,7 @@ import {
   announcements,
 } from '../../data/dummyData';
 
-/* â”€â”€â”€ Helpers â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ────── Helpers ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────── */
 function getBarColor(hours) {
   if (hours >= 9) return '#0D2035';
   if (hours >= 7) return '#C8A96B';
@@ -25,7 +25,7 @@ const STATUS_STYLES = {
   'In Review': { bg: 'rgba(223, 201, 147, 0.1)', border: 'rgba(223, 201, 147, 0.2)', text: '#DFC993' },
 };
 
-/* â”€â”€â”€ Shared Popup Shell â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ────── Shared Popup Shell ────────────────────────────────────────────────────────────────────────────────────────────────── */
 function DetailPopup({ title, icon, onClose, children }) {
   return (
     <>
@@ -77,7 +77,7 @@ function InfoRow({ label, value, color }) {
   );
 }
 
-/* â”€â”€â”€ Popup Components â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ────── Popup Components ────────────────────────────────────────────────────────────────────────────────────────────────────── */
 function AttendanceSummaryPopup({ onClose }) {
   const s = employeeStats;
   return (
@@ -129,7 +129,7 @@ function OvertimePopup({ onClose }) {
   const s = employeeStats;
   const ot = s.thisMonth.overtimeHours;
   return (
-    <DetailPopup title="Overtime Details" icon="â°" onClose={onClose}>
+    <DetailPopup title="Overtime Details" icon="⏰" onClose={onClose}>
       <div className="flex gap-3 mb-5">
         <div className="flex-1 p-5 rounded-xl text-center" style={{ background: 'rgba(200,169,107,0.06)', border: '1px solid rgba(200,169,107,0.15)' }}>
           <p className="text-4xl font-black" style={{ color: '#C8A96B' }}>{ot}h</p>
@@ -330,10 +330,10 @@ function ComplaintDetailPopup({ complaint, onClose }) {
   if (!complaint) return null;
   const st = STATUS_STYLES[complaint.status] || STATUS_STYLES['Pending'];
   return (
-    <DetailPopup title="Complaint Detail" icon="âš ï¸" onClose={onClose}>
+    <DetailPopup title="Complaint Detail" icon="⚠️" onClose={onClose}>
       <div className="flex items-center gap-2 mb-4">
         <span className="text-xs font-semibold px-2 py-0.5 rounded-full" style={{ background: st.bg, border: `1px solid ${st.border}`, color: st.text }}>{complaint.status}</span>
-        <span className="text-[10px] text-text-muted">{complaint.category} Â· {complaint.date}</span>
+        <span className="text-[10px] text-text-muted">{complaint.category} · {complaint.date}</span>
       </div>
       <h3 className="text-sm font-bold text-text-primary mb-3">{complaint.subject}</h3>
       <p className="text-xs text-text-secondary leading-relaxed mb-5">{complaint.description}</p>
@@ -402,7 +402,7 @@ function ApplyLeavePopup({ onClose, onApply }) {
   );
 }
 
-/* â”€â”€â”€ Clickable Stat Card â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ────── Clickable Stat Card ──────────────────────────────────────────────────────────────────────────────────────────────── */
 function StatCard({ icon, label, value, sub, color, delay, onClick }) {
   return (
     <div
@@ -432,7 +432,7 @@ function WeeklyHoursTooltip({ active, payload }) {
   );
 }
 
-/* â”€â”€â”€ Tab Pages â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ────── Tab Pages ──────────────────────────────────────────────────────────────────────────────────────────────────────────────────── */
 
 function OverviewPage({ stats, onOpenComplaint, onPopup }) {
   return (
@@ -443,8 +443,8 @@ function OverviewPage({ stats, onOpenComplaint, onPopup }) {
         <div className="relative flex items-center justify-between">
           <div>
             <p className="text-sm text-text-secondary mb-1">Welcome back,</p>
-            <h2 className="text-2xl font-bold text-text-primary">{stats.name} {stats.avatar}</h2>
-            <p className="text-sm text-text-secondary mt-1">{stats.role} Â· {stats.department}</p>
+            <h2 className="text-2xl font-bold text-gold-muted">{stats.name} {stats.avatar}</h2>
+            <p className="text-sm text-text-secondary mt-1">{stats.role} · {stats.department}</p>
             <div className="flex items-center gap-4 mt-4 flex-wrap">
               <span className="text-xs font-bold px-2.5 py-1 rounded-full" style={{ background: 'rgba(200,169,107,0.1)', border: '1px solid rgba(200,169,107,0.2)', color: '#C8A96B' }}>{stats.employeeId}</span>
               <span className="text-xs text-text-muted">Manager: <span className="text-text-secondary font-medium">{stats.manager}</span></span>
@@ -461,9 +461,9 @@ function OverviewPage({ stats, onOpenComplaint, onPopup }) {
       {/* Stat Cards — clickable */}
       <div className="grid grid-cols-4 gap-5">
         <StatCard icon="📅" label="Days Present" value={`${stats.thisMonth.daysPresent}/${stats.thisMonth.totalDays}`} sub="This Month" color="#C8A96B" delay="delay-100" onClick={() => onPopup('attendance')} />
-        <StatCard icon="â±ï¸" label="Avg Hours/Day" value={stats.thisMonth.avgHours.toFixed(1)} sub="On Track" color="#0D2035" delay="delay-200" onClick={() => onPopup('attendance')} />
-        <StatCard icon="🌴" label="Leave Balance" value={stats.leaveBalance.casual + stats.leaveBalance.sick + stats.leaveBalance.earned} sub={`${stats.leaveBalance.casual}C Â· ${stats.leaveBalance.sick}S Â· ${stats.leaveBalance.earned}E`} color="#DFC993" delay="delay-300" onClick={() => onPopup('leave')} />
-        <StatCard icon="â°" label="Overtime Hours" value={stats.thisMonth.overtimeHours} sub="This Month" color="#123452" delay="delay-400" onClick={() => onPopup('overtime')} />
+        <StatCard icon="⏱️" label="Avg Hours/Day" value={stats.thisMonth.avgHours.toFixed(1)} sub="On Track" color="#0D2035" delay="delay-200" onClick={() => onPopup('attendance')} />
+        <StatCard icon="🌴" label="Leave Balance" value={stats.leaveBalance.casual + stats.leaveBalance.sick + stats.leaveBalance.earned} sub={`${stats.leaveBalance.casual}C · ${stats.leaveBalance.sick}S · ${stats.leaveBalance.earned}E`} color="#DFC993" delay="delay-300" onClick={() => onPopup('leave')} />
+        <StatCard icon="⏰" label="Overtime Hours" value={stats.thisMonth.overtimeHours} sub="This Month" color="#123452" delay="delay-400" onClick={() => onPopup('overtime')} />
       </div>
 
       {/* Quick Actions */}
@@ -548,9 +548,9 @@ function AttendancePage({ onPopup }) {
       <div className="grid grid-cols-4 gap-5">
         {[
           { label: 'Days Present', value: '18/22', color: '#C8A96B', icon: '✅', popup: 'attendance' },
-          { label: 'Absent Days', value: '4', color: '#f87171', icon: 'âŒ', popup: 'attendance' },
+          { label: 'Absent Days', value: '4', color: '#f87171', icon: '❌', popup: 'attendance' },
           { label: 'Half Days', value: '2', color: '#fbbf24', icon: '🌗', popup: 'attendance' },
-          { label: 'Late Check-ins', value: '3', color: '#DFC993', icon: 'â°', popup: 'attendance' },
+          { label: 'Late Check-ins', value: '3', color: '#DFC993', icon: '⏰', popup: 'attendance' },
         ].map((item, i) => (
           <div key={i} className="glass-card p-5 cursor-pointer group hover:scale-[1.02] transition-all duration-200" onClick={() => onPopup(item.popup)}>
             <div className="text-2xl mb-3">{item.icon}</div>
@@ -600,8 +600,8 @@ function ProjectsPage({ stats, onPopup }) {
 
 function LeavePage({ stats, onPopup, leaveHistory: propLeaveHistory }) {
   const leaveTypes = [
-    { type: 'Casual Leave', balance: stats.leaveBalance.casual, total: 12, color: '#C8A96B', icon: 'ðŸ–ï¸' },
-    { type: 'Sick Leave', balance: stats.leaveBalance.sick, total: 10, color: '#0D2035', icon: 'ðŸ¥' },
+    { type: 'Casual Leave', balance: stats.leaveBalance.casual, total: 12, color: '#C8A96B', icon: '🏖️' },
+    { type: 'Sick Leave', balance: stats.leaveBalance.sick, total: 10, color: '#0D2035', icon: '🏥' },
     { type: 'Earned Leave', balance: stats.leaveBalance.earned, total: 15, color: '#DFC993', icon: '💼' },
   ];
   const leaveHistory = propLeaveHistory || [
@@ -648,7 +648,7 @@ function LeavePage({ stats, onPopup, leaveHistory: propLeaveHistory }) {
                   <div className="w-8 h-8 rounded-lg flex items-center justify-center text-sm" style={{ background: 'var(--color-surface-raised)' }}>🌴</div>
                   <div>
                     <p className="text-xs font-semibold text-text-primary">{item.type} Leave</p>
-                    <p className="text-[10px] text-text-muted">{item.date} Â· {item.days} day{item.days > 1 ? 's' : ''}</p>
+                    <p className="text-[10px] text-text-muted">{item.date} · {item.days} day{item.days > 1 ? 's' : ''}</p>
                   </div>
                 </div>
                 <span className="text-[10px] font-semibold px-2.5 py-1 rounded-full" style={{ background: approved ? 'rgba(74,222,128,0.1)' : isPending ? 'rgba(251,191,36,0.1)' : 'rgba(248,113,113,0.1)', border: `1px solid ${approved ? 'rgba(74,222,128,0.2)' : isPending ? 'rgba(251,191,36,0.2)' : 'rgba(248,113,113,0.2)'}`, color: approved ? '#4ade80' : isPending ? '#fbbf24' : '#f87171' }}>
@@ -687,7 +687,7 @@ function PayslipPage({ onSalaryPopup }) {
                 <div className="w-10 h-10 rounded-xl flex items-center justify-center text-lg" style={{ background: 'rgba(200,169,107,0.08)', border: '1px solid rgba(200,169,107,0.15)' }}>💰</div>
                 <div>
                   <p className="text-sm font-semibold text-text-primary">{p.month}</p>
-                  <p className="text-xs text-text-muted">Gross: {p.gross} Â· Net: <span className="text-text-secondary font-semibold">{p.net}</span></p>
+                  <p className="text-xs text-text-muted">Gross: {p.gross} · Net: <span className="text-text-secondary font-semibold">{p.net}</span></p>
                 </div>
               </div>
               <div className="flex items-center gap-3">
@@ -757,9 +757,9 @@ function GoalsPage({ onPopup }) {
   );
 }
 
-/* â”€â”€â”€ Main Component â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ────── Main Component ────────────────────────────────────────────────────────────────────────────────────────────────────────── */
 const TABS = [
-  { id: 'overview', label: 'ðŸ  Overview' },
+  { id: 'overview', label: '🏠 Overview' },
   { id: 'attendance', label: '📅 Attendance' },
   { id: 'projects', label: '📊 Projects' },
   { id: 'leave', label: '🌴 Leave' },
@@ -827,7 +827,7 @@ export default function EmployeeDashboard() {
       {/* Complaint Modal */}
       <ComplaintModal isOpen={showComplaintModal} onClose={() => setShowComplaintModal(false)} />
 
-      {/* â”€â”€ Popups â”€â”€ */}
+      {/* ──── Popups ──── */}
       {popup === 'attendance' && <AttendanceSummaryPopup onClose={closePopup} />}
       {popup === 'leave' && <LeaveBalancePopup onClose={closePopup} />}
       {popup === 'overtime' && <OvertimePopup onClose={closePopup} />}

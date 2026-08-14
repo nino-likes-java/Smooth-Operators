@@ -1,4 +1,4 @@
-﻿import { useState, useMemo } from 'react';
+import { useState, useMemo } from 'react';
 
 const CELL_SIZE = 14;
 const CELL_GAP = 3;
@@ -81,7 +81,7 @@ export default function AttendanceHeatmap({ data, title = 'Attendance Heatmap' }
         <div>
           <h3 className="text-base font-semibold text-text-primary">{title}</h3>
           <p className="text-xs text-text-secondary mt-1">
-            {totalDays} working days Â· {totalHours.toLocaleString()} hours logged
+            {totalDays} working days · {totalHours.toLocaleString()} hours logged
           </p>
         </div>
         {/* Slab Legend */}
@@ -176,7 +176,7 @@ export default function AttendanceHeatmap({ data, title = 'Attendance Heatmap' }
           <div className="font-semibold">{tooltip.date}</div>
           <div className="text-text-secondary">
             {tooltip.hours > 0
-              ? `${tooltip.hours}h worked Â· ${SLAB_LABELS[tooltip.level].label}`
+              ? `${tooltip.hours}h worked · ${SLAB_LABELS[tooltip.level].label}`
               : 'Absent'}
           </div>
         </div>

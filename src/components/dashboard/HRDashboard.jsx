@@ -10,7 +10,7 @@ import {
   announcements as initialAnnouncements,
 } from '../../data/dummyData';
 
-/* â”€â”€â”€ Helpers â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ────── Helpers ──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────── */
 const STATUS_STYLES = {
   Pending: { bg: 'rgba(251, 191, 36, 0.1)', border: 'rgba(251, 191, 36, 0.2)', text: '#fbbf24' },
   'In Review': { bg: 'rgba(223, 201, 147, 0.1)', border: 'rgba(223, 201, 147, 0.2)', text: '#DFC993' },
@@ -30,7 +30,7 @@ function DepartmentBar({ name, count, total, color }) {
   );
 }
 
-/* â”€â”€â”€ Shared Popup Shell â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ────── Shared Popup Shell ────────────────────────────────────────────────────────────────────────────────────────────────── */
 function DetailPopup({ title, icon, onClose, children, wide }) {
   return (
     <>
@@ -81,7 +81,7 @@ function InfoRow({ label, value, color }) {
   );
 }
 
-/* â”€â”€â”€ Popup Components â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ────── Popup Components ────────────────────────────────────────────────────────────────────────────────────────────────────── */
 function TotalEmployeesPopup({ stats, onClose }) {
   return (
     <DetailPopup title="Total Employees" icon="👥" onClose={onClose}>
@@ -122,7 +122,7 @@ function NewHiresPopup({ stats, onClose }) {
             </div>
             <div className="flex-1">
               <p className="text-sm font-semibold text-text-primary">{h.name}</p>
-              <p className="text-[10px] text-text-muted">{h.role} Â· {h.dept}</p>
+              <p className="text-[10px] text-text-muted">{h.role} · {h.dept}</p>
             </div>
             <span className="text-[10px] text-text-muted">{h.date}</span>
             <span className="text-[10px] font-semibold px-2.5 py-1 rounded-full" style={{ background: 'rgba(74,222,128,0.1)', border: '1px solid rgba(74,222,128,0.2)', color: '#4ade80' }}>New</span>
@@ -184,7 +184,7 @@ function OpenPositionsPopup({ stats, onClose }) {
           <div key={i} className="flex items-center justify-between p-4 rounded-xl" style={{ background: 'var(--color-surface-card)', border: '1px solid var(--color-surface-border)' }}>
             <div>
               <p className="text-sm font-semibold text-text-primary">{p.title}</p>
-              <p className="text-[10px] text-text-muted">{p.dept} Â· Open since {p.since}</p>
+              <p className="text-[10px] text-text-muted">{p.dept} · Open since {p.since}</p>
             </div>
             <span className="text-[10px] font-bold px-2.5 py-1 rounded-full" style={{ background: `${urgencyColor[p.urgency]}15`, border: `1px solid ${urgencyColor[p.urgency]}40`, color: urgencyColor[p.urgency] }}>{p.urgency}</span>
           </div>
@@ -220,7 +220,7 @@ function ApprovalsPopup({ stats, onClose }) {
   const decide = (i, val) => setDecisions((d) => ({ ...d, [i]: val }));
   const attColor = (p) => p >= 90 ? '#4ade80' : p >= 80 ? '#fbbf24' : '#f87171';
   return (
-    <DetailPopup title={`Pending Approvals (${stats.pendingApprovals})`} icon="â³" onClose={onClose}>
+    <DetailPopup title={`Pending Approvals (${stats.pendingApprovals})`} icon="⏳" onClose={onClose}>
       <div className="space-y-4">
         {approvals.map((item, i) => (
           <div key={i} className="p-4 rounded-xl" style={{ background: 'var(--color-surface-card)', border: '1px solid var(--color-surface-border)' }}>
@@ -228,10 +228,10 @@ function ApprovalsPopup({ stats, onClose }) {
             <div className="flex items-center justify-between mb-2">
               <div>
                 <p className="text-sm font-semibold text-text-primary">{item.name}</p>
-                <p className="text-[10px] text-text-muted">{item.type} Â· {item.days} Â· {item.date} Â· {item.dept}</p>
+                <p className="text-[10px] text-text-muted">{item.type} · {item.days} · {item.date} · {item.dept}</p>
               </div>
               {item.daysLeft > 0
-                ? <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full flex-shrink-0" style={{ background: 'rgba(251,191,36,0.1)', border: '1px solid rgba(251,191,36,0.2)', color: '#fbbf24' }}>â° {item.daysLeft}d away</span>
+                ? <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full flex-shrink-0" style={{ background: 'rgba(251,191,36,0.1)', border: '1px solid rgba(251,191,36,0.2)', color: '#fbbf24' }}>⏰ {item.daysLeft}d away</span>
                 : <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full flex-shrink-0" style={{ background: 'rgba(248,113,113,0.1)', border: '1px solid rgba(248,113,113,0.2)', color: '#f87171' }}>Starts today</span>
               }
             </div>
@@ -337,7 +337,7 @@ function BudgetBreakdownPopup({ onClose }) {
 function DepartmentDetailPopup({ dept, stats, onClose }) {
   if (!dept) return null;
   return (
-    <DetailPopup title={`${dept.name} Department`} icon="ðŸ¢" onClose={onClose}>
+    <DetailPopup title={`${dept.name} Department`} icon="🏢" onClose={onClose}>
       <div className="flex gap-3 mb-5">
         <div className="flex-1 p-4 rounded-xl text-center" style={{ background: `${dept.color}0d`, border: `1px solid ${dept.color}30` }}>
           <p className="text-3xl font-black" style={{ color: dept.color }}>{dept.count}</p>
@@ -426,7 +426,7 @@ function ComplaintDetailPopup({ complaint, onClose, onResolve, onUpdateStatus })
             onClick={handleMarkInReview}
             className="flex-1 py-2.5 rounded-xl text-xs font-bold transition-all hover:scale-105"
             style={{ background: 'rgba(251,146,60,0.15)', border: '1px solid rgba(251,146,60,0.35)', color: '#fb923c' }}
-          >ðŸ” Mark In Review</button>
+          >🔍 Mark In Review</button>
           <button
             onClick={handleMarkResolved}
             className="flex-1 py-2.5 rounded-xl text-xs font-bold transition-all hover:scale-105"
@@ -437,7 +437,7 @@ function ComplaintDetailPopup({ complaint, onClose, onResolve, onUpdateStatus })
       {status === 'In Review' && !resolving && (
         <div className="flex gap-2">
           <div className="flex-1 flex items-center gap-1.5 py-2 rounded-xl" style={{ background: 'rgba(251,146,60,0.08)', border: '1px solid rgba(251,146,60,0.2)' }}>
-            <span className="text-xs ml-3 font-semibold" style={{ color: '#fb923c' }}>ðŸ” Under Review</span>
+            <span className="text-xs ml-3 font-semibold" style={{ color: '#fb923c' }}>🔍 Under Review</span>
           </div>
           <button
             onClick={handleMarkResolved}
@@ -470,7 +470,7 @@ function AnnouncementPopup({ item, onClose }) {
   );
 }
 
-/* â”€â”€â”€ Clickable HR Stat Card â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ────── Clickable HR Stat Card ────────────────────────────────────────────────────────────────────────────────────────── */
 function HRStatCard({ icon, label, value, trend, trendUp, color, delay, onClick }) {
   return (
     <div
@@ -489,7 +489,7 @@ function HRStatCard({ icon, label, value, trend, trendUp, color, delay, onClick 
   );
 }
 
-/* â”€â”€â”€ Tab Pages â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ────── Tab Pages ──────────────────────────────────────────────────────────────────────────────────────────────────────────────────── */
 function OverviewPage({ stats, onPopup, complaints, onTabChange }) {
   const totalDeptCount = stats.departments.reduce((s, d) => s + d.count, 0);
   return (
@@ -500,7 +500,7 @@ function OverviewPage({ stats, onPopup, complaints, onTabChange }) {
         <div className="relative flex items-center justify-between">
           <div>
             <p className="text-sm text-text-secondary mb-1">HR Control Center</p>
-            <h2 className="text-2xl font-bold text-text-primary">Organization Overview ðŸ¢</h2>
+            <h2 className="text-2xl font-bold text-gold-muted">Organization Overview 🏢</h2>
             <p className="text-sm text-text-secondary mt-1">Managing {stats.totalEmployees} employees across {stats.departments.length} departments</p>
           </div>
           <button
@@ -521,7 +521,7 @@ function OverviewPage({ stats, onPopup, complaints, onTabChange }) {
         <HRStatCard icon="📋" label="Open Positions" value={stats.openPositions} trend="3 urgent" trendUp={false} color="#123452" delay="delay-400" onClick={() => onPopup('open-positions')} />
       </div>
 
-      {/* Quick Actions — 2Ã—2 grid for breathing room */}
+      {/* Quick Actions — 2×2 grid for breathing room */}
       <div className="grid grid-cols-2 gap-4 animate-fade-in-up delay-200" style={{ opacity: 0 }}>
         {hrActions.map((action, i) => (
           <button
@@ -583,7 +583,7 @@ function OverviewPage({ stats, onPopup, complaints, onTabChange }) {
             <div className="flex items-center justify-between mb-4">
               <div>
                 <h3 className="text-base font-semibold text-text-primary">Employee Complaints</h3>
-                <p className="text-xs text-text-secondary mt-1">{complaints.filter((c) => c.status !== 'Resolved').length} open Â· {complaints.filter((c) => c.status === 'Resolved').length} resolved</p>
+                <p className="text-xs text-text-secondary mt-1">{complaints.filter((c) => c.status !== 'Resolved').length} open · {complaints.filter((c) => c.status === 'Resolved').length} resolved</p>
               </div>
               <div className="w-10 h-10 rounded-xl flex items-center justify-center text-lg" style={{ background: 'rgba(248, 113, 113, 0.1)' }}>📩</div>
             </div>
@@ -600,7 +600,7 @@ function OverviewPage({ stats, onPopup, complaints, onTabChange }) {
                       <span className="text-[10px] font-medium px-2 py-0.5 rounded-full" style={{ background: st.bg, border: `1px solid ${st.border}`, color: st.text }}>{c.status}</span>
                     </div>
                     <h4 className="text-xs font-semibold text-text-primary mb-1">{c.subject}</h4>
-                    <span className="text-[10px] text-text-secondary">{c.employee} Â· {c.department}</span>
+                    <span className="text-[10px] text-text-secondary">{c.employee} · {c.department}</span>
                   </div>
                 );
               })}
@@ -727,7 +727,7 @@ function AddEmployeePopup({ onClose, onAdd }) {
             </div>
           </div>
           <div className="flex gap-2">
-            <button onClick={() => setStep(1)} className="flex-1 py-2.5 rounded-xl text-sm font-semibold transition-all" style={{ background: 'var(--color-surface-raised)', border: '1px solid rgba(55,55,68,0.8)', color: 'rgba(255,255,255,0.6)' }}>â† Back</button>
+            <button onClick={() => setStep(1)} className="flex-1 py-2.5 rounded-xl text-sm font-semibold transition-all" style={{ background: 'var(--color-surface-raised)', border: '1px solid rgba(55,55,68,0.8)', color: 'rgba(255,255,255,0.6)' }}>← Back</button>
             <button
               onClick={handleSubmit}
               disabled={!form.role}
@@ -780,7 +780,7 @@ function EmployeesPage({ stats, onPopup, employees, onAddEmployee }) {
         <div className="flex items-center justify-between mb-5">
           <div>
             <h3 className="text-base font-semibold text-text-primary">All Employees</h3>
-            <p className="text-xs text-text-secondary mt-1">{employees.length} total Â· {employees.filter((e) => e.isNew).length > 0 ? `${employees.filter((e) => e.isNew).length} new` : `${stats.newHires} new this month`}</p>
+            <p className="text-xs text-text-secondary mt-1">{employees.length} total · {employees.filter((e) => e.isNew).length > 0 ? `${employees.filter((e) => e.isNew).length} new` : `${stats.newHires} new this month`}</p>
           </div>
           <button
             id="add-employee-btn"
@@ -800,7 +800,7 @@ function EmployeesPage({ stats, onPopup, employees, onAddEmployee }) {
                   <p className="text-sm font-semibold text-text-primary">{emp.name}</p>
                   {emp.isNew && <span className="text-[9px] font-bold px-1.5 py-0.5 rounded-full" style={{ background: 'rgba(13,32,53,0.2)', border: '1px solid rgba(13,32,53,0.4)', color: '#DFC993' }}>NEW</span>}
                 </div>
-                <p className="text-[10px] text-text-muted">{emp.role} Â· {emp.dept}</p>
+                <p className="text-[10px] text-text-muted">{emp.role} · {emp.dept}</p>
               </div>
               <span className="text-[10px] text-text-muted font-mono">{emp.id}</span>
               <span className="text-[10px] font-semibold px-2.5 py-1 rounded-full" style={{ background: emp.status === 'Active' ? 'rgba(74,222,128,0.1)' : 'rgba(251,191,36,0.1)', border: `1px solid ${emp.status === 'Active' ? 'rgba(74,222,128,0.2)' : 'rgba(251,191,36,0.2)'}`, color: emp.status === 'Active' ? '#4ade80' : '#fbbf24' }}>{emp.status}</span>
@@ -827,7 +827,7 @@ function ComplaintsPage({ onPopup, complaints: localComplaints }) {
         <div className="flex items-center justify-between mb-5">
           <div>
             <h3 className="text-lg font-bold text-text-primary">Employee Complaints</h3>
-            <p className="text-xs text-text-secondary mt-1">{list.filter((c) => c.status !== 'Resolved').length} open Â· {list.filter((c) => c.status === 'Resolved').length} resolved — click any to review</p>
+            <p className="text-xs text-text-secondary mt-1">{list.filter((c) => c.status !== 'Resolved').length} open · {list.filter((c) => c.status === 'Resolved').length} resolved — click any to review</p>
           </div>
           <div className="flex items-center gap-3">
             <span className="px-3 py-1.5 rounded-full text-[10px] font-semibold" style={{ background: 'rgba(248,113,113,0.1)', border: '1px solid rgba(248,113,113,0.2)', color: '#f87171' }}>
@@ -861,7 +861,7 @@ function ComplaintsPage({ onPopup, complaints: localComplaints }) {
                 <h4 className="text-sm font-semibold text-text-primary mb-2">{c.subject}</h4>
                 <p className="text-xs text-text-secondary leading-relaxed mb-3">{c.description}</p>
                 <span className="text-[10px] text-text-secondary font-semibold">{c.employee}</span>
-                <span className="text-[10px] text-text-muted"> Â· {c.department}</span>
+                <span className="text-[10px] text-text-muted"> · {c.department}</span>
               </div>
             );
           })}
@@ -882,7 +882,7 @@ function ApprovalsPage({ stats, onPopup }) {
       <div className="glass-card p-6" id="approvals-page">
         <div className="flex items-center justify-between mb-5">
           <div>
-            <h3 className="text-lg font-bold text-text-primary">â³ Pending Approvals</h3>
+            <h3 className="text-lg font-bold text-text-primary">⏳ Pending Approvals</h3>
             <p className="text-xs text-text-secondary mt-1">{approvals.length} requests awaiting your action</p>
           </div>
         </div>
@@ -897,12 +897,12 @@ function ApprovalsPage({ stats, onPopup }) {
                   </div>
                   <div>
                     <p className="text-sm font-semibold text-text-primary">{item.name}</p>
-                    <p className="text-[10px] text-text-muted">{item.type} Â· {item.days} Â· {item.dept}</p>
+                    <p className="text-[10px] text-text-muted">{item.type} · {item.days} · {item.dept}</p>
                   </div>
                 </div>
                 {/* Only timing badge here — no decision badge */}
                 {item.daysLeft > 0
-                  ? <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full flex-shrink-0" style={{ background: 'rgba(251,191,36,0.1)', border: '1px solid rgba(251,191,36,0.2)', color: '#fbbf24' }}>â° {item.daysLeft}d away</span>
+                  ? <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full flex-shrink-0" style={{ background: 'rgba(251,191,36,0.1)', border: '1px solid rgba(251,191,36,0.2)', color: '#fbbf24' }}>⏰ {item.daysLeft}d away</span>
                   : <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full flex-shrink-0" style={{ background: 'rgba(248,113,113,0.1)', border: '1px solid rgba(248,113,113,0.2)', color: '#f87171' }}>Starts today</span>
                 }
               </div>
@@ -955,7 +955,7 @@ function AnnouncementsPage({ onPopup, announcements: localAnnouncements }) {
         <div className="flex items-center justify-between mb-5">
           <div>
             <h3 className="text-lg font-bold text-text-primary">📢 Announcements</h3>
-            <p className="text-xs text-text-secondary mt-1">{list.length} post{list.length !== 1 ? 's' : ''} Â· company-wide communications</p>
+            <p className="text-xs text-text-secondary mt-1">{list.length} post{list.length !== 1 ? 's' : ''} · company-wide communications</p>
           </div>
           <button id="new-announcement-btn" onClick={() => onPopup('post-announcement')} className="px-4 py-2 rounded-xl text-xs font-semibold cursor-pointer transition-all hover:scale-105" style={{ background: 'linear-gradient(135deg, rgba(200,169,107,0.1), rgba(13,32,53,0.1))', border: '1px solid rgba(200,169,107,0.2)', color: '#C8A96B' }}>+ New Post</button>
         </div>
@@ -1003,7 +1003,7 @@ function ReportsPage({ stats }) {
   );
 }
 
-/* â”€â”€â”€ Recruitment Popup â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ────── Recruitment Popup ──────────────────────────────────────────────────────────────────────────────────────────────────── */
 function RecruitmentPopup({ stats, onClose }) {
   const positions = [
     { title: 'Sr. Backend Engineer', dept: 'Engineering', urgency: 'Urgent', since: 'Jun 12', applicants: 14 },
@@ -1031,7 +1031,7 @@ function RecruitmentPopup({ stats, onClose }) {
           <div key={i} className="flex items-center justify-between p-4 rounded-xl" style={{ background: 'var(--color-surface-card)', border: '1px solid var(--color-surface-border)' }}>
             <div>
               <p className="text-sm font-semibold text-text-primary">{p.title}</p>
-              <p className="text-[10px] text-text-muted">{p.dept} Â· Open since {p.since} Â· {p.applicants} applicants</p>
+              <p className="text-[10px] text-text-muted">{p.dept} · Open since {p.since} · {p.applicants} applicants</p>
             </div>
             <span className="text-[10px] font-bold px-2.5 py-1 rounded-full" style={{ background: `${urgencyColor[p.urgency]}15`, border: `1px solid ${urgencyColor[p.urgency]}40`, color: urgencyColor[p.urgency] }}>{p.urgency}</span>
           </div>
@@ -1041,12 +1041,12 @@ function RecruitmentPopup({ stats, onClose }) {
   );
 }
 
-/* â”€â”€â”€ Main Component â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ────── Main Component ────────────────────────────────────────────────────────────────────────────────────────────────────────── */
 const TABS = [
-  { id: 'overview', label: 'ðŸ  Overview' },
+  { id: 'overview', label: '🏠 Overview' },
   { id: 'employees', label: '👥 Employees' },
   { id: 'complaints', label: '📩 Complaints' },
-  { id: 'approvals', label: 'â³ Approvals' },
+  { id: 'approvals', label: '⏳ Approvals' },
   { id: 'announcements', label: '📢 Announcements' },
   { id: 'reports', label: '📊 Reports' },
 ];
@@ -1118,7 +1118,7 @@ export default function HRDashboard() {
       {activeTab === 'announcements' && <AnnouncementsPage onPopup={openPopup} announcements={announcementsList} />}
       {activeTab === 'reports' && <ReportsPage stats={stats} />}
 
-      {/* â”€â”€ Popups â”€â”€ */}
+      {/* ──── Popups ──── */}
       {popup === 'total-employees' && <TotalEmployeesPopup stats={stats} onClose={closePopup} />}
       {popup === 'new-hires' && <NewHiresPopup stats={stats} onClose={closePopup} />}
       {popup === 'attrition' && <AttritionPopup stats={stats} onClose={closePopup} />}

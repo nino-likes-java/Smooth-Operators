@@ -1,4 +1,4 @@
-﻿import { useState } from 'react';
+import { useState } from 'react';
 
 const CATEGORIES = ['Harassment', 'Policy Violation', 'Workplace Issue', 'Pay & Benefits', 'Other'];
 const SEVERITIES = ['Low', 'Medium', 'High'];
@@ -93,7 +93,7 @@ export default function ComplaintModal({ isOpen, onClose }) {
                   className="w-10 h-10 rounded-xl flex items-center justify-center text-lg"
                   style={{ background: 'rgba(248, 113, 113, 0.1)', border: '1px solid rgba(248, 113, 113, 0.2)' }}
                 >
-                  âš ï¸
+                  ⚠️
                 </div>
                 <div>
                   <h3 className="text-lg font-bold text-text-primary">File a Complaint</h3>
