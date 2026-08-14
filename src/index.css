@@ -105,12 +105,12 @@ h1, h2, h3, h4, h5, h6 {
   background: var(--color-surface-card);
   border: 2px solid var(--color-surface-border);
   border-radius: 0px !important;
-  box-shadow: 4px 4px 0px var(--color-surface-border);
+  box-shadow: none;
   transition: all 0.2s ease-in-out;
 }
 
 .glass-card:hover {
-  box-shadow: 6px 6px 0px var(--color-surface-border);
+  box-shadow: none;
   transform: translate(-2px, -2px);
 }
 
@@ -118,7 +118,7 @@ h1, h2, h3, h4, h5, h6 {
   background: var(--color-surface-card);
   border: 2px solid var(--color-surface-border);
   border-radius: 0px !important;
-  box-shadow: 4px 4px 0px var(--color-surface-border);
+  box-shadow: none;
 }
 
 /* ── Keyframe Animations ── */
