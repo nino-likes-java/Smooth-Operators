@@ -91,7 +91,7 @@ function EmployeeMessaging() {
                       ? 'linear-gradient(135deg, rgba(200,169,107,0.15), rgba(13,32,53,0.15))'
                       : 'rgba(255,255,255,0.05)',
                     border: `1px solid ${isOutgoing ? 'rgba(200,169,107,0.2)' : 'rgba(38,38,47,0.9)'}`,
-                    color: '#172332',
+                    color: 'rgba(255,255,255,0.88)',
                     borderBottomRightRadius: isOutgoing ? 4 : 16,
                     borderBottomLeftRadius: isOutgoing ? 16 : 4,
                   }}
@@ -191,7 +191,9 @@ function EmployeeMessaging() {
           style={{
             background: inputValue.trim()
               ? 'linear-gradient(135deg, #C8A96B, #0D2035)'
-              : 'rgba(38,38,47,0.9)',
+              : 'rgba(0, 0, 0, 0.05)',
+            color: inputValue.trim() ? '#FFFFFF' : 'rgba(0, 0, 0, 0.3)',
+            border: inputValue.trim() ? 'none' : '1px solid rgba(0, 0, 0, 0.08)',
           }}
           id="msg-send-employee"
           aria-label="Send message"
@@ -224,8 +226,8 @@ function HRMessaging() {
 
   const threadMessages = selectedEmployee
     ? hrMessages.filter(
-        (m) => m.from === selectedEmployee || m.replyTo === selectedEmployee
-      )
+      (m) => m.from === selectedEmployee || m.replyTo === selectedEmployee
+    )
     : [];
 
   function handleReply() {
@@ -345,7 +347,7 @@ function HRMessaging() {
                       ? 'linear-gradient(135deg, rgba(200,169,107,0.15), rgba(13,32,53,0.15))'
                       : 'rgba(255,255,255,0.05)',
                     border: `1px solid ${isOutgoing ? 'rgba(200,169,107,0.2)' : 'rgba(38,38,47,0.9)'}`,
-                    color: '#172332',
+                    color: 'rgba(255,255,255,0.88)',
                     borderBottomRightRadius: isOutgoing ? 4 : 16,
                     borderBottomLeftRadius: isOutgoing ? 16 : 4,
                   }}
@@ -384,7 +386,9 @@ function HRMessaging() {
           style={{
             background: replyText.trim()
               ? 'linear-gradient(135deg, #C8A96B, #0D2035)'
-              : 'rgba(38,38,47,0.9)',
+              : 'rgba(0, 0, 0, 0.05)',
+            color: replyText.trim() ? '#FFFFFF' : 'rgba(0, 0, 0, 0.3)',
+            border: replyText.trim() ? 'none' : '1px solid rgba(0, 0, 0, 0.08)',
           }}
           id="hr-msg-send-btn"
           aria-label="Send reply"
