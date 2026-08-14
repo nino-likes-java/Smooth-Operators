@@ -58,18 +58,26 @@ export default function LoginPage() {
           color: 'var(--color-white-warm)',
         }}
       >
-        <div className="max-w-md mx-auto md:mx-0">
-          <div className="flex items-center gap-3 mb-4">
+        <div className="max-w-lg mx-auto md:mx-0">
+          <div className="flex items-center gap-5 mb-6">
             <div
-              className="w-10 h-10 flex items-center justify-center font-bold text-lg"
+              className="w-20 h-20 md:w-24 md:h-24 flex items-center justify-center font-black text-3xl md:text-4xl tracking-tighter shadow-lg flex-shrink-0"
               style={{
-                backgroundColor: 'var(--color-white-warm)',
+                backgroundColor: 'var(--color-gold-muted)',
                 color: 'var(--color-navy-deep)',
+                border: '3px solid var(--color-gold-light)',
               }}
             >
               SO
             </div>
-            <h1 className="text-xl font-bold tracking-wide">SMOOTH OPERATORS</h1>
+            <div>
+              <h1 className="text-3xl md:text-4xl lg:text-5xl font-extrabold tracking-wide leading-none" style={{ color: 'var(--color-white-warm)', letterSpacing: '0.03em' }}>
+                SMOOTH OPERATORS
+              </h1>
+              <span className="text-xs md:text-sm font-bold tracking-widest uppercase block mt-1.5" style={{ color: 'var(--color-gold-muted)' }}>
+                Workforce Management System
+              </span>
+            </div>
           </div>
           
           <p
