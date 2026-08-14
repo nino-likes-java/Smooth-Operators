@@ -136,7 +136,7 @@ export default function FinancialDonut({ data, title = 'Budget Allocation' }) {
             key={i}
             className="flex items-center gap-2.5 px-3 py-2 rounded-lg cursor-pointer transition-all duration-200"
             style={{
-              background: i === activeIndex ? 'rgba(38,38,47,0.9)' : 'transparent',
+              background: i === activeIndex ? 'rgba(38,38,47,0.25)' : 'transparent',
             }}
             onMouseEnter={() => setActiveIndex(i)}
           >
