@@ -1,4 +1,4 @@
-﻿import { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import AttendanceHeatmap from '../widgets/AttendanceHeatmap';
 import FinancialDonut from '../widgets/FinancialDonut';
 import {
@@ -1092,7 +1092,7 @@ export default function HRDashboard() {
   return (
     <div id="hr-dashboard">
       {/* Tab Navigation */}
-      <div className="flex items-center gap-1 mb-6 p-1 rounded-2xl overflow-x-auto" style={{ background: 'var(--color-surface-raised)', border: '1px solid var(--color-surface-border)' }}>
+      <div className="flex items-center gap-1 mb-6 p-1 rounded-2xl overflow-x-auto" style={{ background: 'var(--color-surface-raised)', border: '1px solid rgba(0, 0, 0, 0.15)' }}>
         {TABS.map((tab) => (
           <button
             key={tab.id}
@@ -1101,8 +1101,8 @@ export default function HRDashboard() {
             className="flex-shrink-0 px-4 py-2.5 rounded-xl text-xs font-semibold transition-all duration-250 cursor-pointer whitespace-nowrap"
             style={{
               background: activeTab === tab.id ? 'linear-gradient(135deg, rgba(13,32,53,0.15), rgba(200,169,107,0.1))' : 'transparent',
-              border: activeTab === tab.id ? '1px solid rgba(13,32,53,0.3)' : '1px solid transparent',
-              color: activeTab === tab.id ? '#DFC993' : 'rgba(255,255,255,0.5)',
+              border: activeTab === tab.id ? '1px solid rgba(0, 0, 0, 0.25)' : '1px solid rgba(0, 0, 0, 0.08)',
+              color: activeTab === tab.id ? '#DFC993' : 'var(--color-text-secondary)',
             }}
           >
             {tab.label}
