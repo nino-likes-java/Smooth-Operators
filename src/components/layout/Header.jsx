@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+﻿import { useEffect, useRef, useState } from 'react';
 import { useApp } from '../../context/AppContext';
 
 const PROFILES = {
@@ -8,8 +8,8 @@ const PROFILES = {
     department: 'Engineering',
     employeeId: 'EMP-2247',
     email: 'employee@gmail.com',
-    avatar: '🧑‍💻',
-    avatarBg: 'linear-gradient(135deg, #00f5ff 0%, #7c3aed 100%)',
+    avatar: 'ðŸ§‘â€ðŸ’»',
+    avatarBg: 'linear-gradient(135deg, #2DD4FF 0%, #9333EA 100%)',
   },
   hr: {
     name: 'Rachel HR',
@@ -17,8 +17,8 @@ const PROFILES = {
     department: 'Human Resources',
     employeeId: 'HR-0012',
     email: 'hr@gmail.com',
-    avatar: '🛡️',
-    avatarBg: 'linear-gradient(135deg, #7c3aed 0%, #a78bfa 100%)',
+    avatar: 'ðŸ›¡ï¸',
+    avatarBg: 'linear-gradient(135deg, #9333EA 0%, #a78bfa 100%)',
   },
 };
 
@@ -61,28 +61,28 @@ export default function Header() {
     setIsLogoMenuOpen(false);
   };
 
-  // Menu items — "Change Password" removed per spec
+  // Menu items â€” "Change Password" removed per spec
   const menuItems = [
     {
-      icon: '👤',
+      icon: 'ðŸ‘¤',
       label: 'View Profile',
       id: 'menu-account',
       onClick: () => setIsLogoMenuOpen(false),
     },
     {
-      icon: '⚙️',
+      icon: 'âš™ï¸',
       label: 'Settings',
       id: 'menu-settings',
       onClick: () => setIsLogoMenuOpen(false),
     },
     {
-      icon: '🔔',
+      icon: 'ðŸ””',
       label: 'Notifications',
       id: 'menu-notifications',
       onClick: () => setIsLogoMenuOpen(false),
     },
     {
-      icon: '❓',
+      icon: 'â“',
       label: 'Help & Support',
       id: 'menu-help',
       onClick: () => setIsLogoMenuOpen(false),
@@ -93,7 +93,7 @@ export default function Header() {
       divider: true,
     },
     {
-      icon: '🚪',
+      icon: 'ðŸšª',
       label: 'Logout',
       id: 'menu-logout',
       danger: true,
@@ -124,7 +124,7 @@ export default function Header() {
           backdropFilter: 'blur(30px)',
         }}
       >
-        {/* ── Left: Profile Avatar Button ── */}
+        {/* â”€â”€ Left: Profile Avatar Button â”€â”€ */}
         <div className="relative" ref={logoMenuRef}>
           <button
             id="logo-menu-trigger"
@@ -133,9 +133,9 @@ export default function Header() {
             onClick={() => setIsLogoMenuOpen(!isLogoMenuOpen)}
             className="flex items-center gap-3 group cursor-pointer select-none rounded-xl px-2 py-1 transition-all duration-200"
             style={{
-              background: isLogoMenuOpen ? 'rgba(0,245,255,0.07)' : 'transparent',
+              background: isLogoMenuOpen ? 'rgba(45,212,255,0.07)' : 'transparent',
               border: isLogoMenuOpen
-                ? '1px solid rgba(0,245,255,0.25)'
+                ? '1px solid rgba(45,212,255,0.25)'
                 : '1px solid transparent',
             }}
             onMouseEnter={(e) => {
@@ -150,7 +150,7 @@ export default function Header() {
               className="w-9 h-9 rounded-full flex items-center justify-center text-lg flex-shrink-0 relative"
               style={{
                 background: profile.avatarBg,
-                boxShadow: isLogoMenuOpen ? '0 0 14px rgba(0,245,255,0.3)' : 'none',
+                boxShadow: isLogoMenuOpen ? '0 0 14px rgba(45,212,255,0.3)' : 'none',
               }}
             >
               {profile.avatar}
@@ -193,9 +193,9 @@ export default function Header() {
             <div
               className="absolute top-full left-0 mt-2 w-72 rounded-2xl overflow-hidden"
               style={{
-                background: 'rgba(8, 8, 18, 0.97)',
+                background: 'rgba(19, 19, 25, 0.97)',
                 backdropFilter: 'blur(30px)',
-                border: '1px solid rgba(255,255,255,0.1)',
+                border: '1px solid rgba(55,55,68,0.8)',
                 boxShadow: '0 20px 60px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,255,255,0.04)',
                 zIndex: 200,
                 animation: 'slideDownFade 0.18s cubic-bezier(0.34,1.2,0.64,1)',
@@ -206,8 +206,8 @@ export default function Header() {
               <div
                 className="px-5 py-4 flex items-center gap-4"
                 style={{
-                  background: 'linear-gradient(135deg, rgba(0,245,255,0.05), rgba(124,58,237,0.07))',
-                  borderBottom: '1px solid rgba(255,255,255,0.07)',
+                  background: 'linear-gradient(135deg, rgba(45,212,255,0.05), rgba(147,51,234,0.07))',
+                  borderBottom: '1px solid rgba(38,38,47,0.9)',
                 }}
               >
                 {/* Large avatar */}
@@ -215,13 +215,13 @@ export default function Header() {
                   className="w-14 h-14 rounded-2xl flex items-center justify-center text-3xl flex-shrink-0 relative"
                   style={{
                     background: profile.avatarBg,
-                    boxShadow: '0 8px 24px rgba(0,245,255,0.18)',
+                    boxShadow: '0 8px 24px rgba(45,212,255,0.18)',
                   }}
                 >
                   {profile.avatar}
                   <span
                     className="absolute bottom-0.5 right-0.5 w-3 h-3 rounded-full border-2"
-                    style={{ background: '#4ade80', borderColor: 'rgba(8,8,18,0.97)' }}
+                    style={{ background: '#4ade80', borderColor: 'rgba(19,19,25,0.97)' }}
                   />
                 </div>
                 {/* Info */}
@@ -231,7 +231,7 @@ export default function Header() {
                   <p className="text-[10px] text-text-muted truncate">{profile.email}</p>
                   <span
                     className="inline-block mt-1.5 text-[9px] font-bold px-2 py-0.5 rounded-full"
-                    style={{ background: 'rgba(0,245,255,0.1)', color: '#00f5ff', border: '1px solid rgba(0,245,255,0.2)' }}
+                    style={{ background: 'rgba(45,212,255,0.1)', color: '#2DD4FF', border: '1px solid rgba(45,212,255,0.2)' }}
                   >
                     {profile.employeeId}
                   </span>
@@ -246,7 +246,7 @@ export default function Header() {
                       <div
                         key={i}
                         className="my-1.5 mx-2"
-                        style={{ height: 1, background: 'rgba(255,255,255,0.07)' }}
+                        style={{ height: 1, background: 'rgba(38,38,47,0.9)' }}
                       />
                     );
                   }
@@ -285,41 +285,41 @@ export default function Header() {
           )}
         </div>
 
-        {/* ── Center: Role Badge ── */}
+        {/* â”€â”€ Center: Role Badge â”€â”€ */}
         <div
           className="flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-semibold"
           style={{
-            background: 'rgba(255, 255, 255, 0.06)',
-            border: '1px solid rgba(255, 255, 255, 0.1)',
+            background: 'rgba(38, 38, 47, 0.9)',
+            border: '1px solid rgba(55, 55, 68, 0.8)',
           }}
           id="role-badge"
         >
-          <span>{isHR ? '🛡️' : '👤'}</span>
+          <span>{isHR ? 'ðŸ›¡ï¸' : 'ðŸ‘¤'}</span>
           <span className="gradient-text">{isHR ? 'HR Admin' : 'Employee'}</span>
         </div>
 
-        {/* ── Right: Hamburger ── */}
+        {/* â”€â”€ Right: Hamburger â”€â”€ */}
         <button
           id="hamburger-panel-btn"
           aria-label="Open announcements and messages panel"
           onClick={() => setIsSidePanelOpen(!isSidePanelOpen)}
           className="relative w-10 h-10 rounded-xl flex flex-col items-center justify-center gap-[5px] transition-all duration-300 cursor-pointer"
           style={{
-            background: isSidePanelOpen ? 'rgba(0,245,255,0.1)' : 'rgba(255,255,255,0.04)',
+            background: isSidePanelOpen ? 'rgba(45,212,255,0.1)' : 'rgba(255,255,255,0.04)',
             border: isSidePanelOpen
-              ? '1px solid rgba(0,245,255,0.3)'
-              : '1px solid rgba(255,255,255,0.1)',
+              ? '1px solid rgba(45,212,255,0.3)'
+              : '1px solid rgba(55,55,68,0.8)',
           }}
           onMouseEnter={(e) => {
             if (!isSidePanelOpen) {
-              e.currentTarget.style.background = 'rgba(255,255,255,0.08)';
+              e.currentTarget.style.background = 'rgba(38,38,47,0.9)';
               e.currentTarget.style.borderColor = 'rgba(255,255,255,0.18)';
             }
           }}
           onMouseLeave={(e) => {
             if (!isSidePanelOpen) {
               e.currentTarget.style.background = 'rgba(255,255,255,0.04)';
-              e.currentTarget.style.borderColor = 'rgba(255,255,255,0.1)';
+              e.currentTarget.style.borderColor = 'rgba(55,55,68,0.8)';
             }
           }}
         >
@@ -331,7 +331,7 @@ export default function Header() {
               style={{
                 width: i === 1 ? 14 : 18,
                 height: 2,
-                background: isSidePanelOpen ? '#00f5ff' : 'rgba(255,255,255,0.7)',
+                background: isSidePanelOpen ? '#2DD4FF' : 'rgba(255,255,255,0.7)',
               }}
             />
           ))}
@@ -350,3 +350,4 @@ export default function Header() {
     </>
   );
 }
+

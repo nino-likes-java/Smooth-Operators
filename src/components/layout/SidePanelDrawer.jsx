@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+﻿import { useState, useEffect } from 'react';
 import { useApp } from '../../context/AppContext';
 import { announcements, employeeComplaints, complaints } from '../../data/dummyData';
 
@@ -6,7 +6,7 @@ const STATUS_STYLES = {
   Pending: { bg: 'rgba(251, 191, 36, 0.1)', border: 'rgba(251, 191, 36, 0.2)', text: '#fbbf24' },
   'In Review': { bg: 'rgba(167, 139, 250, 0.1)', border: 'rgba(167, 139, 250, 0.2)', text: '#a78bfa' },
   Resolved: { bg: 'rgba(74, 222, 128, 0.1)', border: 'rgba(74, 222, 128, 0.2)', text: '#4ade80' },
-  'In Progress': { bg: 'rgba(0, 245, 255, 0.1)', border: 'rgba(0, 245, 255, 0.2)', text: '#00f5ff' },
+  'In Progress': { bg: 'rgba(45, 212, 255, 0.1)', border: 'rgba(45, 212, 255, 0.2)', text: '#2DD4FF' },
   Completed: { bg: 'rgba(74, 222, 128, 0.1)', border: 'rgba(74, 222, 128, 0.2)', text: '#4ade80' },
 };
 
@@ -29,7 +29,7 @@ function AnnouncementsTab() {
         <div
           key={item.id}
           className="p-4 rounded-2xl transition-all duration-200 hover:bg-white/[0.04] cursor-pointer"
-          style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.06)' }}
+          style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(38,38,47,0.9)' }}
         >
           <div className="flex items-center gap-2 mb-2">
             <span
@@ -60,7 +60,7 @@ function EmployeeComplaintsTab() {
     <div className="space-y-3">
       {employeeComplaints.length === 0 ? (
         <div className="flex flex-col items-center justify-center py-12 text-text-muted">
-          <span className="text-4xl mb-3">📭</span>
+          <span className="text-4xl mb-3">ðŸ“­</span>
           <p className="text-xs">No complaints filed yet</p>
         </div>
       ) : (
@@ -70,7 +70,7 @@ function EmployeeComplaintsTab() {
             <div
               key={c.id}
               className="p-4 rounded-xl hover:bg-white/[0.03] transition-colors"
-              style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.06)' }}
+              style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(38,38,47,0.9)' }}
             >
               <div className="flex items-center justify-between mb-2">
                 <span className="text-[10px] text-text-muted font-mono">{c.id}</span>
@@ -94,9 +94,9 @@ function EmployeeComplaintsTab() {
                 >
                   {c.severity}
                 </span>
-                <span className="text-[10px] text-text-muted">·</span>
+                <span className="text-[10px] text-text-muted">Â·</span>
                 <span className="text-[10px] text-text-muted">{c.category}</span>
-                <span className="text-[10px] text-text-muted">·</span>
+                <span className="text-[10px] text-text-muted">Â·</span>
                 <span className="text-[10px] text-text-muted">{c.date}</span>
               </div>
             </div>
@@ -116,7 +116,7 @@ function HRComplaintsTab() {
           <div
             key={c.id}
             className="p-4 rounded-xl hover:bg-white/[0.03] transition-colors cursor-pointer"
-            style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.06)' }}
+            style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(38,38,47,0.9)' }}
           >
             <div className="flex items-center justify-between mb-2">
               <div className="flex items-center gap-2">
@@ -146,9 +146,9 @@ function HRComplaintsTab() {
             <h4 className="text-xs font-semibold text-text-primary mb-1">{c.subject}</h4>
             <div className="flex items-center gap-2">
               <span className="text-[10px] text-text-secondary font-medium">{c.employee}</span>
-              <span className="text-[10px] text-text-muted">·</span>
+              <span className="text-[10px] text-text-muted">Â·</span>
               <span className="text-[10px] text-text-muted">{c.department}</span>
-              <span className="text-[10px] text-text-muted">·</span>
+              <span className="text-[10px] text-text-muted">Â·</span>
               <span className="text-[10px] text-text-muted">{c.date}</span>
             </div>
           </div>
@@ -164,10 +164,10 @@ export default function SidePanelDrawer() {
   const [activeTab, setActiveTab] = useState('announcements');
 
   const tabs = [
-    { id: 'announcements', label: '📢 Announcements', hasDot: hasNewAnnouncements },
+    { id: 'announcements', label: 'ðŸ“¢ Announcements', hasDot: hasNewAnnouncements },
     {
       id: 'items',
-      label: isHR ? '📨 Complaints' : '⚠️ My Complaints',
+      label: isHR ? 'ðŸ“¨ Complaints' : 'âš ï¸ My Complaints',
       hasDot: false,
     },
   ];
@@ -192,7 +192,7 @@ export default function SidePanelDrawer() {
           width: 380,
           background: 'rgba(8, 8, 14, 0.97)',
           backdropFilter: 'blur(40px)',
-          borderLeft: '1px solid rgba(255,255,255,0.08)',
+          borderLeft: '1px solid rgba(38,38,47,0.9)',
           transform: isSidePanelOpen ? 'translateX(0)' : 'translateX(100%)',
           transition: 'transform 0.35s cubic-bezier(0.22, 1, 0.36, 1)',
           boxShadow: isSidePanelOpen ? '-8px 0 48px rgba(0,0,0,0.6)' : 'none',
@@ -201,7 +201,7 @@ export default function SidePanelDrawer() {
         {/* Header */}
         <div
           className="flex items-center justify-between px-5 py-4 border-b flex-shrink-0"
-          style={{ borderColor: 'rgba(255,255,255,0.08)', paddingTop: 72 }}
+          style={{ borderColor: 'rgba(38,38,47,0.9)', paddingTop: 72 }}
         >
           <div>
             <h3 className="text-sm font-bold text-text-primary">Notifications</h3>
@@ -215,14 +215,14 @@ export default function SidePanelDrawer() {
             aria-label="Close panel"
             id="side-panel-close"
           >
-            ✕
+            âœ•
           </button>
         </div>
 
         {/* Tabs */}
         <div
           className="flex border-b flex-shrink-0"
-          style={{ borderColor: 'rgba(255,255,255,0.08)' }}
+          style={{ borderColor: 'rgba(38,38,47,0.9)' }}
         >
           {tabs.map((tab) => (
             <button
@@ -231,13 +231,13 @@ export default function SidePanelDrawer() {
               onClick={() => setActiveTab(tab.id)}
               className="relative flex-1 flex items-center justify-center gap-1.5 px-3 py-3 text-xs font-semibold transition-all duration-200 cursor-pointer"
               style={{
-                color: activeTab === tab.id ? '#00f5ff' : 'rgba(255,255,255,0.45)',
+                color: activeTab === tab.id ? '#2DD4FF' : 'rgba(255,255,255,0.45)',
                 borderBottom: activeTab === tab.id
-                  ? '2px solid #00f5ff'
+                  ? '2px solid #2DD4FF'
                   : '2px solid transparent',
                 background: 'transparent',
                 border: 'none',
-                borderBottom: activeTab === tab.id ? '2px solid #00f5ff' : '2px solid transparent',
+                borderBottom: activeTab === tab.id ? '2px solid #2DD4FF' : '2px solid transparent',
               }}
             >
               <span>{tab.label}</span>
@@ -260,3 +260,4 @@ export default function SidePanelDrawer() {
     </>
   );
 }
+

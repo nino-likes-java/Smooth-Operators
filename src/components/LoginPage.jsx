@@ -1,13 +1,13 @@
-import { useState } from 'react';
+﻿import { useState } from 'react';
 import { useApp } from '../context/AppContext';
 
-/* ── Credentials ── */
+/* â”€â”€ Credentials â”€â”€ */
 const CREDENTIALS = {
   employee: { email: 'employee@gmail.com', password: '123456789' },
   hr: { email: 'hr@gmail.com', password: '123456789' },
 };
 
-/* ── SVG Social Icons ── */
+/* â”€â”€ SVG Social Icons â”€â”€ */
 const LinkedInIcon = () => (
   <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
     <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
@@ -40,7 +40,7 @@ const GlobeIcon = () => (
   </svg>
 );
 
-/* ── Eye toggle ── */
+/* â”€â”€ Eye toggle â”€â”€ */
 const EyeIcon = ({ open }) => (
   <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
     {open ? (
@@ -57,7 +57,7 @@ const EyeIcon = ({ open }) => (
   </svg>
 );
 
-/* ── Floating particles ── */
+/* â”€â”€ Floating particles â”€â”€ */
 function FloatingParticles() {
   const particles = Array.from({ length: 20 }, (_, i) => ({
     id: i,
@@ -130,19 +130,19 @@ export default function LoginPage() {
   };
 
   const inputStyle = {
-    background: 'rgba(255, 255, 255, 0.04)',
-    border: '1px solid rgba(255, 255, 255, 0.1)',
+    background: 'rgba(26, 26, 34, 0.8)',
+    border: '1px solid rgba(55, 55, 68, 0.8)',
     color: 'var(--color-text-primary)',
     caretColor: 'var(--color-cyan-glow)',
   };
 
   const handleFocus = (e) => {
-    e.target.style.borderColor = 'rgba(0, 245, 255, 0.4)';
-    e.target.style.boxShadow = '0 0 0 3px rgba(0, 245, 255, 0.08)';
+    e.target.style.borderColor = 'rgba(45, 212, 255, 0.4)';
+    e.target.style.boxShadow = '0 0 0 3px rgba(45, 212, 255, 0.08)';
   };
 
   const handleBlur = (e) => {
-    e.target.style.borderColor = 'rgba(255, 255, 255, 0.1)';
+    e.target.style.borderColor = 'rgba(55, 55, 68, 0.8)';
     e.target.style.boxShadow = 'none';
   };
 
@@ -150,16 +150,16 @@ export default function LoginPage() {
     <div
       className="fixed inset-0 flex"
       style={{
-        background: '#000000',
+        background: '#08080C',
         fontFamily: 'var(--font-family-sans)',
       }}
     >
-      {/* ════════════ LEFT — Branding ════════════ */}
+      {/* â•â•â•â•â•â•â•â•â•â•â•â• LEFT â€” Branding â•â•â•â•â•â•â•â•â•â•â•â• */}
       <div
         className="relative hidden lg:flex flex-col items-center justify-center"
         style={{
           width: '50%',
-          background: 'radial-gradient(ellipse at 40% 40%, rgba(124, 58, 237, 0.14) 0%, transparent 60%), radial-gradient(ellipse at 60% 80%, rgba(0, 245, 255, 0.08) 0%, transparent 55%), #000',
+          background: 'radial-gradient(ellipse at 40% 40%, rgba(147, 51, 234, 0.14) 0%, transparent 60%), radial-gradient(ellipse at 60% 80%, rgba(45, 212, 255, 0.08) 0%, transparent 55%), #000',
         }}
       >
         <FloatingParticles />
@@ -172,7 +172,7 @@ export default function LoginPage() {
             height: 600,
             top: '-15%',
             left: '-12%',
-            background: 'radial-gradient(circle, rgba(124, 58, 237, 0.18) 0%, transparent 70%)',
+            background: 'radial-gradient(circle, rgba(147, 51, 234, 0.18) 0%, transparent 70%)',
             filter: 'blur(100px)',
           }}
         />
@@ -183,7 +183,7 @@ export default function LoginPage() {
             height: 400,
             bottom: '5%',
             right: '0%',
-            background: 'radial-gradient(circle, rgba(0, 245, 255, 0.12) 0%, transparent 70%)',
+            background: 'radial-gradient(circle, rgba(45, 212, 255, 0.12) 0%, transparent 70%)',
             filter: 'blur(80px)',
           }}
         />
@@ -194,8 +194,8 @@ export default function LoginPage() {
           <div
             className="animate-fade-in-up w-28 h-28 rounded-3xl flex items-center justify-center text-5xl font-extrabold mb-10 animate-pulse-glow"
             style={{
-              background: 'linear-gradient(135deg, #00f5ff, #7c3aed)',
-              boxShadow: '0 0 60px rgba(0, 245, 255, 0.3), 0 0 120px rgba(124, 58, 237, 0.18)',
+              background: 'linear-gradient(135deg, #2DD4FF, #9333EA)',
+              boxShadow: '0 0 60px rgba(45, 212, 255, 0.3), 0 0 120px rgba(147, 51, 234, 0.18)',
               animationDelay: '0s',
               animationFillMode: 'backwards',
             }}
@@ -203,7 +203,7 @@ export default function LoginPage() {
             S
           </div>
 
-          {/* Company Name — BIG */}
+          {/* Company Name â€” BIG */}
           <h1
             className="animate-fade-in-up gradient-text font-extrabold tracking-tight leading-[0.9] text-center select-none"
             style={{
@@ -236,7 +236,7 @@ export default function LoginPage() {
             className="animate-fade-in-up text-text-secondary text-sm text-center mt-6 max-w-xs leading-relaxed"
             style={{ animationDelay: '0.38s', animationFillMode: 'backwards' }}
           >
-            Your spatial HR command center — powered by intelligence.
+            Your spatial HR command center â€” powered by intelligence.
           </p>
 
           {/* Social icons */}
@@ -252,18 +252,18 @@ export default function LoginPage() {
                 id={`social-${label.toLowerCase().replace(/[^a-z]/g, '')}`}
                 className="w-10 h-10 rounded-xl flex items-center justify-center transition-all duration-300 text-text-muted hover:text-white"
                 style={{
-                  background: 'rgba(255, 255, 255, 0.04)',
-                  border: '1px solid rgba(255, 255, 255, 0.08)',
+                  background: 'rgba(26, 26, 34, 0.8)',
+                  border: '1px solid rgba(38, 38, 47, 0.9)',
                 }}
                 onMouseEnter={(e) => {
-                  e.currentTarget.style.background = 'rgba(255, 255, 255, 0.1)';
-                  e.currentTarget.style.borderColor = 'rgba(0, 245, 255, 0.3)';
+                  e.currentTarget.style.background = 'rgba(55, 55, 68, 0.8)';
+                  e.currentTarget.style.borderColor = 'rgba(45, 212, 255, 0.3)';
                   e.currentTarget.style.transform = 'translateY(-2px)';
-                  e.currentTarget.style.boxShadow = '0 4px 16px rgba(0, 245, 255, 0.12)';
+                  e.currentTarget.style.boxShadow = '0 4px 16px rgba(45, 212, 255, 0.12)';
                 }}
                 onMouseLeave={(e) => {
                   e.currentTarget.style.background = 'rgba(255, 255, 255, 0.04)';
-                  e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.08)';
+                  e.currentTarget.style.borderColor = 'rgba(38, 38, 47, 0.9)';
                   e.currentTarget.style.transform = 'translateY(0)';
                   e.currentTarget.style.boxShadow = 'none';
                 }}
@@ -279,30 +279,30 @@ export default function LoginPage() {
           className="absolute bottom-6 text-text-muted text-xs"
           style={{ zIndex: 10 }}
         >
-          © 2026 Smooth Operators Pvt. Ltd.
+          Â© 2026 Smooth Operators Pvt. Ltd.
         </p>
       </div>
 
-      {/* ── Vertical divider ── */}
+      {/* â”€â”€ Vertical divider â”€â”€ */}
       <div
         className="hidden lg:block w-px self-stretch"
         style={{
-          background: 'linear-gradient(to bottom, transparent, rgba(0, 245, 255, 0.15) 30%, rgba(124, 58, 237, 0.15) 70%, transparent)',
+          background: 'linear-gradient(to bottom, transparent, rgba(45, 212, 255, 0.15) 30%, rgba(147, 51, 234, 0.15) 70%, transparent)',
         }}
       />
 
-      {/* ════════════ RIGHT — Login Form ════════════ */}
+      {/* â•â•â•â•â•â•â•â•â•â•â•â• RIGHT â€” Login Form â•â•â•â•â•â•â•â•â•â•â•â• */}
       <div
         className="relative flex-1 flex flex-col items-center justify-center px-6"
         style={{
-          background: 'radial-gradient(ellipse at 50% 40%, rgba(124, 58, 237, 0.06) 0%, transparent 60%), #000',
+          background: 'radial-gradient(ellipse at 50% 40%, rgba(147, 51, 234, 0.06) 0%, transparent 60%), #000',
         }}
       >
         {/* Mobile-only branding (shown when left panel is hidden) */}
         <div className="lg:hidden flex flex-col items-center mb-8">
           <div
             className="w-16 h-16 rounded-2xl flex items-center justify-center text-2xl font-extrabold mb-4 animate-pulse-glow"
-            style={{ background: 'linear-gradient(135deg, #00f5ff, #7c3aed)' }}
+            style={{ background: 'linear-gradient(135deg, #2DD4FF, #9333EA)' }}
           >
             S
           </div>
@@ -366,14 +366,14 @@ export default function LoginPage() {
                   !isHR ? 'text-white' : 'text-text-secondary'
                 }`}
               >
-                👤 Employee
+                ðŸ‘¤ Employee
               </span>
               <span
                 className={`relative z-10 flex-1 text-center text-sm font-semibold transition-colors duration-300 select-none ${
                   isHR ? 'text-white' : 'text-text-secondary'
                 }`}
               >
-                🛡️ HR
+                ðŸ›¡ï¸ HR
               </span>
             </div>
           </div>
@@ -430,7 +430,7 @@ export default function LoginPage() {
                   id="login-password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  placeholder="••••••••"
+                  placeholder="â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢"
                   required
                   className="w-full px-4 py-3 rounded-xl text-sm font-medium outline-none transition-all duration-300 pr-12"
                   style={inputStyle}
@@ -469,23 +469,23 @@ export default function LoginPage() {
               className="w-full py-3.5 rounded-xl text-sm font-bold tracking-wide uppercase transition-all duration-400 relative overflow-hidden"
               style={{
                 background: isLoading
-                  ? 'rgba(255, 255, 255, 0.08)'
-                  : 'linear-gradient(135deg, #00f5ff, #7c3aed)',
+                  ? 'rgba(38, 38, 47, 0.9)'
+                  : 'linear-gradient(135deg, #2DD4FF, #9333EA)',
                 color: '#fff',
                 boxShadow: isLoading
                   ? 'none'
-                  : '0 4px 24px rgba(0, 245, 255, 0.25), 0 0 48px rgba(124, 58, 237, 0.15)',
+                  : '0 4px 24px rgba(45, 212, 255, 0.25), 0 0 48px rgba(147, 51, 234, 0.15)',
                 cursor: isLoading ? 'not-allowed' : 'pointer',
               }}
               onMouseEnter={(e) => {
                 if (!isLoading) {
                   e.target.style.transform = 'translateY(-1px)';
-                  e.target.style.boxShadow = '0 6px 32px rgba(0, 245, 255, 0.35), 0 0 64px rgba(124, 58, 237, 0.2)';
+                  e.target.style.boxShadow = '0 6px 32px rgba(45, 212, 255, 0.35), 0 0 64px rgba(147, 51, 234, 0.2)';
                 }
               }}
               onMouseLeave={(e) => {
                 e.target.style.transform = 'translateY(0)';
-                e.target.style.boxShadow = '0 4px 24px rgba(0, 245, 255, 0.25), 0 0 48px rgba(124, 58, 237, 0.15)';
+                e.target.style.boxShadow = '0 4px 24px rgba(45, 212, 255, 0.25), 0 0 48px rgba(147, 51, 234, 0.15)';
               }}
             >
               {isLoading ? (
@@ -494,7 +494,7 @@ export default function LoginPage() {
                     className="inline-block w-4 h-4 rounded-full border-2 border-white/30 border-t-white"
                     style={{ animation: 'spin-slow 0.8s linear infinite' }}
                   />
-                  Signing in…
+                  Signing inâ€¦
                 </span>
               ) : (
                 `Sign in as ${isHR ? 'HR Admin' : 'Employee'}`
@@ -505,9 +505,9 @@ export default function LoginPage() {
           {/* Mobile-only socials */}
           <div className="lg:hidden mt-8">
             <div className="flex items-center gap-3 mb-5">
-              <div className="flex-1 h-px" style={{ background: 'rgba(255,255,255,0.06)' }} />
+              <div className="flex-1 h-px" style={{ background: 'rgba(38,38,47,0.9)' }} />
               <span className="text-text-muted text-[10px] tracking-widest uppercase">Connect</span>
-              <div className="flex-1 h-px" style={{ background: 'rgba(255,255,255,0.06)' }} />
+              <div className="flex-1 h-px" style={{ background: 'rgba(38,38,47,0.9)' }} />
             </div>
             <div className="flex items-center justify-center gap-3">
               {SOCIALS.map(({ Icon, label }) => (
@@ -517,8 +517,8 @@ export default function LoginPage() {
                   aria-label={label}
                   className="w-9 h-9 rounded-lg flex items-center justify-center text-text-muted hover:text-white transition-colors duration-200"
                   style={{
-                    background: 'rgba(255, 255, 255, 0.04)',
-                    border: '1px solid rgba(255, 255, 255, 0.06)',
+                    background: 'rgba(26, 26, 34, 0.8)',
+                    border: '1px solid rgba(38, 38, 47, 0.9)',
                   }}
                 >
                   <Icon />
@@ -531,3 +531,4 @@ export default function LoginPage() {
     </div>
   );
 }
+

@@ -1,4 +1,4 @@
-import { AppProvider, useApp } from './context/AppContext';
+﻿import { AppProvider, useApp } from './context/AppContext';
 import InteractiveBackground from './components/layout/InteractiveBackground';
 import Header from './components/layout/Header';
 import SidePanelDrawer from './components/layout/SidePanelDrawer';
@@ -46,3 +46,4 @@ export default function App() {
     </AppProvider>
   );
 }
+
