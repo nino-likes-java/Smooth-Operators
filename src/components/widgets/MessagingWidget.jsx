@@ -44,7 +44,7 @@ function EmployeeMessaging() {
           style={{
             background: recipient === 'hr' ? 'rgba(200,169,107,0.12)' : 'rgba(255,255,255,0.04)',
             border: recipient === 'hr' ? '1px solid rgba(200,169,107,0.3)' : '1px solid rgba(38,38,47,0.9)',
-            color: recipient === 'hr' ? '#C8A96B' : 'rgba(255,255,255,0.5)',
+            color: recipient === 'hr' ? '#C8A96B' : '#000000',
           }}
         >
           🛡️ HR Team
@@ -56,7 +56,7 @@ function EmployeeMessaging() {
           style={{
             background: recipient === 'pm' ? 'rgba(13,32,53,0.12)' : 'rgba(255,255,255,0.04)',
             border: recipient === 'pm' ? '1px solid rgba(13,32,53,0.3)' : '1px solid rgba(38,38,47,0.9)',
-            color: recipient === 'pm' ? '#DFC993' : 'rgba(255,255,255,0.5)',
+            color: recipient === 'pm' ? '#DFC993' : '#000000',
           }}
         >
           📊 Project Exec
@@ -153,7 +153,7 @@ function EmployeeMessaging() {
             style={{
               background: 'var(--color-surface-card)',
               border: '1px solid var(--color-surface-border)',
-              color: 'var(--color-text-muted)',
+              color: '#000000',
             }}
             onMouseEnter={(e) => {
               e.target.style.background = 'rgba(200,169,107,0.08)';
@@ -163,7 +163,7 @@ function EmployeeMessaging() {
             onMouseLeave={(e) => {
               e.target.style.background = 'rgba(255,255,255,0.04)';
               e.target.style.borderColor = 'rgba(38,38,47,0.9)';
-              e.target.style.color = 'rgba(255,255,255,0.65)';
+              e.target.style.color = '#000000';
             }}
           >
             {msg}
