@@ -5,13 +5,17 @@ import SidePanelDrawer from './components/layout/SidePanelDrawer';
 import EmployeeDashboard from './components/dashboard/EmployeeDashboard';
 import HRDashboard from './components/dashboard/HRDashboard';
 import MessagingWidget from './components/widgets/MessagingWidget';
+import LandingPage from './components/LandingPage';
 import LoginPage from './components/LoginPage';
 
 function AppContent() {
   const { role, isLoggedIn, handleMouseMove } = useApp();
 
   if (!isLoggedIn) {
-    return <LoginPage />;
+    if (window.location.pathname === '/login') {
+      return <LoginPage />;
+    }
+    return <LandingPage />;
   }
 
   return (

@@ -105,7 +105,10 @@ const SOCIALS = [
 
 export default function LoginPage() {
   const { setRole, setIsLoggedIn } = useApp();
-  const [selectedRole, setSelectedRole] = useState('employee');
+  const [selectedRole, setSelectedRole] = useState(() => {
+    const params = new URLSearchParams(typeof window !== 'undefined' ? window.location.search : '');
+    return params.get('role') === 'hr' ? 'hr' : 'employee';
+  });
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
