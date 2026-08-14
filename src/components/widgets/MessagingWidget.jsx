@@ -91,7 +91,7 @@ function EmployeeMessaging() {
                       ? 'linear-gradient(135deg, rgba(200,169,107,0.15), rgba(13,32,53,0.15))'
                       : 'rgba(255,255,255,0.05)',
                     border: `1px solid ${isOutgoing ? 'rgba(200,169,107,0.2)' : 'rgba(38,38,47,0.9)'}`,
-                    color: 'rgba(255,255,255,0.88)',
+                    color: '#172332',
                     borderBottomRightRadius: isOutgoing ? 4 : 16,
                     borderBottomLeftRadius: isOutgoing ? 16 : 4,
                   }}
@@ -345,7 +345,7 @@ function HRMessaging() {
                       ? 'linear-gradient(135deg, rgba(200,169,107,0.15), rgba(13,32,53,0.15))'
                       : 'rgba(255,255,255,0.05)',
                     border: `1px solid ${isOutgoing ? 'rgba(200,169,107,0.2)' : 'rgba(38,38,47,0.9)'}`,
-                    color: 'rgba(255,255,255,0.88)',
+                    color: '#172332',
                     borderBottomRightRadius: isOutgoing ? 4 : 16,
                     borderBottomLeftRadius: isOutgoing ? 16 : 4,
                   }}
