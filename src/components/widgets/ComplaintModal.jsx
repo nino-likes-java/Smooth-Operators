@@ -1,4 +1,4 @@
-import { useState } from 'react';
+﻿import { useState } from 'react';
 
 const CATEGORIES = ['Harassment', 'Policy Violation', 'Workplace Issue', 'Pay & Benefits', 'Other'];
 const SEVERITIES = ['Low', 'Medium', 'High'];
@@ -32,19 +32,19 @@ export default function ComplaintModal({ isOpen, onClose }) {
   };
 
   const inputStyle = {
-    background: 'rgba(255, 255, 255, 0.04)',
-    border: '1px solid rgba(255, 255, 255, 0.1)',
+    background: 'rgba(26, 26, 34, 0.8)',
+    border: '1px solid rgba(55, 55, 68, 0.8)',
     color: 'var(--color-text-primary)',
     caretColor: 'var(--color-cyan-glow)',
   };
 
   const handleFocus = (e) => {
-    e.target.style.borderColor = 'rgba(0, 245, 255, 0.4)';
-    e.target.style.boxShadow = '0 0 0 3px rgba(0, 245, 255, 0.08)';
+    e.target.style.borderColor = 'rgba(45, 212, 255, 0.4)';
+    e.target.style.boxShadow = '0 0 0 3px rgba(45, 212, 255, 0.08)';
   };
 
   const handleBlur = (e) => {
-    e.target.style.borderColor = 'rgba(255, 255, 255, 0.1)';
+    e.target.style.borderColor = 'rgba(55, 55, 68, 0.8)';
     e.target.style.boxShadow = 'none';
   };
 
@@ -57,7 +57,7 @@ export default function ComplaintModal({ isOpen, onClose }) {
       <div
         className="glass-card-static w-full max-w-lg p-7 animate-fade-in-up relative"
         style={{
-          boxShadow: '0 8px 48px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.06)',
+          boxShadow: '0 8px 48px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(38, 38, 47, 0.9)',
         }}
       >
         {/* Close button */}
@@ -67,7 +67,7 @@ export default function ComplaintModal({ isOpen, onClose }) {
           aria-label="Close"
           id="complaint-close-btn"
         >
-          ✕
+          âœ•
         </button>
 
         {submitted ? (
@@ -75,9 +75,9 @@ export default function ComplaintModal({ isOpen, onClose }) {
           <div className="flex flex-col items-center justify-center py-12">
             <div
               className="w-16 h-16 rounded-2xl flex items-center justify-center text-3xl mb-5"
-              style={{ background: 'rgba(0, 245, 255, 0.1)', border: '1px solid rgba(0, 245, 255, 0.2)' }}
+              style={{ background: 'rgba(45, 212, 255, 0.1)', border: '1px solid rgba(45, 212, 255, 0.2)' }}
             >
-              ✓
+              âœ“
             </div>
             <h3 className="text-lg font-bold text-text-primary mb-2">Complaint Submitted</h3>
             <p className="text-sm text-text-secondary text-center">
@@ -93,7 +93,7 @@ export default function ComplaintModal({ isOpen, onClose }) {
                   className="w-10 h-10 rounded-xl flex items-center justify-center text-lg"
                   style={{ background: 'rgba(248, 113, 113, 0.1)', border: '1px solid rgba(248, 113, 113, 0.2)' }}
                 >
-                  ⚠️
+                  âš ï¸
                 </div>
                 <div>
                   <h3 className="text-lg font-bold text-text-primary">File a Complaint</h3>
@@ -140,7 +140,7 @@ export default function ComplaintModal({ isOpen, onClose }) {
                   >
                     <option value="" disabled>Select category</option>
                     {CATEGORIES.map((cat) => (
-                      <option key={cat} value={cat} style={{ background: '#0a0a0f', color: '#fff' }}>
+                      <option key={cat} value={cat} style={{ background: '#08080C', color: '#fff' }}>
                         {cat}
                       </option>
                     ))}
@@ -163,7 +163,7 @@ export default function ComplaintModal({ isOpen, onClose }) {
                           className="flex-1 py-2.5 rounded-xl text-xs font-semibold transition-all duration-200 cursor-pointer"
                           style={{
                             background: isActive ? colors.bg : 'rgba(255,255,255,0.03)',
-                            border: `1px solid ${isActive ? colors.border : 'rgba(255,255,255,0.08)'}`,
+                            border: `1px solid ${isActive ? colors.border : 'rgba(38,38,47,0.9)'}`,
                             color: isActive ? colors.text : 'var(--color-text-muted)',
                           }}
                         >
@@ -222,3 +222,4 @@ export default function ComplaintModal({ isOpen, onClose }) {
     </div>
   );
 }
+

@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react';
+﻿import { useState, useMemo } from 'react';
 
 const CELL_SIZE = 14;
 const CELL_GAP = 3;
@@ -7,19 +7,19 @@ const DAYS = ['', 'Mon', '', 'Wed', '', 'Fri', ''];
 
 // Hour-based slab colors
 const SLAB_COLORS = [
-  'rgba(255, 255, 255, 0.04)',  // 0 — Absent
-  'rgba(251, 191, 36, 0.50)',   // 1 — Half Day (1–4h) – amber
-  'rgba(96, 165, 250, 0.55)',   // 2 — Short Day (4–6h) – blue
-  'rgba(0, 245, 255, 0.65)',    // 3 — Standard (6–8h) – cyan
-  'rgba(124, 58, 237, 0.85)',   // 4 — Overtime (8h+) – violet
+  'rgba(255, 255, 255, 0.04)',  // 0 â€” Absent
+  'rgba(251, 191, 36, 0.50)',   // 1 â€” Half Day (1â€“4h) â€“ amber
+  'rgba(96, 165, 250, 0.55)',   // 2 â€” Short Day (4â€“6h) â€“ blue
+  'rgba(45, 212, 255, 0.65)',    // 3 â€” Standard (6â€“8h) â€“ cyan
+  'rgba(147, 51, 234, 0.85)',   // 4 â€” Overtime (8h+) â€“ violet
 ];
 
 const SLAB_LABELS = [
-  { label: 'Absent', range: '0h', color: SLAB_COLORS[0], borderColor: 'rgba(255,255,255,0.15)' },
-  { label: 'Half Day', range: '1–4h', color: SLAB_COLORS[1], borderColor: 'rgba(251,191,36,0.4)' },
-  { label: 'Short', range: '4–6h', color: SLAB_COLORS[2], borderColor: 'rgba(96,165,250,0.4)' },
-  { label: 'Standard', range: '6–8h', color: SLAB_COLORS[3], borderColor: 'rgba(0,245,255,0.4)' },
-  { label: 'Overtime', range: '8h+', color: SLAB_COLORS[4], borderColor: 'rgba(124,58,237,0.4)' },
+  { label: 'Absent', range: '0h', color: SLAB_COLORS[0], borderColor: 'rgba(65,65,80,0.9)' },
+  { label: 'Half Day', range: '1â€“4h', color: SLAB_COLORS[1], borderColor: 'rgba(251,191,36,0.4)' },
+  { label: 'Short', range: '4â€“6h', color: SLAB_COLORS[2], borderColor: 'rgba(96,165,250,0.4)' },
+  { label: 'Standard', range: '6â€“8h', color: SLAB_COLORS[3], borderColor: 'rgba(45,212,255,0.4)' },
+  { label: 'Overtime', range: '8h+', color: SLAB_COLORS[4], borderColor: 'rgba(147,51,234,0.4)' },
 ];
 
 export default function AttendanceHeatmap({ data, title = 'Attendance Heatmap' }) {
@@ -81,7 +81,7 @@ export default function AttendanceHeatmap({ data, title = 'Attendance Heatmap' }
         <div>
           <h3 className="text-base font-semibold text-text-primary">{title}</h3>
           <p className="text-xs text-text-secondary mt-1">
-            {totalDays} working days · {totalHours.toLocaleString()} hours logged
+            {totalDays} working days Â· {totalHours.toLocaleString()} hours logged
           </p>
         </div>
         {/* Slab Legend */}
@@ -176,7 +176,7 @@ export default function AttendanceHeatmap({ data, title = 'Attendance Heatmap' }
           <div className="font-semibold">{tooltip.date}</div>
           <div className="text-text-secondary">
             {tooltip.hours > 0
-              ? `${tooltip.hours}h worked · ${SLAB_LABELS[tooltip.level].label}`
+              ? `${tooltip.hours}h worked Â· ${SLAB_LABELS[tooltip.level].label}`
               : 'Absent'}
           </div>
         </div>
@@ -184,3 +184,4 @@ export default function AttendanceHeatmap({ data, title = 'Attendance Heatmap' }
     </div>
   );
 }
+

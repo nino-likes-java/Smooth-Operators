@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, useCallback } from 'react';
+﻿import { createContext, useContext, useState, useCallback } from 'react';
 import { announcements } from '../data/dummyData';
 
 const AppContext = createContext(null);
@@ -76,7 +76,7 @@ export function AppProvider({ children }) {
     setMousePos({ x: e.clientX, y: e.clientY });
   }, []);
 
-  // Send a message as employee → HR
+  // Send a message as employee â†’ HR
   const sendEmployeeMessage = useCallback((text) => {
     setEmployeeMessages((prev) => [
       ...prev,
@@ -166,3 +166,4 @@ export function useApp() {
   if (!ctx) throw new Error('useApp must be used within AppProvider');
   return ctx;
 }
+

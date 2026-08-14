@@ -1,15 +1,15 @@
-import { useState, useRef, useEffect } from 'react';
+﻿import { useState, useRef, useEffect } from 'react';
 import { aiSuggestions, aiChatHistory } from '../../data/dummyData';
 
 const AI_RESPONSES = {
-  '📊 Summarize my week':
-    'This week you logged 38.5 hours across 5 days. You completed 12 tasks, attended 4 meetings, and your productivity score was 87%. Your attendance streak is at 14 days! 🔥',
-  '📝 Draft leave request':
+  'ðŸ“Š Summarize my week':
+    'This week you logged 38.5 hours across 5 days. You completed 12 tasks, attended 4 meetings, and your productivity score was 87%. Your attendance streak is at 14 days! ðŸ”¥',
+  'ðŸ“ Draft leave request':
     'Here\'s a draft: "Hi Manager, I\'d like to request casual leave on Aug 18-19 for personal reasons. My tasks are up to date and I\'ve briefed the team. Please approve." Shall I submit this?',
-  '🎯 Show my goals':
-    'Your Q3 goals: \n1. ✅ Complete React migration (Done)\n2. 🔄 Improve test coverage to 80% (Currently: 62%)\n3. ⏳ Lead 2 knowledge-sharing sessions (1/2 done)\n4. ⏳ Reduce API response time by 20%',
-  '💡 Suggest a training':
-    'Based on your skill tree, I recommend: "Advanced TypeScript Patterns" — it aligns with your in-progress TypeScript skill and would unlock the Architecture path. There\'s a workshop next Tuesday! 📚',
+  'ðŸŽ¯ Show my goals':
+    'Your Q3 goals: \n1. âœ… Complete React migration (Done)\n2. ðŸ”„ Improve test coverage to 80% (Currently: 62%)\n3. â³ Lead 2 knowledge-sharing sessions (1/2 done)\n4. â³ Reduce API response time by 20%',
+  'ðŸ’¡ Suggest a training':
+    'Based on your skill tree, I recommend: "Advanced TypeScript Patterns" â€” it aligns with your in-progress TypeScript skill and would unlock the Architecture path. There\'s a workshop next Tuesday! ðŸ“š',
 };
 
 export default function AICoPilotWidget() {
@@ -35,7 +35,7 @@ export default function AICoPilotWidget() {
     setTimeout(() => {
       const response =
         AI_RESPONSES[userMsg] ||
-        `I'd be happy to help with that! Let me look into "${userMsg}" for you. This feature is coming soon — for now, try one of the quick suggestions below. 🚀`;
+        `I'd be happy to help with that! Let me look into "${userMsg}" for you. This feature is coming soon â€” for now, try one of the quick suggestions below. ðŸš€`;
 
       setMessages((prev) => [...prev, { role: 'assistant', text: response }]);
       setIsTyping(false);
@@ -49,17 +49,17 @@ export default function AICoPilotWidget() {
         onClick={() => setIsOpen(!isOpen)}
         className="fixed bottom-6 right-6 w-14 h-14 rounded-full flex items-center justify-center text-2xl transition-all duration-500 hover:scale-110 cursor-pointer"
         style={{
-          background: 'linear-gradient(135deg, #00f5ff, #7c3aed)',
+          background: 'linear-gradient(135deg, #2DD4FF, #9333EA)',
           boxShadow: isOpen
-            ? '0 0 30px rgba(0, 245, 255, 0.4), 0 0 60px rgba(124, 58, 237, 0.2)'
-            : '0 0 20px rgba(0, 245, 255, 0.3), 0 0 40px rgba(124, 58, 237, 0.15)',
+            ? '0 0 30px rgba(45, 212, 255, 0.4), 0 0 60px rgba(147, 51, 234, 0.2)'
+            : '0 0 20px rgba(45, 212, 255, 0.3), 0 0 40px rgba(147, 51, 234, 0.15)',
           zIndex: 100,
           transform: isOpen ? 'rotate(45deg) scale(1.1)' : 'rotate(0deg)',
         }}
         id="ai-copilot-toggle"
         aria-label="Toggle AI CoPilot"
       >
-        {isOpen ? '✕' : '✨'}
+        {isOpen ? 'âœ•' : 'âœ¨'}
       </button>
 
       {/* Chat Panel */}
@@ -69,29 +69,29 @@ export default function AICoPilotWidget() {
           style={{
             zIndex: 99,
             height: 500,
-            boxShadow: '0 8px 40px rgba(0, 0, 0, 0.4), 0 0 80px rgba(0, 245, 255, 0.06)',
+            boxShadow: '0 8px 40px rgba(0, 0, 0, 0.4), 0 0 80px rgba(45, 212, 255, 0.06)',
           }}
           id="ai-copilot-panel"
         >
           {/* Header */}
           <div
             className="px-5 py-4 flex items-center gap-3 border-b"
-            style={{ borderColor: 'rgba(255, 255, 255, 0.08)' }}
+            style={{ borderColor: 'rgba(38, 38, 47, 0.9)' }}
           >
             <div
               className="w-9 h-9 rounded-xl flex items-center justify-center text-base animate-pulse-glow"
-              style={{ background: 'linear-gradient(135deg, #00f5ff, #7c3aed)' }}
+              style={{ background: 'linear-gradient(135deg, #2DD4FF, #9333EA)' }}
             >
-              🤖
+              ðŸ¤–
             </div>
             <div>
               <h4 className="text-sm font-semibold text-text-primary">AI CoPilot</h4>
               <p className="text-[10px] text-text-muted flex items-center gap-1">
                 <span
                   className="w-1.5 h-1.5 rounded-full inline-block"
-                  style={{ background: '#00f5ff' }}
+                  style={{ background: '#2DD4FF' }}
                 />
-                Online · Ready to assist
+                Online Â· Ready to assist
               </p>
             </div>
           </div>
@@ -108,14 +108,14 @@ export default function AICoPilotWidget() {
                   style={{
                     background:
                       msg.role === 'user'
-                        ? 'linear-gradient(135deg, rgba(0, 245, 255, 0.15), rgba(124, 58, 237, 0.15))'
+                        ? 'linear-gradient(135deg, rgba(45, 212, 255, 0.15), rgba(147, 51, 234, 0.15))'
                         : 'rgba(255, 255, 255, 0.05)',
                     border: `1px solid ${
                       msg.role === 'user'
-                        ? 'rgba(0, 245, 255, 0.2)'
-                        : 'rgba(255, 255, 255, 0.06)'
+                        ? 'rgba(45, 212, 255, 0.2)'
+                        : 'rgba(38, 38, 47, 0.9)'
                     }`,
-                    color: 'rgba(255, 255, 255, 0.85)',
+                    color: '#F4F4F6',
                     borderBottomRightRadius: msg.role === 'user' ? 4 : 16,
                     borderBottomLeftRadius: msg.role === 'assistant' ? 4 : 16,
                     whiteSpace: 'pre-line',
@@ -131,8 +131,8 @@ export default function AICoPilotWidget() {
                 <div
                   className="px-4 py-3 rounded-2xl flex items-center gap-1.5"
                   style={{
-                    background: 'rgba(255, 255, 255, 0.05)',
-                    border: '1px solid rgba(255, 255, 255, 0.06)',
+                    background: 'rgba(26, 26, 34, 0.9)',
+                    border: '1px solid rgba(38, 38, 47, 0.9)',
                     borderBottomLeftRadius: 4,
                   }}
                 >
@@ -141,7 +141,7 @@ export default function AICoPilotWidget() {
                       key={i}
                       className="w-2 h-2 rounded-full"
                       style={{
-                        background: '#00f5ff',
+                        background: '#2DD4FF',
                         animation: `typing-dot 1.4s infinite ${i * 0.2}s`,
                       }}
                     />
@@ -155,26 +155,26 @@ export default function AICoPilotWidget() {
           {/* Quick Suggestions */}
           <div
             className="px-5 py-3 flex flex-wrap gap-2 border-t"
-            style={{ borderColor: 'rgba(255, 255, 255, 0.06)' }}
+            style={{ borderColor: 'rgba(38, 38, 47, 0.9)' }}
           >
             {aiSuggestions.map((suggestion, i) => (
               <button
                 key={i}
                 className="px-3 py-1.5 rounded-full text-xs font-medium transition-all duration-200 cursor-pointer hover:scale-105"
                 style={{
-                  background: 'rgba(255, 255, 255, 0.05)',
-                  border: '1px solid rgba(255, 255, 255, 0.08)',
+                  background: 'rgba(26, 26, 34, 0.9)',
+                  border: '1px solid rgba(38, 38, 47, 0.9)',
                   color: 'rgba(255, 255, 255, 0.7)',
                 }}
                 onClick={() => handleSend(suggestion)}
                 onMouseEnter={(e) => {
-                  e.target.style.background = 'rgba(0, 245, 255, 0.1)';
-                  e.target.style.borderColor = 'rgba(0, 245, 255, 0.3)';
-                  e.target.style.color = '#00f5ff';
+                  e.target.style.background = 'rgba(45, 212, 255, 0.1)';
+                  e.target.style.borderColor = 'rgba(45, 212, 255, 0.3)';
+                  e.target.style.color = '#2DD4FF';
                 }}
                 onMouseLeave={(e) => {
                   e.target.style.background = 'rgba(255, 255, 255, 0.05)';
-                  e.target.style.borderColor = 'rgba(255, 255, 255, 0.08)';
+                  e.target.style.borderColor = 'rgba(38, 38, 47, 0.9)';
                   e.target.style.color = 'rgba(255, 255, 255, 0.7)';
                 }}
               >
@@ -186,7 +186,7 @@ export default function AICoPilotWidget() {
           {/* Input */}
           <div
             className="px-4 py-3 flex items-center gap-2 border-t"
-            style={{ borderColor: 'rgba(255, 255, 255, 0.06)' }}
+            style={{ borderColor: 'rgba(38, 38, 47, 0.9)' }}
           >
             <input
               type="text"
@@ -203,12 +203,12 @@ export default function AICoPilotWidget() {
               style={{
                 background:
                   inputValue.trim()
-                    ? 'linear-gradient(135deg, #00f5ff, #7c3aed)'
-                    : 'rgba(255, 255, 255, 0.06)',
+                    ? 'linear-gradient(135deg, #2DD4FF, #9333EA)'
+                    : 'rgba(38, 38, 47, 0.9)',
               }}
               id="ai-copilot-send"
             >
-              <span className="text-sm">↑</span>
+              <span className="text-sm">â†‘</span>
             </button>
           </div>
         </div>
@@ -216,3 +216,4 @@ export default function AICoPilotWidget() {
     </>
   );
 }
+

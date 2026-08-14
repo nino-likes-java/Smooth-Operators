@@ -1,4 +1,4 @@
-import { useState } from 'react';
+﻿import { useState } from 'react';
 import {
   PieChart,
   Pie,
@@ -56,7 +56,7 @@ function renderActiveShape(props) {
         x={cx}
         y={cy + 8}
         textAnchor="middle"
-        fill="#00f5ff"
+        fill="#2DD4FF"
         fontSize={18}
         fontWeight={700}
         fontFamily="Inter, sans-serif"
@@ -94,9 +94,9 @@ export default function FinancialDonut({ data, title = 'Budget Allocation' }) {
         </div>
         <div
           className="w-12 h-12 rounded-xl flex items-center justify-center text-xl"
-          style={{ background: 'rgba(124, 58, 237, 0.1)' }}
+          style={{ background: 'rgba(147, 51, 234, 0.1)' }}
         >
-          💰
+          ðŸ’°
         </div>
       </div>
 
@@ -136,7 +136,7 @@ export default function FinancialDonut({ data, title = 'Budget Allocation' }) {
             key={i}
             className="flex items-center gap-2.5 px-3 py-2 rounded-lg cursor-pointer transition-all duration-200"
             style={{
-              background: i === activeIndex ? 'rgba(255,255,255,0.06)' : 'transparent',
+              background: i === activeIndex ? 'rgba(38,38,47,0.9)' : 'transparent',
             }}
             onMouseEnter={() => setActiveIndex(i)}
           >
@@ -159,3 +159,4 @@ export default function FinancialDonut({ data, title = 'Budget Allocation' }) {
     </div>
   );
 }
+

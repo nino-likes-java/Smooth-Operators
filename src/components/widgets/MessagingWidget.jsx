@@ -1,7 +1,7 @@
-import { useState, useRef, useEffect } from 'react';
+﻿import { useState, useRef, useEffect } from 'react';
 import { useApp } from '../../context/AppContext';
 
-// ── Employee view: contact HR or Project Executive ──
+// â”€â”€ Employee view: contact HR or Project Executive â”€â”€
 function EmployeeMessaging() {
   const { employeeMessages, sendEmployeeMessage } = useApp();
   const [inputValue, setInputValue] = useState('');
@@ -23,10 +23,10 @@ function EmployeeMessaging() {
   }
 
   const QUICK_MESSAGES = [
-    '📋 Leave request query',
-    '💰 Payroll question',
-    '📜 Policy clarification',
-    '🏥 Benefits question',
+    'ðŸ“‹ Leave request query',
+    'ðŸ’° Payroll question',
+    'ðŸ“œ Policy clarification',
+    'ðŸ¥ Benefits question',
   ];
 
   return (
@@ -34,7 +34,7 @@ function EmployeeMessaging() {
       {/* Recipient selector */}
       <div
         className="px-4 py-3 flex items-center gap-2 border-b flex-shrink-0"
-        style={{ borderColor: 'rgba(255,255,255,0.08)' }}
+        style={{ borderColor: 'rgba(38,38,47,0.9)' }}
       >
         <span className="text-[10px] text-text-muted font-semibold uppercase tracking-wide">To:</span>
         <button
@@ -42,24 +42,24 @@ function EmployeeMessaging() {
           onClick={() => setRecipient('hr')}
           className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold transition-all duration-200 cursor-pointer"
           style={{
-            background: recipient === 'hr' ? 'rgba(0,245,255,0.12)' : 'rgba(255,255,255,0.04)',
-            border: recipient === 'hr' ? '1px solid rgba(0,245,255,0.3)' : '1px solid rgba(255,255,255,0.08)',
-            color: recipient === 'hr' ? '#00f5ff' : 'rgba(255,255,255,0.5)',
+            background: recipient === 'hr' ? 'rgba(45,212,255,0.12)' : 'rgba(255,255,255,0.04)',
+            border: recipient === 'hr' ? '1px solid rgba(45,212,255,0.3)' : '1px solid rgba(38,38,47,0.9)',
+            color: recipient === 'hr' ? '#2DD4FF' : 'rgba(255,255,255,0.5)',
           }}
         >
-          🛡️ HR Team
+          ðŸ›¡ï¸ HR Team
         </button>
         <button
           id="msg-recipient-pm"
           onClick={() => setRecipient('pm')}
           className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold transition-all duration-200 cursor-pointer"
           style={{
-            background: recipient === 'pm' ? 'rgba(124,58,237,0.12)' : 'rgba(255,255,255,0.04)',
-            border: recipient === 'pm' ? '1px solid rgba(124,58,237,0.3)' : '1px solid rgba(255,255,255,0.08)',
+            background: recipient === 'pm' ? 'rgba(147,51,234,0.12)' : 'rgba(255,255,255,0.04)',
+            border: recipient === 'pm' ? '1px solid rgba(147,51,234,0.3)' : '1px solid rgba(38,38,47,0.9)',
             color: recipient === 'pm' ? '#a78bfa' : 'rgba(255,255,255,0.5)',
           }}
         >
-          📊 Project Exec
+          ðŸ“Š Project Exec
         </button>
       </div>
 
@@ -75,9 +75,9 @@ function EmployeeMessaging() {
               {!isOutgoing && (
                 <div
                   className="w-7 h-7 rounded-full flex items-center justify-center text-sm mr-2 flex-shrink-0 self-end"
-                  style={{ background: 'linear-gradient(135deg, #00f5ff22, #7c3aed22)', border: '1px solid rgba(0,245,255,0.2)' }}
+                  style={{ background: 'linear-gradient(135deg, #2DD4FF22, #9333EA22)', border: '1px solid rgba(45,212,255,0.2)' }}
                 >
-                  🛡️
+                  ðŸ›¡ï¸
                 </div>
               )}
               <div style={{ maxWidth: '78%' }}>
@@ -88,9 +88,9 @@ function EmployeeMessaging() {
                   className="px-4 py-3 rounded-2xl text-sm leading-relaxed"
                   style={{
                     background: isOutgoing
-                      ? 'linear-gradient(135deg, rgba(0,245,255,0.15), rgba(124,58,237,0.15))'
+                      ? 'linear-gradient(135deg, rgba(45,212,255,0.15), rgba(147,51,234,0.15))'
                       : 'rgba(255,255,255,0.05)',
-                    border: `1px solid ${isOutgoing ? 'rgba(0,245,255,0.2)' : 'rgba(255,255,255,0.08)'}`,
+                    border: `1px solid ${isOutgoing ? 'rgba(45,212,255,0.2)' : 'rgba(38,38,47,0.9)'}`,
                     color: 'rgba(255,255,255,0.88)',
                     borderBottomRightRadius: isOutgoing ? 4 : 16,
                     borderBottomLeftRadius: isOutgoing ? 16 : 4,
@@ -110,15 +110,15 @@ function EmployeeMessaging() {
           <div className="flex justify-start">
             <div
               className="w-7 h-7 rounded-full flex items-center justify-center text-sm mr-2 flex-shrink-0 self-end"
-              style={{ background: 'linear-gradient(135deg, #00f5ff22, #7c3aed22)', border: '1px solid rgba(0,245,255,0.2)' }}
+              style={{ background: 'linear-gradient(135deg, #2DD4FF22, #9333EA22)', border: '1px solid rgba(45,212,255,0.2)' }}
             >
-              🛡️
+              ðŸ›¡ï¸
             </div>
             <div
               className="px-4 py-3 rounded-2xl flex items-center gap-1.5"
               style={{
                 background: 'rgba(255,255,255,0.05)',
-                border: '1px solid rgba(255,255,255,0.08)',
+                border: '1px solid rgba(38,38,47,0.9)',
                 borderBottomLeftRadius: 4,
               }}
             >
@@ -127,7 +127,7 @@ function EmployeeMessaging() {
                   key={i}
                   className="w-2 h-2 rounded-full"
                   style={{
-                    background: '#00f5ff',
+                    background: '#2DD4FF',
                     animation: `typing-dot 1.4s infinite ${i * 0.2}s`,
                   }}
                 />
@@ -141,7 +141,7 @@ function EmployeeMessaging() {
       {/* Quick messages */}
       <div
         className="px-4 py-2 flex flex-wrap gap-1.5 border-t"
-        style={{ borderColor: 'rgba(255,255,255,0.06)' }}
+        style={{ borderColor: 'rgba(38,38,47,0.9)' }}
       >
         {QUICK_MESSAGES.map((msg, i) => (
           <button
@@ -152,17 +152,17 @@ function EmployeeMessaging() {
             className="px-2.5 py-1 rounded-full text-[11px] font-medium transition-all duration-150 cursor-pointer hover:scale-105"
             style={{
               background: 'rgba(255,255,255,0.04)',
-              border: '1px solid rgba(255,255,255,0.08)',
+              border: '1px solid rgba(38,38,47,0.9)',
               color: 'rgba(255,255,255,0.65)',
             }}
             onMouseEnter={(e) => {
-              e.target.style.background = 'rgba(0,245,255,0.08)';
-              e.target.style.borderColor = 'rgba(0,245,255,0.25)';
-              e.target.style.color = '#00f5ff';
+              e.target.style.background = 'rgba(45,212,255,0.08)';
+              e.target.style.borderColor = 'rgba(45,212,255,0.25)';
+              e.target.style.color = '#2DD4FF';
             }}
             onMouseLeave={(e) => {
               e.target.style.background = 'rgba(255,255,255,0.04)';
-              e.target.style.borderColor = 'rgba(255,255,255,0.08)';
+              e.target.style.borderColor = 'rgba(38,38,47,0.9)';
               e.target.style.color = 'rgba(255,255,255,0.65)';
             }}
           >
@@ -174,14 +174,14 @@ function EmployeeMessaging() {
       {/* Input */}
       <div
         className="px-4 py-3 flex items-center gap-2 border-t"
-        style={{ borderColor: 'rgba(255,255,255,0.06)' }}
+        style={{ borderColor: 'rgba(38,38,47,0.9)' }}
       >
         <input
           type="text"
           value={inputValue}
           onChange={(e) => setInputValue(e.target.value)}
           onKeyDown={(e) => e.key === 'Enter' && handleSend()}
-          placeholder={`Message ${recipient === 'hr' ? 'HR Team' : 'Project Executive'}…`}
+          placeholder={`Message ${recipient === 'hr' ? 'HR Team' : 'Project Executive'}â€¦`}
           className="flex-1 bg-transparent text-sm text-text-primary placeholder:text-text-muted outline-none border-none"
           id="msg-input-employee"
         />
@@ -190,8 +190,8 @@ function EmployeeMessaging() {
           className="w-9 h-9 rounded-xl flex items-center justify-center transition-all duration-200 cursor-pointer hover:scale-110"
           style={{
             background: inputValue.trim()
-              ? 'linear-gradient(135deg, #00f5ff, #7c3aed)'
-              : 'rgba(255,255,255,0.06)',
+              ? 'linear-gradient(135deg, #2DD4FF, #9333EA)'
+              : 'rgba(38,38,47,0.9)',
           }}
           id="msg-send-employee"
           aria-label="Send message"
@@ -206,7 +206,7 @@ function EmployeeMessaging() {
   );
 }
 
-// ── HR view: see messages from employees ──
+// â”€â”€ HR view: see messages from employees â”€â”€
 function HRMessaging() {
   const { hrMessages, sendHrReply } = useApp();
   const [selectedEmployee, setSelectedEmployee] = useState(null);
@@ -253,23 +253,23 @@ function HRMessaging() {
                 className="w-full flex items-center gap-3 p-3.5 rounded-xl transition-all duration-200 cursor-pointer text-left"
                 style={{
                   background: 'rgba(255,255,255,0.03)',
-                  border: '1px solid rgba(255,255,255,0.06)',
+                  border: '1px solid rgba(38,38,47,0.9)',
                 }}
                 onMouseEnter={(e) => {
-                  e.currentTarget.style.background = 'rgba(255,255,255,0.06)';
-                  e.currentTarget.style.borderColor = 'rgba(0,245,255,0.15)';
+                  e.currentTarget.style.background = 'rgba(38,38,47,0.9)';
+                  e.currentTarget.style.borderColor = 'rgba(45,212,255,0.15)';
                 }}
                 onMouseLeave={(e) => {
                   e.currentTarget.style.background = 'rgba(255,255,255,0.03)';
-                  e.currentTarget.style.borderColor = 'rgba(255,255,255,0.06)';
+                  e.currentTarget.style.borderColor = 'rgba(38,38,47,0.9)';
                 }}
               >
                 <div
                   className="w-9 h-9 rounded-full flex items-center justify-center text-xs font-bold flex-shrink-0"
                   style={{
-                    background: 'linear-gradient(135deg, rgba(0,245,255,0.2), rgba(124,58,237,0.2))',
-                    border: '1px solid rgba(0,245,255,0.2)',
-                    color: '#00f5ff',
+                    background: 'linear-gradient(135deg, rgba(45,212,255,0.2), rgba(147,51,234,0.2))',
+                    border: '1px solid rgba(45,212,255,0.2)',
+                    color: '#2DD4FF',
                   }}
                 >
                   {emp.split(' ').map((n) => n[0]).join('')}
@@ -302,7 +302,7 @@ function HRMessaging() {
       {/* Thread header */}
       <div
         className="flex items-center gap-3 px-4 py-3 border-b flex-shrink-0"
-        style={{ borderColor: 'rgba(255,255,255,0.08)' }}
+        style={{ borderColor: 'rgba(38,38,47,0.9)' }}
       >
         <button
           onClick={() => setSelectedEmployee(null)}
@@ -310,14 +310,14 @@ function HRMessaging() {
           aria-label="Back to list"
           id="hr-msg-back-btn"
         >
-          ←
+          â†
         </button>
         <div
           className="w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold"
           style={{
-            background: 'linear-gradient(135deg, rgba(0,245,255,0.2), rgba(124,58,237,0.2))',
-            border: '1px solid rgba(0,245,255,0.2)',
-            color: '#00f5ff',
+            background: 'linear-gradient(135deg, rgba(45,212,255,0.2), rgba(147,51,234,0.2))',
+            border: '1px solid rgba(45,212,255,0.2)',
+            color: '#2DD4FF',
           }}
         >
           {selectedEmployee.split(' ').map((n) => n[0]).join('')}
@@ -342,9 +342,9 @@ function HRMessaging() {
                   className="px-4 py-3 rounded-2xl text-sm leading-relaxed"
                   style={{
                     background: isOutgoing
-                      ? 'linear-gradient(135deg, rgba(0,245,255,0.15), rgba(124,58,237,0.15))'
+                      ? 'linear-gradient(135deg, rgba(45,212,255,0.15), rgba(147,51,234,0.15))'
                       : 'rgba(255,255,255,0.05)',
-                    border: `1px solid ${isOutgoing ? 'rgba(0,245,255,0.2)' : 'rgba(255,255,255,0.08)'}`,
+                    border: `1px solid ${isOutgoing ? 'rgba(45,212,255,0.2)' : 'rgba(38,38,47,0.9)'}`,
                     color: 'rgba(255,255,255,0.88)',
                     borderBottomRightRadius: isOutgoing ? 4 : 16,
                     borderBottomLeftRadius: isOutgoing ? 16 : 4,
@@ -367,14 +367,14 @@ function HRMessaging() {
       {/* Reply input */}
       <div
         className="px-4 py-3 flex items-center gap-2 border-t"
-        style={{ borderColor: 'rgba(255,255,255,0.06)' }}
+        style={{ borderColor: 'rgba(38,38,47,0.9)' }}
       >
         <input
           type="text"
           value={replyText}
           onChange={(e) => setReplyText(e.target.value)}
           onKeyDown={(e) => e.key === 'Enter' && handleReply()}
-          placeholder={`Reply to ${selectedEmployee}…`}
+          placeholder={`Reply to ${selectedEmployee}â€¦`}
           className="flex-1 bg-transparent text-sm text-text-primary placeholder:text-text-muted outline-none border-none"
           id="hr-msg-reply-input"
         />
@@ -383,8 +383,8 @@ function HRMessaging() {
           className="w-9 h-9 rounded-xl flex items-center justify-center transition-all duration-200 cursor-pointer hover:scale-110"
           style={{
             background: replyText.trim()
-              ? 'linear-gradient(135deg, #00f5ff, #7c3aed)'
-              : 'rgba(255,255,255,0.06)',
+              ? 'linear-gradient(135deg, #2DD4FF, #9333EA)'
+              : 'rgba(38,38,47,0.9)',
           }}
           id="hr-msg-send-btn"
           aria-label="Send reply"
@@ -399,7 +399,7 @@ function HRMessaging() {
   );
 }
 
-// ── Main Widget ──
+// â”€â”€ Main Widget â”€â”€
 export default function MessagingWidget() {
   const { role } = useApp();
   const isHR = role === 'hr';
@@ -412,17 +412,17 @@ export default function MessagingWidget() {
         onClick={() => setIsOpen(!isOpen)}
         className="fixed bottom-6 right-6 w-14 h-14 rounded-full flex items-center justify-center text-xl transition-all duration-500 hover:scale-110 cursor-pointer"
         style={{
-          background: 'linear-gradient(135deg, #00f5ff, #7c3aed)',
+          background: 'linear-gradient(135deg, #2DD4FF, #9333EA)',
           boxShadow: isOpen
-            ? '0 0 30px rgba(0, 245, 255, 0.4), 0 0 60px rgba(124, 58, 237, 0.2)'
-            : '0 0 20px rgba(0, 245, 255, 0.3), 0 0 40px rgba(124, 58, 237, 0.15)',
+            ? '0 0 30px rgba(45, 212, 255, 0.4), 0 0 60px rgba(147, 51, 234, 0.2)'
+            : '0 0 20px rgba(45, 212, 255, 0.3), 0 0 40px rgba(147, 51, 234, 0.15)',
           zIndex: 100,
           transform: isOpen ? 'scale(1.1)' : 'scale(1)',
         }}
         id="messaging-widget-toggle"
         aria-label={isOpen ? 'Close messaging' : 'Open messaging'}
       >
-        {isOpen ? '✕' : (isHR ? '📨' : '💬')}
+        {isOpen ? 'âœ•' : (isHR ? 'ðŸ“¨' : 'ðŸ’¬')}
       </button>
 
       {/* Chat Panel */}
@@ -433,20 +433,20 @@ export default function MessagingWidget() {
             zIndex: 99,
             width: 300,
             height: 420,
-            boxShadow: '0 8px 40px rgba(0, 0, 0, 0.5), 0 0 80px rgba(0, 245, 255, 0.06)',
+            boxShadow: '0 8px 40px rgba(0, 0, 0, 0.5), 0 0 80px rgba(45, 212, 255, 0.06)',
           }}
           id="messaging-panel"
         >
           {/* Panel Header */}
           <div
             className="px-5 py-4 flex items-center gap-3 border-b flex-shrink-0"
-            style={{ borderColor: 'rgba(255, 255, 255, 0.08)' }}
+            style={{ borderColor: 'rgba(38, 38, 47, 0.9)' }}
           >
             <div
               className="w-9 h-9 rounded-xl flex items-center justify-center text-base animate-pulse-glow"
-              style={{ background: 'linear-gradient(135deg, #00f5ff, #7c3aed)' }}
+              style={{ background: 'linear-gradient(135deg, #2DD4FF, #9333EA)' }}
             >
-              {isHR ? '📨' : '💬'}
+              {isHR ? 'ðŸ“¨' : 'ðŸ’¬'}
             </div>
             <div>
               <h4 className="text-sm font-semibold text-text-primary">
@@ -457,7 +457,7 @@ export default function MessagingWidget() {
                   className="w-1.5 h-1.5 rounded-full inline-block"
                   style={{ background: '#4ade80' }}
                 />
-                {isHR ? 'Respond to your employees' : 'We typically reply within 2–4 hours'}
+                {isHR ? 'Respond to your employees' : 'We typically reply within 2â€“4 hours'}
               </p>
             </div>
           </div>
@@ -471,3 +471,4 @@ export default function MessagingWidget() {
     </>
   );
 }
+
