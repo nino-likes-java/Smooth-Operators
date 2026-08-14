@@ -243,8 +243,10 @@ function ApprovalsPopup({ stats, onClose }) {
             </div>
             {/* Action row: buttons OR decision badge */}
             {decisions[i] ? (
-              <div className="flex items-center justify-center py-1 rounded-md" style={{ background: decisions[i] === 'approved' ? 'rgba(74,222,128,0.06)' : 'rgba(248,113,113,0.06)', border: `1px solid ${decisions[i] === 'approved' ? 'rgba(74,222,128,0.2)' : 'rgba(248,113,113,0.2)'}` }}>
-                <span className="text-[11px] font-bold" style={{ color: decisions[i] === 'approved' ? '#4ade80' : '#f87171' }}>{decisions[i] === 'approved' ? '✓ Approved' : '✕ Rejected'}</span>
+              <div className="flex justify-end">
+                <span className="px-3 py-1 rounded-md text-[11px] font-bold" style={{ background: decisions[i] === 'approved' ? 'rgba(74,222,128,0.06)' : 'rgba(248,113,113,0.06)', border: `1px solid ${decisions[i] === 'approved' ? 'rgba(74,222,128,0.2)' : 'rgba(248,113,113,0.2)'}`, color: decisions[i] === 'approved' ? '#4ade80' : '#f87171' }}>
+                  {decisions[i] === 'approved' ? '✓ Approved' : '✕ Rejected'}
+                </span>
               </div>
             ) : (
               <div className="flex gap-2 justify-end">
@@ -931,8 +933,10 @@ function ApprovalsPage({ stats, onPopup }) {
               </div>
               {/* Action row: buttons OR full-width decision banner */}
               {decisions[i] ? (
-                <div className="flex items-center justify-center gap-2 py-1 rounded-md" style={{ background: decisions[i] === 'approved' ? 'rgba(74,222,128,0.06)' : 'rgba(248,113,113,0.06)', border: `1px solid ${decisions[i] === 'approved' ? 'rgba(74,222,128,0.2)' : 'rgba(248,113,113,0.2)'}` }}>
-                  <span className="text-[11px] font-bold" style={{ color: decisions[i] === 'approved' ? '#4ade80' : '#f87171' }}>{decisions[i] === 'approved' ? '✓ Approved' : '✕ Rejected'}</span>
+                <div className="flex justify-end">
+                  <span className="px-3 py-1 rounded-md text-[11px] font-bold" style={{ background: decisions[i] === 'approved' ? 'rgba(74,222,128,0.06)' : 'rgba(248,113,113,0.06)', border: `1px solid ${decisions[i] === 'approved' ? 'rgba(74,222,128,0.2)' : 'rgba(248,113,113,0.2)'}`, color: decisions[i] === 'approved' ? '#4ade80' : '#f87171' }}>
+                    {decisions[i] === 'approved' ? '✓ Approved' : '✕ Rejected'}
+                  </span>
                 </div>
               ) : (
                 <div className="flex gap-2 justify-end">
